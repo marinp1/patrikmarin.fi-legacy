@@ -52,8 +52,8 @@ const ButtonContainer = glamorous.div({
 
 const Button = glamorous.a({
   color: `${colors.landingPage.foreground} !important`,
-  marginLeft: '0.5rem !important',
-  marginRight: '0.5rem !important',
+  marginLeft: '0.7rem !important',
+  marginRight: '0.7rem !important',
 
   ':hover': {
     color: `${colors.landingPage.hoverForeground} !important`,

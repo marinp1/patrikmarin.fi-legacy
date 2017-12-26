@@ -1,10 +1,13 @@
 import * as React from 'react'
 //
 import * as IResume from './resumeInterface'
+import * as IProject from './projectInterface'
 import LandingComponent from './LandingComponent'
 import CurriculumComponent from './CurriculumComponent'
+import ProjectComponent from './ProjectComponent'
 
 const resume: IResume.IResume = require('./resume.json')
+const projects: IProject.IProject[] = require('./projects.json')
 
 class MainPage extends React.Component<{}, {}> {
   render() {
@@ -23,6 +26,9 @@ class MainPage extends React.Component<{}, {}> {
           competitions={resume.awards}
           languages={resume.languages}
           skills={resume.skills}
+        />
+        <ProjectComponent
+          projects={projects}
         />
       </div>
     )
