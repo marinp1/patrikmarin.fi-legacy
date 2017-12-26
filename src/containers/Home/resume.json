@@ -2,7 +2,7 @@
   "basics": {
     "name": "Patrik Marin",
     "label": "Student • Programmer",
-    "picture": "/images/me.png",
+    "picture": "./images/cv_round_small_zoom.png",
     "email": "hello@patrikmarin.fi",
     "phone": "",
     "website": "",

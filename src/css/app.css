@@ -1,0 +1,18 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000;
+  background-image: url('../bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+@media (min-width: 780px) {
+  body {
+    padding-bottom: 10rem;
+  }
+}
