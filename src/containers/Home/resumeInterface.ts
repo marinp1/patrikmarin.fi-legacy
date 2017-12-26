@@ -42,6 +42,7 @@ export interface IEducation {
   endDate: string;
   gpa: string;
   courses: any[];
+  estGraduation?: string;
 }
 
 export interface IAward {

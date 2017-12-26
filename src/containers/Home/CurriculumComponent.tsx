@@ -145,6 +145,12 @@ const Education: React.SFC<{educations: IEducation[]}> = ({ educations }) => (
           </DurationContainer>
           <DescriptionContainer>
             <DescriptionHeader>{education.studyType}</DescriptionHeader>
+            {education.estGraduation &&
+              <DescriptionSubtitle
+                style={{fontWeight: 'lighter'}}>
+                (est. grad. {education.estGraduation})
+              </DescriptionSubtitle>
+            }
             {educations.length - 1 === i ? 
               <DescriptionText
                 style={{textAlign: 'left'}}>
