@@ -14,15 +14,13 @@ export default {
         projects,
         resume,
       }),
-      children: projects.filter(project => project.entry !== undefined).map(project => {
-        return {
-          path: `/projects/${project.id}`,
-          component: 'src/containers/Project',
-          getProps: () => ({
-            project,
-          }),
-        }
-      }),
+      children: projects.filter(project => project.entry !== undefined).map(project => ({
+        path: `/projects/${project.id}`,
+        component: 'src/containers/Project',
+        getProps: () => ({
+          project,
+        }),
+      })),
     },
     {
       is404: true,
