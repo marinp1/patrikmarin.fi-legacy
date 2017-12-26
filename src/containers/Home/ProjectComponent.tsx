@@ -82,17 +82,19 @@ function projectNameToId(project: IProject): string {
 
 const ProjectEntry: React.SFC<{project: IProject}> = ({ project }) => {
   const bgImg = require(`./images/thumbnails/${project.backgroundImage}`);
-  return (<Project id={projectNameToId(project)}
-    style={{
-      backgroundImage: `url(${bgImg})`,
-      backgroundColor: project.backgroundColor,
-      backgroundPosition: project.backgroundPosition,
-    }}
-  >
+  return (
+    <Project id={projectNameToId(project)}
+      style={{
+        backgroundImage: `url(${bgImg})`,
+        backgroundColor: project.backgroundColor,
+        backgroundPosition: project.backgroundPosition,
+      }}
+    >
     <ProjectInfo>
       <h6>{project.name}</h6>
     </ProjectInfo>
-  </Project>)
+  </Project>
+  )
 }
 
 interface ProjectComponentProps {
