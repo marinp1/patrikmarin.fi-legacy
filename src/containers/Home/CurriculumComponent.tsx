@@ -110,7 +110,10 @@ const WorkExperience: React.SFC<{workplaces: IWork[]}> = ({ workplaces }) => (
       return (
         <Entry key={i}>
           <DurationContainer>
-            <p>{workplace.endDate}<br/>{workplace.startDate}</p>
+            {workplace.endDate === workplace.startDate ?
+              <p>{workplace.endDate}</p> :
+              <p>{workplace.endDate}<br/>{workplace.startDate}</p>
+            }
             <TimelineTag/>
           </DurationContainer>
           <DescriptionContainer>
@@ -200,7 +203,7 @@ const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) => (
 
 const Skills: React.SFC<{skills: ISkill[]}> = ({ skills }) => (
   <EntryContainer style={{marginBottom: '3.2rem !important'}}>
-    <EntryHeader>Languages</EntryHeader>
+    <EntryHeader>Skills</EntryHeader>
     {skills.map((_: ISkill) => _.keywords.map((skill: string, i: number) => {
       return (
         <TagEntry key={_.name + i}>
