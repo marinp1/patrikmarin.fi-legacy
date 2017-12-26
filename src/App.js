@@ -6,6 +6,7 @@ import About from 'containers/About'
 import Blog from 'containers/Blog'
 import NotFound from 'containers/404'
 
+import './css/normalize.css'
 import './css/skeleton.css'
 import './css/app.css'
 

@@ -1,5 +1,5 @@
 export const mediaQueries = {
-  tablet: '@media(min-width: 480px)',
+  tablet: '@media(min-width: 780px)',
 };
 
 export const colors = {

@@ -12,7 +12,19 @@ body {
 }
 
 @media (min-width: 780px) {
+  section {
+    max-width: 80%;
+    margin: auto;
+  }
+
   body {
     padding-bottom: 10rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .columns {
+    width: 100% !important;
+    margin-left: 0 !important;
   }
 }

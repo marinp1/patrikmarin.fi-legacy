@@ -136,32 +136,34 @@ class LandingComponent extends React.Component<LandingComponentProps, {}> {
 
   render() {
     return (
-      <Container>
-        <div className="container">
-          <WelcomeText>HELLO AND WELCOME.</WelcomeText>
-          <Title>I'm {this.props.name}</Title>
-          <InfoLabel>{this.props.infoLabel}</InfoLabel>
-          <ButtonContainer>
-            <Button className="button" href="#description">READ MORE</Button>
-            <Button className="button">DOWNLOAD CV</Button>
-          </ButtonContainer>
-          <LinkContainer>
-            {this.props.profiles.map((profile: IProfile, index: number) => {
-              return (index === this.props.profiles.length - 1) ?
-                <a href={profile.url}>{profile.network}</a> :
-                <span><a href={profile.url}>{profile.network}</a>{this.profileSeparator}</span>
-            })}
-            <br/>
-            <a href={`mailto:${this.props.email}`}>{this.props.email}</a>
-          </LinkContainer>
-        </div>
+      <div>
+        <Container>
+          <div className="container">
+            <WelcomeText>HELLO AND WELCOME.</WelcomeText>
+            <Title>I'm {this.props.name}</Title>
+            <InfoLabel>{this.props.infoLabel}</InfoLabel>
+            <ButtonContainer>
+              <Button className="button" href="#description">READ MORE</Button>
+              <Button className="button">DOWNLOAD CV</Button>
+            </ButtonContainer>
+            <LinkContainer>
+              {this.props.profiles.map((profile: IProfile, index: number) => {
+                return (index === this.props.profiles.length - 1) ?
+                  <a href={profile.url}>{profile.network}</a> :
+                  <span><a href={profile.url}>{profile.network}</a>{this.profileSeparator}</span>
+              })}
+              <br/>
+              <a href={`mailto:${this.props.email}`}>{this.props.email}</a>
+            </LinkContainer>
+          </div>
+        </Container>
         <ImageContainer>
           <ImageHolder>
             <img src={image} alt={this.props.name}/>
           </ImageHolder>
           <TextHolder/>
         </ImageContainer>
-      </Container>
+      </div>
     );
   }
 }
