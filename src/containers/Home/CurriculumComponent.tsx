@@ -1,6 +1,6 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
-import { IWork, IEducation, IAward, ILanguage, ISkill } from './resumeInterface';
+import { IWork, IEducation, IAward, ILanguage, ISkill } from '../../interface/resumeInterface';
 import { colors } from '../../styles';
 
 const Container = glamorous.section({

@@ -1,38 +1,49 @@
 import * as React from 'react'
+import { getRouteProps } from 'react-static'
 //
-import * as IResume from './resumeInterface'
-import * as IProject from './projectInterface'
+import * as IResume from '../../interface/resumeInterface'
+import * as IProject from '../../interface/projectInterface'
 import LandingComponent from './LandingComponent'
 import CurriculumComponent from './CurriculumComponent'
 import ProjectComponent from './ProjectComponent'
 
-const resume: IResume.IResume = require('./resume.json')
-const projects: IProject.IProject[] = require('./projects.json')
 
-class MainPage extends React.Component<{}, {}> {
+interface IMainPageProps {
+  projects: IProject.IProject[];
+  resume: IResume.IResume;
+}
+
+class MainPage extends React.Component<IMainPageProps, {}> {
   render() {
     return(
       <div>
         <LandingComponent
-          name={resume.basics.name}
-          infoLabel={resume.basics.label}
-          profiles={resume.basics.profiles}
-          email={resume.basics.email}
+          name={this.props.resume.basics.name}
+          infoLabel={this.props.resume.basics.label}
+          profiles={this.props.resume.basics.profiles}
+          email={this.props.resume.basics.email}
         />
         <CurriculumComponent
-          summary={resume.basics.summary}
-          workplaces={resume.work}
-          educations={resume.education}
-          competitions={resume.awards}
-          languages={resume.languages}
-          skills={resume.skills}
+          summary={this.props.resume.basics.summary}
+          workplaces={this.props.resume.work}
+          educations={this.props.resume.education}
+          competitions={this.props.resume.awards}
+          languages={this.props.resume.languages}
+          skills={this.props.resume.skills}
         />
         <ProjectComponent
-          projects={projects}
+          projects={this.props.projects}
         />
       </div>
     )
   }
 }
 
-export default MainPage;
+export default getRouteProps(({ resume, projects }) => {
+  return (
+    <MainPage
+      projects={projects as IProject.IProject[]}
+      resume={resume as IResume.IResume}
+    />
+  );
+});

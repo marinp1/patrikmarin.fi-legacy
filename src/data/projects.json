@@ -1,0 +1,120 @@
+[
+  {
+    "id": "duunitin",
+    "thumbnail": {
+      "name": "Duunitin",
+      "backgroundImage": "duunitin.jpg",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "center center"
+    }
+  },
+  {
+    "id": "fb-network",
+    "thumbnail": {
+      "name": "FB Network",
+      "backgroundImage": "network.jpg",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "center center"
+    },
+    "entry": {
+      "title": "FB Network Analyzer",
+      "subtitle": "Facebook network visualisation tool",
+      "links": {
+        "github": "https://github.com/marinp1/fb-network-analyser"
+      },
+      "what": {
+        "text": "A Node.JS application for creating a 1.5-degree visualisation (links between you and your friends and also the links between friends who have friends in common) of your Facebook network. Uses web scraping with Puppeteer to gather data and D3.js for displaying the network.",
+        "images": [
+          {
+            "filename": "blaa",
+            "altText": "My Facebook network in October 2017.",
+            "classes": [
+              "PORTRAIT",
+              "NO-BG"
+            ]
+          }
+        ]
+      },
+      "why": {
+        "text": "I thought it would be interesting to see how my friends are connected to each other and if I could spot groups of people from the network. Since Facebook Graph API doesn't have the ability to list all your friends anymore, I had to resort to web scraping.",
+        "images": []
+      },
+      "currentStatus": {
+        "text": "At the moment the application only displays your network and determines the node size from the node's degree. There's also the ability to search friends by name. I've implemented some basic network analysing functions to analyser.js-file, but haven't yet implemented these to the main application.",
+        "images": []
+      }
+    }
+  },
+  {
+    "id": "gtk-doxie-app",
+    "thumbnail": {
+      "name": "GTK Doxie App",
+      "backgroundImage": "doxie.png",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "center center"
+    }
+  },
+  {
+    "id": "playlistmixer",
+    "thumbnail": {
+      "name": "Playlistmixer",
+      "backgroundImage": "playlistmixer.jpg",
+      "backgroundColor": "#000",
+      "backgroundPosition": "center center"
+    }
+  },
+  {
+    "id": "turboclean",
+    "thumbnail": {
+      "name": "Turboclean",
+      "backgroundImage": "turboclean.jpg",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "center top"
+    }
+  },
+  {
+    "id": "infoboard",
+    "thumbnail": {
+      "name": "Infoboard",
+      "backgroundImage": "infoboard.jpg",
+      "backgroundColor": "#000",
+      "backgroundPosition": "center top"
+    }
+  },
+  {
+    "id": "thumbnail",
+    "thumbnail": {
+      "name": "MC Course Hider",
+      "backgroundImage": "mccoursehider.png",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "right top"
+    }
+  },
+  {
+    "id": "ruokalista",
+    "thumbnail": {
+      "name": "Ruokalista",
+      "backgroundImage": "ruokalistat.png",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "left top"
+    }
+  },
+  {
+    "id": "tg-bots",
+    "thumbnail": {
+      "name": "Telegram Bots",
+      "backgroundImage": "tgbots.jpg",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "center top"
+    }
+  },
+  {
+    "id": "club-afterski",
+    "thumbnail": {
+      "name": "Club Afterski",
+      "backgroundImage": "clubafterski.jpg",
+      "backgroundColor": "#fff",
+      "backgroundPosition": "left top"
+    }
+  }
+]

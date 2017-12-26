@@ -1,7 +1,35 @@
 // Paths Aliases defined through tsconfig.json
+
 const typescriptWebpackPaths = require('./webpack.config.js')
 
+const projects = require('./src/data/projects.json')
+const resume = require('./src/data/resume.json')
+
 export default {
+  getRoutes: async () => [
+    {
+      path: '/',
+      component: 'src/containers/Home',
+      getProps: () => ({
+        projects,
+        resume,
+      }),
+      children: projects.filter(project => project.entry !== undefined).map(project => {
+        return {
+          path: `/projects/${project.id}`,
+          component: 'src/containers/Project',
+          getProps: () => ({
+            project,
+          }),
+        }
+      }),
+    },
+    {
+      is404: true,
+      component: 'src/containers/404',
+    },
+  ],
+
   webpack: (config, { defaultLoaders }) => {
     // Add .ts and .tsx extension to resolver
     config.resolve.extensions.push('.ts', '.tsx')

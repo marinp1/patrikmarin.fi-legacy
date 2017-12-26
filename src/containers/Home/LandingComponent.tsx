@@ -2,7 +2,7 @@ import * as React from 'react'
 import glamorous from 'glamorous'
 
 import { mediaQueries, colors } from '../../styles';
-import { IProfile } from './resumeInterface';
+import { IProfile } from '../../interface/resumeInterface';
 
 const image = require('./images/cv_round_small_zoom.png');
 

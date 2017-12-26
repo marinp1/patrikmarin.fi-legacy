@@ -1,10 +1,7 @@
 import React from 'react'
 import { Router, Route, Switch } from 'react-static'
+import Routes from 'react-static-routes'
 //
-import Home from 'containers/Home'
-import About from 'containers/About'
-import Blog from 'containers/Blog'
-import NotFound from 'containers/404'
 
 import './css/normalize.css'
 import './css/skeleton.css'
@@ -13,11 +10,7 @@ import './css/app.css'
 export default () => (
   <Router>
     <div className="content">
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/blog" component={Blog} />
-        <Route component={NotFound} />
-      </Switch>
+      <Routes />
     </div>
   </Router>
 )

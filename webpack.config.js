@@ -45,7 +45,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|json)$/,
         loader: 'url?limit=25000',
       },
     ],

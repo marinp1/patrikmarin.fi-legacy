@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 
 import { mediaQueries, colors } from '../../styles';
-import { IProject } from './projectInterface';
+import { IProject } from '../../interface/projectInterface';
 
 const Container = glamorous.section({
   background: colors.background,
@@ -76,22 +76,18 @@ const ProjectInfo = glamorous.div({
   },
 })
 
-function projectNameToId(project: IProject): string {
-  return project.name.replace(' ','-').toLowerCase();
-}
-
 const ProjectEntry: React.SFC<{project: IProject}> = ({ project }) => {
-  const bgImg = require(`./images/thumbnails/${project.backgroundImage}`);
+  const bgImg = require(`./images/thumbnails/${project.thumbnail.backgroundImage}`);
   return (
-    <Project id={projectNameToId(project)}
+    <Project id={project.id}
       style={{
         backgroundImage: `url(${bgImg})`,
-        backgroundColor: project.backgroundColor,
-        backgroundPosition: project.backgroundPosition,
+        backgroundColor: project.thumbnail.backgroundColor,
+        backgroundPosition: project.thumbnail.backgroundPosition,
       }}
     >
     <ProjectInfo>
-      <h6>{project.name}</h6>
+      <h6>{project.thumbnail.name}</h6>
     </ProjectInfo>
   </Project>
   )
@@ -103,7 +99,6 @@ interface ProjectComponentProps {
 
 class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
   render() {
-    console.log(this.props.projects.length);
     return (
       <Container id="projects">
         <div className="container">
