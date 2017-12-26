@@ -149,8 +149,8 @@ class LandingComponent extends React.Component<LandingComponentProps, {}> {
             <LinkContainer>
               {this.props.profiles.map((profile: IProfile, index: number) => {
                 return (index === this.props.profiles.length - 1) ?
-                  <a href={profile.url}>{profile.network}</a> :
-                  <span><a href={profile.url}>{profile.network}</a>{this.profileSeparator}</span>
+                  <a key={index} href={profile.url}>{profile.network}</a> :
+                  <span key={index}><a href={profile.url}>{profile.network}</a>{this.profileSeparator}</span>
               })}
               <br/>
               <a href={`mailto:${this.props.email}`}>{this.props.email}</a>

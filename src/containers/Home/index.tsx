@@ -18,6 +18,11 @@ class MainPage extends React.Component<{}, {}> {
         />
         <CurriculumComponent
           summary={resume.basics.summary}
+          workplaces={resume.work}
+          educations={resume.education}
+          competitions={resume.awards}
+          languages={resume.languages}
+          skills={resume.skills}
         />
       </div>
     )

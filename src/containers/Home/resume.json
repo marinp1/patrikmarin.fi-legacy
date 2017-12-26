@@ -96,8 +96,8 @@
     },
     {
       "institution": "Etelä-Tapiolan lukio",
-      "area": "High school",
-      "studyType": "",
+      "area": "",
+      "studyType": "High school",
       "startDate": "2011",
       "endDate": "2014",
       "gpa": "",
@@ -112,19 +112,19 @@
       "summary": "We created a web application to match job applicants skills to relevant work places through big data and machine learning. See project here."
     },
     {
-      "title": "Participation",
+      "title": "",
       "date": "Q4/2016",
       "awarder": "Junction 2016",
       "summary": "Our team created a small responsive web application to optimize cleaning routes using intelligent building data."
     },
     {
-      "title": "Certficied Scrum Master",
+      "title": "Certified Scrum Master",
       "date": "Q3/2016",
-      "awarder": "Scrum Alliance",
+      "awarder": "",
       "summary": ""
     },
     {
-      "title": "Participation",
+      "title": "",
       "date": "Q2/2016",
       "awarder": "Case Fakto 2016",
       "summary": "We participated in a service design competition about machine learning, AI and IoT."

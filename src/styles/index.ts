@@ -11,4 +11,7 @@ export const colors = {
   },
   background: 'whitesmoke',
   gray: '#333',
+  black: '#000',
+  white: '#fff',
+  lightGray: '#E1E1E1',
 }
