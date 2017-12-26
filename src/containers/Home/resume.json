@@ -1,0 +1,202 @@
+{
+  "basics": {
+    "name": "Patrik Marin",
+    "label": "Student • Programmer",
+    "picture": "/images/me.png",
+    "email": "hello@patrikmarin.fi",
+    "phone": "",
+    "website": "",
+    "summary": "As you might have guessed, I'm Patrik Marin, 22-year-old student from Espoo, Finland studying Information Networks. I've highlighted some of my projects here with small descriptions.",
+    "location": {
+      "address": "",
+      "postalCode": "",
+      "city": "",
+      "countryCode": "",
+      "region": ""
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "marinp1",
+        "url": "https://github.com/marinp1"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "patrikmarin",
+        "url": "https://www.linkedin.com/in/patrikmarin"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "Futurice Oy",
+      "position": "Software development trainee",
+      "website": "https://futurice.com",
+      "startDate": "2017-06",
+      "endDate": "2017-08",
+      "summary": "During the summer I was part of team creating a Node.JS application with TypeScript and D3.JS visualisation library. I also learned how to use the Contentful CDN.",
+      "highlights": []
+    },
+    {
+      "company": "Profit Software Oy",
+      "position": "Software development trainee",
+      "website": "https://profitsoftware.com",
+      "startDate": "2016-01",
+      "endDate": "2017-05",
+      "summary": "I was part of internal development and mostly programmed in Java, but also used lot of SQL commands and procedures. Shell scripts were an everyday tool and I also became familiar with DevOps components.",
+      "highlights": []
+    },
+    {
+      "company": "Opteam Yhtiöt Oy",
+      "position": "Seasonal worker",
+      "website": "https://www.opteam.fi",
+      "startDate": "2015-10",
+      "endDate": "2015-10",
+      "summary": "I was a seasonal worker at Hullut Päivät, Stockmann Oyj in the grocery side. My tasks were mostly cutting and packaging different types of cheese, but I also refilled the store’s shelves.",
+      "highlights": []
+    },
+    {
+      "company": "Kodin Apulaiset NY",
+      "position": "Marketing lead",
+      "website": "",
+      "startDate": "2012-10",
+      "endDate": "2013-05",
+      "summary": " This was a student-run company in high school as a part of Nuori Yrittäjyys -program. My main focus was on the marketing, graphic design and website management.",
+      "highlights": []
+    }
+  ],
+  "volunteer": [],
+  "education": [
+    {
+      "institution": "School of Science, Aalto University",
+      "area": "Information Networks",
+      "studyType": "Master of Science (Technology)",
+      "startDate": "2017",
+      "endDate": "Present",
+      "gpa": "",
+      "courses": []
+    },
+    {
+      "institution": "Vienna University of Technology",
+      "area": "Business Informatics",
+      "studyType": "Exchange student",
+      "startDate": "2017",
+      "endDate": "2018",
+      "gpa": "",
+      "courses": []
+    },
+    {
+      "institution": "School of Science, Aalto University",
+      "area": "Information Networks",
+      "studyType": "Bachelor of Science (Technology)",
+      "startDate": "2014",
+      "endDate": "2017",
+      "gpa": "",
+      "courses": []
+    },
+    {
+      "institution": "Etelä-Tapiolan lukio",
+      "area": "High school",
+      "studyType": "",
+      "startDate": "2011",
+      "endDate": "2014",
+      "gpa": "",
+      "courses": []
+    }
+  ],
+  "awards": [
+    {
+      "title": "Productivity track winner and finalist",
+      "date": "Q4/2017",
+      "awarder": "Junction 2017",
+      "summary": "We created a web application to match job applicants skills to relevant work places through big data and machine learning. See project here."
+    },
+    {
+      "title": "Participation",
+      "date": "Q4/2016",
+      "awarder": "Junction 2016",
+      "summary": "Our team created a small responsive web application to optimize cleaning routes using intelligent building data."
+    },
+    {
+      "title": "Certficied Scrum Master",
+      "date": "Q3/2016",
+      "awarder": "Scrum Alliance",
+      "summary": ""
+    },
+    {
+      "title": "Participation",
+      "date": "Q2/2016",
+      "awarder": "Case Fakto 2016",
+      "summary": "We participated in a service design competition about machine learning, AI and IoT."
+    },
+    {
+      "title": "Finalist",
+      "date": "Q3/2015",
+      "awarder": "Accenture Digital Innovation Challenge 2015",
+      "summary": "Our team had to come up with a digital innovation for the Finnish Defence Forces. We made it all the way to the finals at Slush, where we had 3 minutes to pitch the idea we had perfected during the intensive 2 month sprint."
+    }
+  ],
+  "publications": [],
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": "",
+      "keywords": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "TypeScript",
+        "Node.JS",
+        "React",
+        "D3.JS"
+      ]
+    },
+    {
+      "name": "Software development",
+      "level": "",
+      "keywords": [
+        "Java",
+        "Scala",
+        "SQL",
+        "Python",
+        "Git",
+        "Maven",
+        "DevOps",
+        "Scrum"
+      ]
+    },
+    {
+      "name": "Other",
+      "level": "",
+      "keywords": [
+        "Linux",
+        "Photoshop",
+        "Excel"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Finnish",
+      "fluency": "native speaker"
+    },
+    {
+      "language": "English",
+      "fluency": "excellent"
+    },
+    {
+      "language": "German",
+      "fluency": "very good"
+    },
+    {
+      "language": "Swedish",
+      "fluency": "average"
+    },
+    {
+      "language": "Chinese",
+      "fluency": "I tried"
+    }
+  ],
+  "interests": [],
+  "references": []
+}
