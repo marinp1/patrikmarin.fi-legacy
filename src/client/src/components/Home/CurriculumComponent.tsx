@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { IWork, IEducation, IAward, ILanguage, ISkill } from
   'shared/interfaces/IResume';
-import { colors } from '../../styles';
+import { mediaQueries, colors } from '../../styles';
 
 const Container = glamorous.section({
   paddingTop: '1rem',
@@ -14,6 +14,7 @@ const Container = glamorous.section({
 
 const AboutContainer = glamorous.div({
   textAlign: 'justify',
+  paddingTop: '2rem',
 });
 
 const Title = glamorous.h6({
@@ -103,6 +104,37 @@ const TagEntry = glamorous.div({
 const TagEntryMain = glamorous.p({
   fontWeight: 'bold',
 });
+
+const ImageContainer = glamorous.div({
+  [mediaQueries.tablet]: {
+    maxWidth: '80%',
+    margin: 'auto',
+  },
+});
+
+const ImageHolder = glamorous.div({
+  width: '10rem',
+  height: '10rem',
+  padding: '1rem',
+  margin: 'auto',
+  marginTop: '-6rem',
+  background: colors.background,
+  borderRadius: '50%',
+  '& img': {
+    width: 'inherit',
+    height: 'inherit',
+    borderRadius: 'inherit',
+    border: `0.1rem solid ${colors.gray}`,
+  },
+});
+
+const ImageComponent: React.SFC<{image: any}> = ({ image }) => (
+  <ImageContainer>
+    <ImageHolder>
+      <img src={image} alt={'Patrik Marin'}/>
+    </ImageHolder>
+  </ImageContainer>
+);
 
 const WorkExperience: React.SFC<{workplaces: IWork[]}> = ({ workplaces }) => (
   <EntryContainer>
@@ -236,11 +268,17 @@ interface CurriculumComponentProps {
 
 class CurriculumComponent extends React.Component<CurriculumComponentProps, {}> {
   render() {
+
+    const image = require('./images/cv_round_small_zoom.png');
+
     return (
-      <Container id="description">
+      <Container>
         <div className="container">
           <div className="row">
-            <AboutContainer className="twelve columns">
+            <ImageComponent image={image}/>
+          </div>
+          <div className="row">
+            <AboutContainer id="description" className="twelve columns">
               <Title>ABOUT</Title>
               <p>{this.props.summary}</p>
             </AboutContainer>

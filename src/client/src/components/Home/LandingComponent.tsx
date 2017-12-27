@@ -1,14 +1,12 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 
-import { mediaQueries, colors } from '../../styles';
+import { colors } from '../../styles';
 import { IProfile } from 'shared/interfaces/IResume';
 
-const image = require('./images/cv_round_small_zoom.png');
-
 const Container = glamorous.div({
-  height: '100vh',
-  width: '100vw',
+  height: 'inherit',
+  width: '100%',
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -88,41 +86,6 @@ const LinkContainer = glamorous.div({
   },
 });
 
-const ImageContainer = glamorous.div({
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  right: 0,
-  [mediaQueries.tablet]: {
-    maxWidth: '80%',
-    margin: 'auto',
-  },
-});
-
-const ImageHolder = glamorous.div({
-  width: '10rem',
-  height: '10rem',
-  padding: '1rem',
-  margin: 'auto',
-  marginBottom: '-6rem',
-  background: colors.background,
-  borderRadius: '50%',
-  
-  '& img': {
-    width: 'inherit',
-    height: 'inherit',
-    borderRadius: 'inherit',
-    border: `0.1rem solid ${colors.gray}`,
-  },
-});
-
-const TextHolder = glamorous.div({
-  left: 0,
-  right: 0,
-  background: colors.background,
-  height: '7rem',
-});
-
 interface LandingComponentProps {
   name: string;
   infoLabel: string;
@@ -130,13 +93,17 @@ interface LandingComponentProps {
   email: string;
 }
 
-class LandingComponent extends React.Component<LandingComponentProps, {}> {
+interface LandingComponentState {
+  height: string;
+}
+
+class LandingComponent extends React.Component<LandingComponentProps, LandingComponentState> {
 
   profileSeparator = ' • ';
 
   render() {
     return (
-      <div>
+      <div style={{ height: 'calc(100vh - 8rem)' }}>
         <Container>
           <div className="container">
             <WelcomeText>HELLO AND WELCOME.</WelcomeText>
@@ -159,12 +126,6 @@ class LandingComponent extends React.Component<LandingComponentProps, {}> {
             </LinkContainer>
           </div>
         </Container>
-        <ImageContainer>
-          <ImageHolder>
-            <img src={image} alt={this.props.name}/>
-          </ImageHolder>
-          <TextHolder/>
-        </ImageContainer>
       </div>
     );
   }

@@ -56,6 +56,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
 
   render() {
     document.body.style.backgroundColor = colors.black;
+    document.body.style.height = '100vh';
     document.body.style.backgroundImage = `url(${require('./images/bg.jpg')})`;
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center center';
