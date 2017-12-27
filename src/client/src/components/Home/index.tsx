@@ -2,15 +2,15 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
-import * as IResume from '../../../../interfaces/IResume';
-import { IProjectFields } from '../../../../interfaces/IProject';
+import * as IResume from 'shared/interfaces/IResume';
+import { IProjectFields } from 'shared/interfaces/IProject';
 import LandingComponent from './LandingComponent';
 import CurriculumComponent from './CurriculumComponent';
 import ProjectComponent from './ProjectComponent';
 
 import { colors, mediaQueries } from '../../styles';
 
-const resume: IResume.IResume = require('../../data/resume.json');
+const resume: IResume.IResume = require('./resume.json');
 
 const Container = glamorous.div({
   [mediaQueries.tablet]: {

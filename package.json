@@ -2,21 +2,16 @@
   "name": "patrimarin.fi",
   "version": "1.0.0",
   "scripts": {
-    "client": "cd client && yarn start",
-    "server": "nodemon --watch 'server.ts' --exec 'ts-node' server.ts",
-    "start": "ts-node server.ts",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
+    "start-client": "cd src/client && yarn start",
+    "watch-server": "cd src/server && yarn run watch",
+    "start": "cd src/server && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn watch-server\" \"yarn start-client\"",
+    "heroku-postbuild": "cd src/client && yarn --production=false && yarn run build"
   },
   "dependencies": {
-    "contentful": "^5.0.5",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "ts-node": "^4.1.0",
     "typescript": "^2.6.2"
   },
   "devDependencies": {
-    "@types/express": "^4.11.0",
     "concurrently": "^3.5.0"
   }
 }

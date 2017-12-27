@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 
 import { mediaQueries, colors } from '../../styles';
-import { IProjectFields } from '../../../../interfaces/IProject';
+import { IProjectFields } from 'shared/interfaces/IProject';
 
 const Container = glamorous.section({
   background: colors.background,

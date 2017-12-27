@@ -3,10 +3,11 @@ require('dotenv').config();
 import * as express from 'express';
 import * as path from 'path';
 
-import { contentfulClient, getProjects } from './fetch';
+import { getContentfulClient, getProjects } from './fetch';
 
 export default class Server {
   private app = express();
+  private contentfulClient = getContentfulClient();
 
   constructor(){
     this.init();
@@ -18,11 +19,17 @@ export default class Server {
 
     // Put all API endpoints under '/api'
     this.app.get('/api/projects', (req, res) => {
-      getProjects(contentfulClient).then((projects) => {
+      if (this.contentfulClient !== undefined) {
+        getProjects(this.contentfulClient).then((projects) => {
+          res.json({
+            message: JSON.parse(JSON.stringify(projects))
+          })
+        });
+      } else {
         res.json({
-          message: JSON.parse(JSON.stringify(projects))
+          message: [],
         })
-      });
+      }
     })
     
     // The "catchall" handler: for any request that doesn't

@@ -1,13 +1,19 @@
 import * as contentful from 'contentful';
 
-import { IProjectList, IProjectFields } from '../interfaces/IProject';
+import { IProjectList, IProjectFields } from "../interfaces/IProject";
 
-export const contentfulClient = contentful.createClient({
-  // This is the space ID. A space is like a project folder in Contentful terms
-  space: process.env.CONTENTFUL_SPACE_ID,
-  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
-  accessToken: process.env.CONTENTFUL_DELIVERY_API_TOKEN,
-});
+
+export function getContentfulClient(): contentful.ContentfulClientApi | undefined {
+
+  if (!process.env.CONTENTFUL_SPACE_ID || !process.env.CONTENTFUL_DELIVERY_API_TOKEN) {
+    console.log("Required environment variables are missing!");
+    return undefined;
+  }
+  return contentful.createClient({
+    space: process.env.CONTENTFUL_SPACE_ID as string,
+    accessToken: process.env.CONTENTFUL_DELIVERY_API_TOKEN as string,
+  });
+}
 
 export function getProjects(client: contentful.ContentfulClientApi): Promise<IProjectFields[]> {
   return client.getEntries({

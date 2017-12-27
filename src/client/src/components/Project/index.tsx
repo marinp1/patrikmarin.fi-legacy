@@ -2,8 +2,8 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
-import { IProjectFields } from '../../../../interfaces/IProject';
-import { IEntry, ImageClassEnum, IEntryImage } from '../../../../interfaces/IEntry';
+import { IProjectFields } from 'shared/interfaces/IProject';
+import { IEntry, ImageClassEnum, IEntryImage } from 'shared/interfaces/IEntry';
 
 import { fonts } from '../../styles';
 
@@ -129,7 +129,6 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
   };
 
   componentDidMount() {
-
     fetch('/api/projects')
       .then(res => res.json())
       .then((projects: IProjectFields[]) => {
@@ -139,11 +138,6 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
           this.setState({ entry: project.entry });
         }
       });
-
-    const projects: IProjectFields[] = require('../../data/projects.json');
-    const entry: IEntry | undefined =
-      projects.filter(project => project.entry !== undefined)[0].entry;
-    this.setState({ entry });
   }
 
   render() {
