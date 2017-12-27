@@ -58,13 +58,13 @@ const Button = glamorous.a({
   ':hover': {
     color: `${colors.landingPage.hoverForeground} !important`,
     background: 'rgba(0,0,0,0.1) !important',
-    borderColor: '#e87373 !important',
+    borderColor: `${colors.landingPage.infolabel} !important'`,
   },
 
   ':active': {
     color: `${colors.landingPage.hoverForeground} !important`,
     background: 'rgba(0,0,0,0.2) !important',
-    borderColor: '#e87373 !important',
+    borderColor: `${colors.landingPage.infolabel} !important'`,
   },
 });
 

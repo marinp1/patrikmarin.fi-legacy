@@ -5,7 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { IProjectFields } from 'shared/interfaces/IProject';
 import { IEntry, IEntryImage } from 'shared/interfaces/IEntry';
 
-import { fonts } from '../../styles';
+import { colors, fonts } from '../../styles';
 
 const Container = glamorous.div({
   marginTop: '30px',
@@ -43,11 +43,11 @@ const HeaderContainer = glamorous.div({
   paddingTop: '30px',
   paddingBottom: '10px',
   marginBottom: '40px',
-  borderBottom: `2px solid ${'#ddd'}`,
+  borderBottom: `2px solid ${colors.mediumGray}`,
 });
 
 const ContentContainer = glamorous.div({
-  borderBottom: '2px solid #ddd',
+  borderBottom: `2px solid ${colors.mediumGray}`,
   '& .row': {
     paddingBottom: '0.5rem',
   },
