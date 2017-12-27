@@ -30,7 +30,7 @@ export default class Server {
 
   init(){
     // Serve static files from the React app
-    this.app.use(express.static(path.join(__dirname, 'client/build')));
+    this.app.use(express.static(path.join(__dirname, '../../client/build')));
 
     // Put all API endpoints under '/api'
     this.app.get('/api/projects',
@@ -51,7 +51,7 @@ export default class Server {
     // The "catchall" handler: for any request that doesn't
     // match one above, send back React's index.html file.
     this.app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname+'/client/build/index.html'));
+      res.sendFile(path.join(__dirname, '../../client/build/index.html'));
     });
 
     const port = process.env.PORT || 5000;
