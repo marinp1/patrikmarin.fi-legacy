@@ -7,6 +7,7 @@ import { getContentfulClient, getProjects } from './fetch';
 
 export default class Server {
   private app = express();
+  private cache = require('express-redis-cache')({ expire: 120 });
   private contentfulClient = getContentfulClient();
 
   constructor(){
@@ -18,17 +19,20 @@ export default class Server {
     this.app.use(express.static(path.join(__dirname, 'client/build')));
 
     // Put all API endpoints under '/api'
-    this.app.get('/api/projects', (req, res) => {
-      if (this.contentfulClient !== undefined) {
-        getProjects(this.contentfulClient).then((projects) => {
-          res.send(projects);
-        });
-      } else {
-        res.json({
-          message: [],
-        })
-      }
-    })
+    this.app.get('/api/projects',
+      this.cache.route(),
+        (req, res) => {
+          if (this.contentfulClient !== undefined) {
+            getProjects(this.contentfulClient).then((projects) => {
+              res.send(projects);
+            });
+          } else {
+            res.json({
+              message: [],
+            })
+          }
+        }
+      )
     
     // The "catchall" handler: for any request that doesn't
     // match one above, send back React's index.html file.
