@@ -2,12 +2,26 @@ require('dotenv').config();
 
 import * as express from 'express';
 import * as path from 'path';
+import * as url from 'url';
 
 import { getContentfulClient, getProjects } from './fetch';
 
 export default class Server {
   private app = express();
-  private cache = require('express-redis-cache')({ expire: 120 });
+
+  private isProduction: boolean = process.env.NODE_ENV === 'production';
+
+  private redisUrl = this.isProduction ?
+    url.parse(process.env.REDIS_URL as string) :
+    url.parse('http://localhost:6379');
+
+  private cache = require('express-redis-cache')({
+    expire: 120,
+    host: this.redisUrl.hostname,
+    port: this.redisUrl.port,
+    auth_pass: this.redisUrl.auth ? this.redisUrl.auth.split(':')[1] : undefined,
+  });
+
   private contentfulClient = getContentfulClient();
 
   constructor(){

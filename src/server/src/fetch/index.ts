@@ -16,7 +16,6 @@ export function getContentfulClient(): contentful.ContentfulClientApi | undefine
 }
 
 export function getProjects(client: contentful.ContentfulClientApi): Promise<IProjectFields[]> {
-  console.log("Fetching...");
   return client.getEntries({
     content_type: 'projects',
     include: 10
