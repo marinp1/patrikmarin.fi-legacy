@@ -168,7 +168,7 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
                           <i className={`fa ${link.icon} fa-lg fa-fw`}></i>
                           {link.text}
                         </NavigationLink>
-                    )
+                    );
                   })}
                 </ExternalLinkContainer>
               </div>

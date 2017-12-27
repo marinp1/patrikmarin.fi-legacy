@@ -107,7 +107,7 @@ class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
           </div>
           <ProjectContainer>
             {this.props.projects.map((project: IProject, i: number) => {
-              return <ProjectEntry key={i} project={project}/>
+              return <ProjectEntry key={i} project={project}/>;
             })}
           </ProjectContainer>
         </div>

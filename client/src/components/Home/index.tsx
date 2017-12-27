@@ -10,6 +10,8 @@ import ProjectComponent from './ProjectComponent';
 
 import { colors, mediaQueries } from '../../styles';
 
+const resume: IResume.IResume = require('../../data/resume.json');
+
 const Container = glamorous.div({
   [mediaQueries.tablet]: {
     marginBottom: '10rem',
@@ -28,17 +30,15 @@ const Container = glamorous.div({
   },
 });
 
-interface IMainPageProps {
-  resume: IResume.IResume;
-}
-
 interface IMainPageState {
+  resume: IResume.IResume;
   projects: IProject.IProject[];
 }
 
-class MainPage extends React.Component<IMainPageProps & RouteComponentProps<any>, IMainPageState> {
+class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
 
   state = {
+    resume,
     projects: [],
   };
 
@@ -58,18 +58,18 @@ class MainPage extends React.Component<IMainPageProps & RouteComponentProps<any>
     return(
       <Container>
         <LandingComponent
-          name={this.props.resume.basics.name}
-          infoLabel={this.props.resume.basics.label}
-          profiles={this.props.resume.basics.profiles}
-          email={this.props.resume.basics.email}
+          name={this.state.resume.basics.name}
+          infoLabel={this.state.resume.basics.label}
+          profiles={this.state.resume.basics.profiles}
+          email={this.state.resume.basics.email}
         />
         <CurriculumComponent
-          summary={this.props.resume.basics.summary}
-          workplaces={this.props.resume.work}
-          educations={this.props.resume.education}
-          competitions={this.props.resume.awards}
-          languages={this.props.resume.languages}
-          skills={this.props.resume.skills}
+          summary={this.state.resume.basics.summary}
+          workplaces={this.state.resume.work}
+          educations={this.state.resume.education}
+          competitions={this.state.resume.awards}
+          languages={this.state.resume.languages}
+          skills={this.state.resume.skills}
         />
         <ProjectComponent
           projects={this.state.projects}
