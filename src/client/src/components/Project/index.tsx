@@ -3,7 +3,7 @@ import glamorous from 'glamorous';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
 import { IProjectFields } from 'shared/interfaces/IProject';
-import { IEntry, ImageClassEnum, IEntryImage } from 'shared/interfaces/IEntry';
+import { IEntry, IEntryImage } from 'shared/interfaces/IEntry';
 
 import { fonts } from '../../styles';
 
@@ -80,7 +80,12 @@ const FooterContainer = glamorous.div({
   marginTop: '20px',
 });
 
-function getImageClasses(classNames: ImageClassEnum[]): React.CSSProperties {
+export enum ImageClassEnum {
+  NO_BG = 'NO_BG',
+  PORTRAIT = 'PORTRAIT',
+}
+
+function getImageClasses(classNames: string[]): React.CSSProperties {
   const style: React.CSSProperties = {};
   classNames.forEach((name: ImageClassEnum) => {
     switch (name) {
@@ -129,11 +134,13 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
   };
 
   componentDidMount() {
+
+    const projectId = this.props.match.params.id;
+
     fetch('/api/projects')
       .then(res => res.json())
       .then((projects: IProjectFields[]) => {
-        console.log(this.props.match.params);
-        const project = projects.find(project => project.id === 'asd');
+        const project = projects.find(project => project.id === projectId);
         if (project && project.entry) {
           this.setState({ entry: project.entry });
         }
@@ -141,7 +148,6 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
   }
 
   render() {
-
     const project = this.state.entry;
 
     if (project === undefined) {

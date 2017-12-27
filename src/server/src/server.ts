@@ -21,9 +21,7 @@ export default class Server {
     this.app.get('/api/projects', (req, res) => {
       if (this.contentfulClient !== undefined) {
         getProjects(this.contentfulClient).then((projects) => {
-          res.json({
-            message: JSON.parse(JSON.stringify(projects))
-          })
+          res.send(projects);
         });
       } else {
         res.json({

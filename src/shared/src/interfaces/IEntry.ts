@@ -22,13 +22,8 @@ export interface IEntryImage {
   fields: IEntryImageFields;
 }
 
-export enum ImageClassEnum {
-  'NO_BG' = 'NO_BG',
-  'PORTRAIT' = 'PORTRAIT',
-}
-
 export interface IEntryImageFields {
   image: IContentfulImage;
   altText: string;
-  classes: ImageClassEnum[];
+  classes: string[];
 }

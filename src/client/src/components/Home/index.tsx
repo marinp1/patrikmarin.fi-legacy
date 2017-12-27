@@ -42,10 +42,16 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     projects: [],
   };
 
-  componentDidMount() {
+  getProjects(): void {
     fetch('/api/projects')
       .then(res => res.json())
-      .then(projects => this.setState({ projects }));
+      .then((projects: IProjectFields[]) => {
+        this.setState({ projects });
+      });
+  }
+
+  componentDidMount() {
+    this.getProjects();
   }
 
   render() {
