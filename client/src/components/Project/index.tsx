@@ -2,8 +2,9 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
-import { IProject, IEntry, ILink, IWhat, IWhy,
-  ICurrentStatus, IImage, ImageClassEnum } from '../../interface/projectInterface';
+import { IProjectFields } from '../../../../interfaces/IProject';
+import { IEntry, ImageClassEnum, IEntryImage } from '../../../../interfaces/IEntry';
+
 import { fonts } from '../../styles';
 
 const Container = glamorous.div({
@@ -95,21 +96,21 @@ function getImageClasses(classNames: ImageClassEnum[]): React.CSSProperties {
   return style;
 }
 
-type IDataSegment = IWhat | IWhy | ICurrentStatus;
-
-const DataSegment: React.SFC<{title: string, data: IDataSegment}> = ({ title, data }) => (
+const DataSegment: React.SFC<{
+  title: string, text: string, images: IEntryImage[] | undefined,
+}> = ({ title, text, images }) => (
   <div className="row">
     <SegmentTitle>{title}</SegmentTitle>
-    <SegmentText>{data.text}</SegmentText>
-    {data.images.map((image: IImage, i: number) => {
+    <SegmentText>{text}</SegmentText>
+    {images && images.map((image: IEntryImage, i: number) => {
       return (
         <SegmentImageContainer key={i}>
           <img
-            style={getImageClasses(image.classes)}
-            src={image.filename}
+            style={getImageClasses(image.fields.classes)}
+            src={image.fields.image.fields.file.url}
           />
           <SegmentImageDescription>
-            {image.altText}
+            {image.fields.altText}
           </SegmentImageDescription>
         </SegmentImageContainer>
       );
@@ -118,25 +119,36 @@ const DataSegment: React.SFC<{title: string, data: IDataSegment}> = ({ title, da
 );
 
 interface IProjectState {
-  project: IEntry | undefined;
+  entry: IEntry | undefined;
 }
 
 class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjectState> {
 
   state: IProjectState = {
-    project: undefined,
+    entry: undefined,
   };
 
   componentDidMount() {
-    const projects: IProject[] = require('../../data/projects.json');
+
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then((projects: IProjectFields[]) => {
+        console.log(this.props.match.params);
+        const project = projects.find(project => project.id === 'asd');
+        if (project && project.entry) {
+          this.setState({ entry: project.entry });
+        }
+      });
+
+    const projects: IProjectFields[] = require('../../data/projects.json');
     const entry: IEntry | undefined =
       projects.filter(project => project.entry !== undefined)[0].entry;
-    this.setState({ project: entry });
+    this.setState({ entry });
   }
 
   render() {
 
-    const project = this.state.project;
+    const project = this.state.entry;
 
     if (project === undefined) {
       return (
@@ -158,15 +170,15 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
           <HeaderContainer>
             <div className="row">
               <div className="twelve columns">
-                <h1>{project.title}</h1>
-                <h5>{project.subtitle}</h5>
+                <h1>{project.fields.title}</h1>
+                <h5>{project.fields.subtitle}</h5>
                 <ExternalLinkContainer>
-                  {project.links.map((link: ILink, i: number) => {
+                  {project.fields.links && project.fields.links.map((link: string, i: number) => {
                     return (
                         <NavigationLink key={i}
-                          href={link.url}>
-                          <i className={`fa ${link.icon} fa-lg fa-fw`}></i>
-                          {link.text}
+                          href={link}>
+                          <i className={`fa ${link} fa-lg fa-fw`}></i>
+                          {link}
                         </NavigationLink>
                     );
                   })}
@@ -175,9 +187,21 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
             </div>
           </HeaderContainer>
           <ContentContainer>
-            <DataSegment title="What?" data={project.what}/>
-            <DataSegment title="Why?" data={project.why}/>
-            <DataSegment title="Current status" data={project.currentStatus}/>
+            <DataSegment
+              title="What?"
+              text={project.fields.whatText}
+              images={project.fields.whatImages}
+            />
+            <DataSegment
+              title="Why?"
+              text={project.fields.whyText}
+              images={project.fields.whyImages}
+            />
+            <DataSegment
+              title="Current status"
+              text={project.fields.currentStatusText}
+              images={project.fields.currentStatusImages}
+            />
           </ContentContainer>
           <FooterContainer>
             <NavigationLink href="/">

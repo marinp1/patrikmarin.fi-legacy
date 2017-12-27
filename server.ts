@@ -1,13 +1,15 @@
+require('dotenv').config();
+
 import * as express from 'express';
 import * as path from 'path';
 
-require('dotenv').config();
+import { contentfulClient, getProjects } from './fetch';
 
 export default class Server {
   private app = express();
 
   constructor(){
-      this.init();
+    this.init();
   }
 
   init(){
@@ -15,12 +17,14 @@ export default class Server {
     this.app.use(express.static(path.join(__dirname, 'client/build')));
 
     // Put all API endpoints under '/api'
-    this.app.get('/api/hello', (req, res) => {
-      res.json({
-          message: "Hello World!!"
+    this.app.get('/api/projects', (req, res) => {
+      getProjects(contentfulClient).then((projects) => {
+        res.json({
+          message: JSON.parse(JSON.stringify(projects))
+        })
       });
     })
-
+    
     // The "catchall" handler: for any request that doesn't
     // match one above, send back React's index.html file.
     this.app.get('*', (req, res) => {

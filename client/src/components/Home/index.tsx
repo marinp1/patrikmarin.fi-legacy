@@ -2,8 +2,8 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
-import * as IResume from '../../interface/resumeInterface';
-import * as IProject from '../../interface/projectInterface';
+import * as IResume from '../../../../interfaces/IResume';
+import { IProjectFields } from '../../../../interfaces/IProject';
 import LandingComponent from './LandingComponent';
 import CurriculumComponent from './CurriculumComponent';
 import ProjectComponent from './ProjectComponent';
@@ -32,7 +32,7 @@ const Container = glamorous.div({
 
 interface IMainPageState {
   resume: IResume.IResume;
-  projects: IProject.IProject[];
+  projects: IProjectFields[];
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -43,8 +43,9 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
   };
 
   componentDidMount() {
-    const projects: IProject.IProject[] = require('../../data/projects.json');
-    this.setState({ projects });
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then(projects => this.setState({ projects }));
   }
 
   render() {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 
 import { mediaQueries, colors } from '../../styles';
-import { IProject } from '../../interface/projectInterface';
+import { IProjectFields } from '../../../../interfaces/IProject';
 
 const Container = glamorous.section({
   background: colors.background,
@@ -76,25 +76,25 @@ const ProjectInfo = glamorous.div({
   },
 });
 
-const ProjectEntry: React.SFC<{project: IProject}> = ({ project }) => {
-  const bgImg = require(`./images/thumbnails/${project.thumbnail.backgroundImage}`);
+const ProjectEntry: React.SFC<{project: IProjectFields}> = ({ project }) => {
+  const bgImg = `${project.thumbnail.fields.image.fields.file.url}`;
   return (
     <Project id={project.id}
       style={{
         backgroundImage: `url(${bgImg})`,
-        backgroundColor: project.thumbnail.backgroundColor,
-        backgroundPosition: project.thumbnail.backgroundPosition,
+        backgroundColor: project.thumbnail.fields.backgroundColor,
+        backgroundPosition: project.thumbnail.fields.backgroundPosition,
       }}
     >
     <ProjectInfo>
-      <h6>{project.thumbnail.name}</h6>
+      <h6>{project.thumbnail.fields.name}</h6>
     </ProjectInfo>
   </Project>
   );
 };
 
 interface ProjectComponentProps {
-  projects: IProject[];
+  projects: IProjectFields[];
 }
 
 class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
@@ -106,7 +106,7 @@ class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
             <Title>Projects</Title>
           </div>
           <ProjectContainer>
-            {this.props.projects.map((project: IProject, i: number) => {
+            {this.props.projects.map((project: IProjectFields, i: number) => {
               return <ProjectEntry key={i} project={project}/>;
             })}
           </ProjectContainer>
