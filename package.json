@@ -1,33 +1,20 @@
 {
-  "name": "react-static-typescript-enabled",
+  "name": "patrimarin.fi",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
   "scripts": {
-    "start": "react-static start",
-    "build": "react-static build",
-    "serve": "serve dist -p 3000"
+    "client": "cd client && yarn start",
+    "server": "nodemon --watch 'server.ts' --exec 'ts-node' server.ts",
+    "start": "ts-node server.ts",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
   },
   "dependencies": {
-    "axios": "^0.17.0",
-    "glamor": "^2.20.40",
-    "glamorous": "^4.11.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router": "^4.2.0",
-    "react-static": "^4.8.3"
+    "express": "^4.16.2",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.6.2"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/node": "^8.0.47",
-    "@types/react": "^16.0.18",
-    "@types/react-dom": "^16.0.2",
-    "@types/react-hot-loader": "^3.0.5",
-    "@types/react-router": "^4.0.16",
-    "convert-tsconfig-paths-to-webpack-aliases": "^0.9.2",
-    "eslint-config-react-tools": "1.x.x",
-    "serve": "^6.4.1",
-    "ts-loader": "^3.1.1",
-    "typescript": "^2.6.1"
+    "concurrently": "^3.5.0",
+    "@types/express": "^4.11.0"
   }
 }
