@@ -15,7 +15,7 @@ export default class Server {
     // Put all API endpoints under '/api'
     this.app.get('/api/hello', (req, res) => {
       res.json({
-          message: "Hello World!"
+          message: "Hello World!!"
       });
     })
 
