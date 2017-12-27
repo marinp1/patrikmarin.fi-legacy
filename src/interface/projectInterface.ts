@@ -1,6 +1,6 @@
 export enum ImageClassEnum {
-  'PORTRAIT',
-  'NO-BG'
+  'PORTRAIT' = 'PORTRAIT',
+  'NO_BG' = 'NO_BG',
 }
 
 export interface IThumbnail {
@@ -10,8 +10,10 @@ export interface IThumbnail {
     backgroundPosition: string;
 }
 
-export interface ILinks {
-    github: string;
+export interface ILink {
+    text: string;
+    url: string;
+    icon: string;
 }
 
 export interface IImage {
@@ -38,7 +40,7 @@ export interface ICurrentStatus {
 export interface IEntry {
     title: string;
     subtitle: string;
-    links: ILinks;
+    links: ILink[];
     what: IWhat;
     why: IWhy;
     currentStatus: ICurrentStatus;

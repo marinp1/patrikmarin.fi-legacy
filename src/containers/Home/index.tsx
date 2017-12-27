@@ -1,4 +1,5 @@
 import * as React from 'react'
+import glamorous from 'glamorous'
 import { getRouteProps } from 'react-static'
 //
 import * as IResume from '../../interface/resumeInterface'
@@ -7,16 +8,43 @@ import LandingComponent from './LandingComponent'
 import CurriculumComponent from './CurriculumComponent'
 import ProjectComponent from './ProjectComponent'
 
+import { colors, mediaQueries } from '../../styles';
 
 interface IMainPageProps {
   projects: IProject.IProject[];
   resume: IResume.IResume;
 }
 
+const Container = glamorous.div({
+  [mediaQueries.tablet]: {
+    marginBottom: '10rem',
+  },
+  '& section': {
+    [mediaQueries.tablet]: {
+      maxWidth: '80%',
+      margin: 'auto',
+    }
+  },
+  '& .columns': {
+    [mediaQueries.untilDesktop]: {
+      width: '100% !important',
+      marginLeft: '0 !important',
+    },
+  }
+});
+
 class MainPage extends React.Component<IMainPageProps, {}> {
   render() {
+
+    document.body.style.backgroundColor = colors.black
+    document.body.style.backgroundImage = `url(${require('./images/bg.jpg')})`
+    document.body.style.backgroundRepeat = 'no-repeat'
+    document.body.style.backgroundPosition = 'center center'
+    document.body.style.backgroundAttachment = 'fixed'
+    document.body.style.backgroundSize = 'cover'
+
     return(
-      <div>
+      <Container>
         <LandingComponent
           name={this.props.resume.basics.name}
           infoLabel={this.props.resume.basics.label}
@@ -34,7 +62,7 @@ class MainPage extends React.Component<IMainPageProps, {}> {
         <ProjectComponent
           projects={this.props.projects}
         />
-      </div>
+      </Container>
     )
   }
 }

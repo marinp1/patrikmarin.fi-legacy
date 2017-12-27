@@ -19,18 +19,22 @@
     "entry": {
       "title": "FB Network Analyzer",
       "subtitle": "Facebook network visualisation tool",
-      "links": {
-        "github": "https://github.com/marinp1/fb-network-analyser"
-      },
+      "links": [
+        {
+          "text": "Code on GitHub!",
+          "url": "https://github.com/marinp1/fb-network-analyser",
+          "icon": "fa-github-alt"
+        }
+      ],
       "what": {
         "text": "A Node.JS application for creating a 1.5-degree visualisation (links between you and your friends and also the links between friends who have friends in common) of your Facebook network. Uses web scraping with Puppeteer to gather data and D3.js for displaying the network.",
         "images": [
           {
-            "filename": "blaa",
+            "filename": "https://patrikmarin.fi/web/fb-network/resources/screencaps/network.png",
             "altText": "My Facebook network in October 2017.",
             "classes": [
               "PORTRAIT",
-              "NO-BG"
+              "NO_BG"
             ]
           }
         ]
@@ -82,7 +86,7 @@
     }
   },
   {
-    "id": "thumbnail",
+    "id": "mc-course-hider",
     "thumbnail": {
       "name": "MC Course Hider",
       "backgroundImage": "mccoursehider.png",

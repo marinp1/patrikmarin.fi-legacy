@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, Switch } from 'react-static'
+import { Router } from 'react-static'
 import Routes from 'react-static-routes'
 //
 
