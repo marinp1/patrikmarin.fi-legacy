@@ -75,6 +75,10 @@ const SegmentImageDescription = glamorous.p({
   fontSize: '80%',
 })
 
+const FooterContainer = glamorous.div({
+  marginTop: '20px',
+});
+
 function getImageClasses(classNames: ImageClassEnum[]): React.CSSProperties {
   let style: React.CSSProperties = {}
   classNames.forEach((name: ImageClassEnum) => {
@@ -146,6 +150,12 @@ const ProjectComponent: React.SFC<{project: IEntry}> = ({ project }) => (
         <DataSegment title="Why?" data={project.why}/>
         <DataSegment title="Current status" data={project.currentStatus}/>
       </ContentContainer>
+      <FooterContainer>
+        <NavigationLink href="/">
+          <i className="fa fa-angle-left fa-lg fa-fw"></i>
+          Back to menu
+        </NavigationLink>
+      </FooterContainer>
     </div>
   </Container>
 )
