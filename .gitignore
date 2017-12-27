@@ -9,8 +9,8 @@
 # production
 /build
 
-# old code
-/old
+# environment variables
+.env
 
 # misc
 .DS_Store

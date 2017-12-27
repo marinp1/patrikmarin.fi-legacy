@@ -1,6 +1,8 @@
 import * as express from 'express';
 import * as path from 'path';
 
+require('dotenv').config();
+
 export default class Server {
   private app = express();
 
