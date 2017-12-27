@@ -4,7 +4,7 @@
   "scripts": {
     "start-client": "cd src/client && yarn start",
     "watch-server": "cd src/server && yarn run watch",
-    "start": "cd src/server && yarn start",
+    "start": "cd src/server && yarn && yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn watch-server\" \"yarn start-client\"",
     "heroku-postbuild": "cd src/client && yarn --production=false && yarn run build"
   },
