@@ -6,7 +6,7 @@
     "server": "nodemon --watch 'server.ts' --exec 'ts-node' server.ts",
     "start": "ts-node server.ts",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "cd client && npm --production=false && npm run build"
+    "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
   },
   "dependencies": {
     "express": "^4.16.2",
