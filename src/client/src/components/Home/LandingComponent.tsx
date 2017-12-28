@@ -31,6 +31,7 @@ const Title = glamorous.h1({
   padding: 0,
   margin: 0,
   marginBottom: '2rem',
+  fontFamily: 'Lato, sans-serif',
 });
 
 const InfoLabel = glamorous.h6({

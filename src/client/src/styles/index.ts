@@ -19,10 +19,3 @@ export const colors = {
   mediumGray: '#DDD',
   lightGray: '#E1E1E1',
 };
-
-export const fonts = {
-  projectPage: {
-    title: '"Lato", sans-serif',
-    text: 'Open Sans", sans-serif',
-  },
-};

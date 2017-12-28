@@ -10,20 +10,11 @@ import NotFound from '../NotFound';
 import Loader from './Loader';
 
 import ContentfulAttribution from '../Misc/ContentfulAttribution';
-import { colors, fonts } from '../../styles';
+import { colors } from '../../styles';
 
 const Container = glamorous.div({
   marginTop: '30px',
   marginBottom: '20px',
-  '& h1, h2, h3, h4, h5, h6': {
-    fontFamily: fonts.projectPage.title,
-  },
-  '& p': {
-    fontFamily: fonts.projectPage.text,
-  },
-  '& a': {
-    fontFamily: fonts.projectPage.text,
-  },
 });
 
 const NavigationLink = glamorous.a({
@@ -246,7 +237,7 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
           <HeaderContainer>
             <div className="row">
               <div className="twelve columns">
-                <h1>{project.fields.title}</h1>
+                <h1 style={{ fontWeight: 'bold' }}>{project.fields.title}</h1>
                 <h5>{project.fields.subtitle}</h5>
                 <ExternalLinkContainer>
                   {project.fields.links &&
