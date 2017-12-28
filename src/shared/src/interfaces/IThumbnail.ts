@@ -10,4 +10,5 @@ export interface IThumbnailFields {
   image: IContentfulImage;
   backgroundColor: string;
   backgroundPosition: string;
+  technologies: string[];
 }

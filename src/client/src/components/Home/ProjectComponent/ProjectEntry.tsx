@@ -22,6 +22,7 @@ const ProjectTitle = glamorous.h6({
   margin: 0,
   lineHeight: '3.75rem',
   textTransform: 'uppercase',
+  fontSize: '90%',
 
   '& a': {
     color: 'inherit',
@@ -71,7 +72,7 @@ const TechonologyTagContainer = glamorous.div({
   paddingBottom: '0.5rem',
   borderBottom: '0.1rem solid #e1e1e1',
   borderRadius: '0.5rem 0.5rem 0 0',
-  fontSize: '90%',
+  fontSize: '80%',
 });
 
 const TechonologyTag = glamorous.div({
@@ -80,22 +81,26 @@ const TechonologyTag = glamorous.div({
   display: 'inline-block',
 });
 
-const TechonologyTags: React.SFC<{tags: string[]}> = ({ tags }) => (
-  <TechonologyTagContainer>
-      {tags.map((tag: string, i: number) => {
-        return (
-          <TechonologyTag key={i}>
-            {tags.length - 1 === i ? tag : `${tag} • `}
-          </TechonologyTag>
-        );
-      })}
-  </TechonologyTagContainer>
-);
+const TechonologyTags: React.SFC<{tags: string[]}> = ({ tags }) => {
+  if (tags.length === 0) {
+    return null;
+  }
+  return (
+    <TechonologyTagContainer>
+        {tags.map((tag: string, i: number) => {
+          return (
+            <TechonologyTag key={i}>
+              {tags.length - 1 === i ? tag : `${tag} • `}
+            </TechonologyTag>
+          );
+        })}
+    </TechonologyTagContainer>
+  );
+};
 
 const ProjectEntry: React.SFC<{project: IProjectFields}> = ({ project }) => {
-
-  const tags = ['HTML', 'CSS', 'TypeScript'];
-
+  const tags = project.thumbnail.fields.technologies
+    ? project.thumbnail.fields.technologies : [];
   return (
     <LinkComponent project={project}>
       <TechonologyTags tags={tags}/>
