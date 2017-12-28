@@ -1,5 +1,6 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
+import { Link } from 'react-router-dom';
 
 import { mediaQueries, colors } from '../../styles';
 import { IProjectFields } from 'shared/interfaces/IProject';
@@ -23,34 +24,38 @@ const ProjectContainer = glamorous.div({
   justifyContent: 'flex-start',
   alignContent: 'stretch',
   alignItems: 'stretch',
-});
 
-const Project = glamorous.div({
-  textAlign: 'center',
-  borderRadius: '1rem',
-  position: 'relative',
-  boxSizing: 'border-box',
-  border: `0.5rem solid ${colors.lightGray}`,
-  background: colors.white,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center center',
-  height: '60vw',
-  width: '100%',
-  marginBottom: '2rem',
-  [mediaQueries.mobile]: {
-    height: '29vw',
-    width: '46%',
-    marginRight: '2%',
-    marginBottom: '2%',
+  // Project elements are react-router link tags, style them here
+  '& a': {
+    textAlign: 'center',
+    borderRadius: '1rem',
+    position: 'relative',
+    boxSizing: 'border-box',
+    border: `0.5rem solid ${colors.lightGray}`,
+    background: colors.white,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    height: '60vw',
+    width: '100%',
+    marginBottom: '2rem',
+    [mediaQueries.mobile]: {
+      height: '29vw',
+      width: '46%',
+      marginRight: '2%',
+      marginBottom: '2%',
+    },
+    [mediaQueries.tablet]: {
+      height: '24vw',
+    },
+    [mediaQueries.desktop]: {
+      height: '18vw',
+      width: '31%',
+      marginRight: '2%',
+      marginBottom: '2%',
+    },
   },
-  [mediaQueries.tablet]: {
-    height: '24vw',
-  },
-  [mediaQueries.desktop]: {
-    height: '18vw',
-    width: '31%',
-    marginRight: '2%',
-    marginBottom: '2%',
+  '& a:hover': {
+    opacity: 0.8,
   },
 });
 
@@ -63,30 +68,45 @@ const ProjectInfo = glamorous.div({
   background: colors.white,
   borderTop: `1px solid ${colors.lightGray}`,
   borderRadius: '0 0 0.5rem 0.5rem',
+});
 
-  '& h6': {
+const ProjectTitle = glamorous.h6({
+  color: colors.black,
+  padding: 0,
+  margin: 0,
+  lineHeight: '3.75rem',
+  textTransform: 'uppercase',
+
+  '& a': {
+    color: 'inherit',
+    textDecoration: 'none',
+  },
+  '& a:hover': {
     color: colors.black,
-    padding: 0,
-    margin: 0,
-    lineHeight: '3.75rem',
-    textTransform: 'uppercase',
+    textDecoration: 'underline',
+  },
+  '& a:active': {
+    color: colors.lightGray,
   },
 });
 
 const ProjectEntry: React.SFC<{project: IProjectFields}> = ({ project }) => {
   const bgImg = `${project.thumbnail.fields.image.fields.file.url}`;
+  const href = project.directLink
+    ? project.directLink
+    : `/project/${project.id}`;
   return (
-    <Project id={project.id}
+    <Link to={href} id={project.id}
       style={{
         backgroundImage: `url(${bgImg})`,
         backgroundColor: project.thumbnail.fields.backgroundColor,
         backgroundPosition: project.thumbnail.fields.backgroundPosition,
       }}
     >
-    <ProjectInfo>
-      <h6>{project.thumbnail.fields.name}</h6>
-    </ProjectInfo>
-  </Project>
+      <ProjectInfo>
+        <ProjectTitle>{project.thumbnail.fields.name}</ProjectTitle>
+      </ProjectInfo>
+    </Link>
   );
 };
 

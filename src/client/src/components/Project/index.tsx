@@ -207,6 +207,9 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
   }
 
   render() {
+
+    document.body.style.background = '#fff';
+
     const project = this.state.entry;
 
     if (project === undefined) {
