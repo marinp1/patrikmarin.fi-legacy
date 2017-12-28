@@ -29,6 +29,9 @@ const NavigationLink = glamorous.a({
   ':hover': {
     textDecoration: 'underline',
   },
+  '& i': {
+    marginRight: '1rem',
+  },
 });
 
 const ExternalLinkContainer = glamorous.div({
@@ -167,7 +170,7 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
         <div className="container">
           <div>
             <NavigationLink href="/">
-              <i className="fa fa-angle-left fa-lg fa-fw"></i>
+              <i className="fa fa-angle-left fa-lg"></i>
               Back to menu
             </NavigationLink>
           </div>
@@ -181,7 +184,7 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
                     return (
                         <NavigationLink key={i}
                           href={link}>
-                          <i className={`fa ${link} fa-lg fa-fw`}></i>
+                          <i className={`fa ${link} fa-lg`}></i>
                           {link}
                         </NavigationLink>
                     );
@@ -210,7 +213,7 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
           <div className="row">
             <FooterContainer>
               <NavigationLink href="/">
-                <i className="fa fa-angle-left fa-lg fa-fw"></i>
+                <i className="fa fa-angle-left fa-lg"></i>
                 Back to menu
               </NavigationLink>
               <ContentfulAttribution/>

@@ -8,6 +8,7 @@ import App from './App';
 import './css/normalize.css';
 import './css/skeleton.css';
 import './css/app.css';
+import './fonts/font-awesome/css/font-awesome.min.css';
 
 ReactDOM.render(
   <BrowserRouter>
