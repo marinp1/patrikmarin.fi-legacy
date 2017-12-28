@@ -61,36 +61,34 @@ const LinkComponent: React.SFC<{project: IProjectFields}> = (props) => {
 };
 
 const TechonologyTagContainer = glamorous.div({
+  textAlign: 'right',
   textDecoration: 'none !important',
+  marginTop: '0.2rem',
+  marginRight: '0.2rem',
   position: 'absolute',
   top: 0,
-  left: 0,
   right: 0,
-  background: colors.white,
   color: colors.black,
-  paddingTop: '0.5rem',
-  paddingBottom: '0.5rem',
-  borderBottom: '0.1rem solid #e1e1e1',
-  borderRadius: '0.5rem 0.5rem 0 0',
   fontSize: '80%',
 });
 
 const TechonologyTag = glamorous.div({
-  padding: '0 0.2rem',
+  background: '#fff',
+  margin: '0.2rem',
+  border: '0.2rem solid #e1e1e1',
+  borderRadius: '0.5rem',
+  padding: '0 0.5rem',
   textDecoration: 'none !important',
   display: 'inline-block',
 });
 
 const TechonologyTags: React.SFC<{tags: string[]}> = ({ tags }) => {
-  if (tags.length === 0) {
-    return null;
-  }
   return (
     <TechonologyTagContainer>
         {tags.map((tag: string, i: number) => {
           return (
             <TechonologyTag key={i}>
-              {tags.length - 1 === i ? tag : `${tag} • `}
+              {tag}
             </TechonologyTag>
           );
         })}
