@@ -36,7 +36,7 @@ const ProjectTitle = glamorous.h6({
   },
 });
 
-const LinkComponent: React.SFC<{href: string, project: IProjectFields}> = (props) => {
+const LinkComponent: React.SFC<{project: IProjectFields}> = (props) => {
 
   const style = {
     backgroundImage: `url(${props.project.thumbnail.fields.image.fields.file.url})`,
@@ -44,26 +44,24 @@ const LinkComponent: React.SFC<{href: string, project: IProjectFields}> = (props
     backgroundPosition: props.project.thumbnail.fields.backgroundPosition,
   };
 
-  if (props.href.startsWith('/')) {
+  // If direct link is not defined, assume that entry content exists
+  if (!props.project.directLink) {
     return (
-      <Link to={props.href} id={props.project.id} style={style}>
+      <Link to={`/project/${props.project.id}`} id={props.project.id} style={style}>
         {props.children}
       </Link>
     );
   }
   return (
-    <a href={props.href} target="_blank" id={props.project.id} style={style}>
+    <a href={props.project.directLink} target="_blank" id={props.project.id} style={style}>
       {props.children}
     </a>
   );
 };
 
 const ProjectEntry: React.SFC<{project: IProjectFields}> = ({ project }) => {
-  const href = project.directLink
-    ? project.directLink
-    : `/project/${project.id}`;
   return (
-    <LinkComponent href={href} project={project}>
+    <LinkComponent project={project}>
       <ProjectInfo>
         <ProjectTitle>{project.thumbnail.fields.name}</ProjectTitle>
       </ProjectInfo>
