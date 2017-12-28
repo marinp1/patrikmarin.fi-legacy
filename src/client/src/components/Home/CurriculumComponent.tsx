@@ -89,6 +89,7 @@ const DescriptionHeader = glamorous.h6({
 
 const DescriptionSubtitle = glamorous.p({
   color: colors.black,
+  fontWeight: 'bold',
 });
 
 const DescriptionText = glamorous.p({

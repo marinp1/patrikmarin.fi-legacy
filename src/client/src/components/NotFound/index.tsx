@@ -24,6 +24,7 @@ const Subtitle = glamorous.h5({
   color: colors.lightGray,
   letterSpacing: '0.1rem',
   fontWeight: 'lighter',
+  fontFamily: '"Lato", "sans serif"',
 });
 
 const NotFound = () => {
