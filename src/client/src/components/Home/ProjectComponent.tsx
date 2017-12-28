@@ -10,9 +10,6 @@ const Container = glamorous.section({
   '& p': {
     color: colors.gray,
   },
-  [mediaQueries.tablet]: {
-    paddingBottom: '6rem !important',
-  },
 });
 
 const Title = glamorous.h6({
