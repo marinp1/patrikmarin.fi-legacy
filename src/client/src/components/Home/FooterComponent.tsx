@@ -7,12 +7,33 @@ const Container = glamorous.section({
   borderTop: `0.1rem solid ${colors.lightGray}`,
   background: colors.background,
   paddingTop: '2rem',
-  paddingBottom: '2.5rem',
+  paddingBottom: '2rem',
   '& p': {
     color: colors.gray,
   },
   [mediaQueries.tablet]: {
     marginBottom: '2rem !important',
+  },
+});
+
+const FooterContainer = glamorous.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+const PageSourceLink = glamorous.div({
+  '& i': {
+    marginRight: '1rem',
+  },
+  '& a': {
+    color: 'inherit',
+    textDecoration: 'none',
+  },
+  '& a:hover': {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    color: 'inherit',
   },
 });
 
@@ -22,7 +43,13 @@ class FooterComponent extends React.Component<{}, {}> {
       <Container>
         <div className="container">
           <div className="row">
-            <ContentfulAttribution/>
+            <FooterContainer>
+              <PageSourceLink>
+                <i className="fa fa-github fa-lg"/>
+                <a href="https://github.com/marinp1/patrikmarin.fi" target="_blank">Source</a>
+              </PageSourceLink>
+              <ContentfulAttribution/>
+            </FooterContainer>
           </div>
         </div>
       </Container>

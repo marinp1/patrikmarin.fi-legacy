@@ -102,9 +102,6 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
   profileSeparator = ' • ';
 
   render() {
-
-    document.title = 'Patrik Marin';
-
     return (
       <div style={{ height: 'calc(100vh - 8rem)' }}>
         <Container>
