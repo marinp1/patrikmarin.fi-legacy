@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { Link } from 'react-router-dom';
 
-import { mediaQueries, colors } from '../../styles';
+import { mediaQueries, colors } from '../../../styles';
 import { IProjectFields } from 'shared/interfaces/IProject';
 
 const Container = glamorous.section({

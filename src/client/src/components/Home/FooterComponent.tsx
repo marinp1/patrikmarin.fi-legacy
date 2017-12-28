@@ -13,6 +13,7 @@ const Container = glamorous.section({
   },
   [mediaQueries.tablet]: {
     marginBottom: '2rem !important',
+    borderRadius: '0 0 0.4rem 0.4rem',
   },
 });
 
