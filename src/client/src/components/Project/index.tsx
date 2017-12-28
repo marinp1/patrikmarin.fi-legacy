@@ -202,12 +202,14 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
         const project = projects.find(project => project.id === projectId);
         if (project && project.entry) {
           this.setState({ entry: project.entry });
+          document.title = project.entry.fields.title;
         }
       });
   }
 
   render() {
-
+    
+    document.title = 'Loading...';
     document.body.style.background = '#fff';
 
     const project = this.state.entry;
