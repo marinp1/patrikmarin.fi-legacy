@@ -6,7 +6,9 @@ import { mediaQueries, colors } from '../../styles';
 import { IProjectFields } from 'shared/interfaces/IProject';
 
 const Container = glamorous.section({
-  background: colors.background,
+  borderTop: `1px solid ${colors.lightGray}`,
+  paddingTop: '4rem',
+  background: colors.white,
   paddingBottom: '2rem',
   '& p': {
     color: colors.gray,
