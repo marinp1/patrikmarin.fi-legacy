@@ -135,7 +135,10 @@ class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
       <Container id="projects">
         <div className="container">
           <div className="row">
-            <Title>Projects</Title>
+            <Title>
+              <i className="fa fa-desktop" style={{ marginRight: '1rem' }}/>
+              Projects
+            </Title>
           </div>
           <ProjectContainer>
             {this.props.projects.map((project: IProjectFields, i: number) => {

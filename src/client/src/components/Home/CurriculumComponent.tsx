@@ -14,13 +14,21 @@ const Container = glamorous.section({
 
 const AboutContainer = glamorous.div({
   textAlign: 'justify',
-  paddingTop: '2rem',
+  marginTop: '1rem',
+  paddingTop: '3rem',
+  '& p': {
+    marginBottom: '3rem !important',
+  },
 });
 
 const Title = glamorous.h6({
   textTransform: 'uppercase',
+  marginBottom: '1.5rem !important',
   fontWeight: 'bold',
   color: colors.gray,
+  '& i': {
+    marginRight: '1rem',
+  },
 });
 
 const EntryContainer = glamorous.div({
@@ -30,9 +38,12 @@ const EntryContainer = glamorous.div({
 
 const EntryHeader = glamorous.h6({
   marginTop: '0.5rem !important',
-  marginBottom: '1rem !important',
+  marginBottom: '1.5rem !important',
   fontWeight: 'bold',
   textTransform: 'uppercase',
+  '& i': {
+    marginRight: '1rem',
+  },
 });
 
 const Entry = glamorous.div({
@@ -138,7 +149,10 @@ const ImageComponent: React.SFC<{image: any}> = ({ image }) => (
 
 const WorkExperience: React.SFC<{workplaces: IWork[]}> = ({ workplaces }) => (
   <EntryContainer>
-    <EntryHeader>Work Experience</EntryHeader>
+    <EntryHeader>
+      <i className="fa fa-briefcase"></i>
+      Work Experience
+    </EntryHeader>
     {workplaces.map((workplace: IWork, i: number) => {
       return (
         <Entry key={i}>
@@ -167,7 +181,10 @@ const WorkExperience: React.SFC<{workplaces: IWork[]}> = ({ workplaces }) => (
 
 const Education: React.SFC<{educations: IEducation[]}> = ({ educations }) => (
   <EntryContainer>
-    <EntryHeader>Education</EntryHeader>
+    <EntryHeader>
+      <i className="fa fa-graduation-cap"></i>
+      Education
+    </EntryHeader>
     {educations.map((education: IEducation, i: number) => {
       const description = education.area ?
         `${education.area}, ${education.institution}` :
@@ -205,7 +222,10 @@ const Education: React.SFC<{educations: IEducation[]}> = ({ educations }) => (
 
 const Competitions: React.SFC<{competitions: IAward[]}> = ({ competitions }) => (
   <EntryContainer>
-    <EntryHeader>Projects & Certificates</EntryHeader>
+    <EntryHeader>
+      <i className="fa fa-trophy"></i>
+      Projects & Certificates
+    </EntryHeader>
     {competitions.map((competition: IAward, i: number) => {
       const headerText = competition.awarder ? competition.awarder : competition.title;
       return (
@@ -232,7 +252,10 @@ const Competitions: React.SFC<{competitions: IAward[]}> = ({ competitions }) => 
 
 const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) => (
   <EntryContainer style={{ marginBottom: '3.2rem !important' }}>
-    <EntryHeader>Languages</EntryHeader>
+    <EntryHeader>
+      <i className="fa fa-globe"></i>
+      Languages
+    </EntryHeader>
     {languages.map((language: ILanguage, i: number) => {
       return (
         <TagEntry key={i}>
@@ -246,7 +269,10 @@ const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) => (
 
 const Skills: React.SFC<{skills: ISkill[]}> = ({ skills }) => (
   <EntryContainer style={{ marginBottom: '3.2rem !important' }}>
-    <EntryHeader>Skills</EntryHeader>
+    <EntryHeader>
+      <i className="fa fa-star"></i>
+      Skills
+    </EntryHeader>
     {skills.map((_: ISkill) => _.keywords.map((skill: string, i: number) => {
       return (
         <TagEntry key={_.name + i}>
@@ -279,7 +305,10 @@ class CurriculumComponent extends React.Component<CurriculumComponentProps, {}> 
           </div>
           <div className="row">
             <AboutContainer id="description" className="twelve columns">
-              <Title>ABOUT</Title>
+              <Title>
+                <i className="fa fa-user-circle"></i>
+                ABOUT
+              </Title>
               <p>{this.props.summary}</p>
             </AboutContainer>
           </div>
