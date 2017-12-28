@@ -6,6 +6,9 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { IProjectFields } from 'shared/interfaces/IProject';
 import { IEntry, IEntryImage } from 'shared/interfaces/IEntry';
 
+import NotFound from '../NotFound';
+import Loader from './Loader';
+
 import ContentfulAttribution from '../Misc/ContentfulAttribution';
 import { colors, fonts } from '../../styles';
 
@@ -183,12 +186,14 @@ function externalLinkMapper(linkString: string): IExternalLink | undefined {
 }
 
 interface IProjectState {
+  loading: boolean;
   entry: IEntry | undefined;
 }
 
 class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjectState> {
 
   state: IProjectState = {
+    loading: true,
     entry: undefined,
   };
 
@@ -200,25 +205,32 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
       .then(res => res.json())
       .then((projects: IProjectFields[]) => {
         const project = projects.find(project => project.id === projectId);
+        const loading = false;
         if (project && project.entry) {
-          this.setState({ entry: project.entry });
+          this.setState({ loading, entry: project.entry });
           document.title = project.entry.fields.title;
+        } else {
+          this.setState({ loading });
         }
       });
   }
 
   render() {
-    
-    document.title = 'Loading...';
-    document.body.style.background = '#fff';
+
+    document.body.style.background = '#FFF';
+
+    if (this.state.loading) {
+      return (
+        <Loader/>
+      );
+    }
 
     const project = this.state.entry;
 
+    // Return not found
     if (project === undefined) {
       return (
-        <div className="container">
-          <p>Loading...</p>
-        </div>
+        <NotFound/>
       );
     }
 
