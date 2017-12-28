@@ -5,6 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { IProjectFields } from 'shared/interfaces/IProject';
 import { IEntry, IEntryImage } from 'shared/interfaces/IEntry';
 
+import ContentfulAttribution from '../Misc/ContentfulAttribution';
 import { colors, fonts } from '../../styles';
 
 const Container = glamorous.div({
@@ -78,6 +79,9 @@ const SegmentImageDescription = glamorous.p({
 
 const FooterContainer = glamorous.div({
   marginTop: '20px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 });
 
 export enum ImageClassEnum {
@@ -203,12 +207,15 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
               images={project.fields.currentStatusImages}
             />
           </ContentContainer>
-          <FooterContainer>
-            <NavigationLink href="/">
-              <i className="fa fa-angle-left fa-lg fa-fw"></i>
-              Back to menu
-            </NavigationLink>
-          </FooterContainer>
+          <div className="row">
+            <FooterContainer>
+              <NavigationLink href="/">
+                <i className="fa fa-angle-left fa-lg fa-fw"></i>
+                Back to menu
+              </NavigationLink>
+              <ContentfulAttribution/>
+            </FooterContainer>
+          </div>
         </div>
       </Container>
     );

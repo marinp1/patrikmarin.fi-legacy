@@ -7,7 +7,7 @@ const Container = glamorous.section({
   borderTop: `0.1rem solid ${colors.lightGray}`,
   background: colors.background,
   paddingTop: '2rem',
-  paddingBottom: '2rem',
+  paddingBottom: '2.5rem',
   '& p': {
     color: colors.gray,
   },
