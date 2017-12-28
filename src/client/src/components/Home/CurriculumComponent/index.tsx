@@ -9,6 +9,8 @@ import ImageComponent from './ImageComponent';
 import { WorkExperience, Education, Competitions } from './EntryComponents/TimelineComponents';
 import { Languages, Skills } from './EntryComponents/TagComponents';
 
+const image = require('../images/cv_round_small_zoom.png');
+
 const Container = glamorous.section({
   paddingTop: '1rem',
   background: colors.background,
@@ -28,41 +30,42 @@ interface CurriculumComponentProps {
   competitions: IAward[];
   languages: ILanguage[];
   skills: ISkill[];
+  selectedSkills: string[];
+  handleSkillSelection: (skill: string) => void;
 }
 
-class CurriculumComponent extends React.Component<CurriculumComponentProps, {}> {
-  render() {
-
-    const image = require('../images/cv_round_small_zoom.png');
-
-    return (
-      <Container>
-        <div className="container">
-          <div className="row">
-            <ImageComponent image={image} altText={this.props.name}/>
+const CurriculumComponent: React.SFC<CurriculumComponentProps> = (props) => {
+  return (
+    <Container>
+      <div className="container">
+        <div className="row">
+          <ImageComponent image={image} altText={props.name}/>
+        </div>
+        <div className="row">
+          <AboutComponent title="About" summary={props.summary}/>
+        </div>
+        <div className="row">
+          <div className="seven columns">
+            <WorkExperience workplaces={props.workplaces}/>
+            <Education educations={props.educations}/>
           </div>
-          <div className="row">
-            <AboutComponent title="About" summary={this.props.summary}/>
-          </div>
-          <div className="row">
-            <div className="seven columns">
-              <WorkExperience workplaces={this.props.workplaces}/>
-              <Education educations={this.props.educations}/>
-            </div>
-            <div className="five columns">
-              <Competitions competitions={this.props.competitions}/>
-              <Languages languages={this.props.languages}/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="twelve columns">
-              <Skills skills={this.props.skills}/>
-            </div>
+          <div className="five columns">
+            <Competitions competitions={props.competitions}/>
+            <Languages languages={props.languages}/>
           </div>
         </div>
-      </Container>
-    );
-  }
-}
+        <div className="row">
+          <div className="twelve columns">
+            <Skills
+              skills={props.skills}
+              selectedSkills={props.selectedSkills}
+              handleClick={props.handleSkillSelection}
+            />
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
+};
 
 export default CurriculumComponent;

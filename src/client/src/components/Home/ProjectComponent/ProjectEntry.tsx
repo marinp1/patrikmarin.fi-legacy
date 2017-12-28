@@ -85,12 +85,15 @@ const TechonologyTag = glamorous.div({
   display: 'inline-block',
 });
 
-const TechonologyTags: React.SFC<{tags: string[]}> = ({ tags }) => {
+const TechonologyTags: React.SFC<{tags: string[], selectedSkills: string[]}> =
+({ tags, selectedSkills }) => {
   return (
     <TechonologyTagContainer>
         {tags.map((tag: string, i: number) => {
+          const style = (selectedSkills.indexOf(tag) !== -1) ?
+            { fontWeight: 'bold' } : {};
           return (
-            <TechonologyTag key={i}>
+            <TechonologyTag key={i} style={style}>
               {tag}
             </TechonologyTag>
           );
@@ -99,12 +102,20 @@ const TechonologyTags: React.SFC<{tags: string[]}> = ({ tags }) => {
   );
 };
 
-const ProjectEntry: React.SFC<{project: IProjectFields}> = ({ project }) => {
+const ProjectEntry: React.SFC<{project: IProjectFields, selectedSkills: string[]}> =
+({ project, selectedSkills }) => {
   const tags = project.thumbnail.fields.technologies
     ? project.thumbnail.fields.technologies : [];
+
+  const intersection = tags.filter(_ => selectedSkills.indexOf(_) !== -1);
+
+  if (selectedSkills.length !== 0 && intersection.length === 0) {
+    return null;
+  }
+
   return (
     <LinkComponent project={project}>
-      <TechonologyTags tags={tags}/>
+      <TechonologyTags tags={tags} selectedSkills={selectedSkills}/>
       <ProjectInfo>
         <ProjectTitle>{project.thumbnail.fields.name}</ProjectTitle>
       </ProjectInfo>

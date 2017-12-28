@@ -62,6 +62,7 @@ const ProjectContainer = glamorous.div({
 
 interface ProjectComponentProps {
   projects: IProjectFields[];
+  selectedSkills: string[];
 }
 
 class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
@@ -77,7 +78,8 @@ class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
           </div>
           <ProjectContainer>
             {this.props.projects.map((project: IProjectFields, i: number) => {
-              return <ProjectEntry key={i} project={project}/>;
+              return <ProjectEntry key={i} project={project}
+                selectedSkills={this.props.selectedSkills}/>;
             })}
           </ProjectContainer>
         </div>
