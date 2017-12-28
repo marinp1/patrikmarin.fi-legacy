@@ -10,7 +10,7 @@ const ProjectInfo = glamorous.div({
   left: 0,
   right: 0,
   margin: 'auto',
-  bottom: '-2rem',
+  bottom: '-1.75rem',
   textAlign: 'center',
 });
 
@@ -21,10 +21,11 @@ const ProjectTitle = glamorous.h6({
   padding: '0.5rem 1rem',
   margin: 0,
   textTransform: 'uppercase',
-  height: '2.5rem',
-  lineHeight: '2.5rem',
+  height: '2rem',
+  lineHeight: '2rem',
   fontSize: '80%',
   borderRadius: '0.5rem',
+  fontWeight: 'bold',
 
   '& a': {
     color: 'inherit',

@@ -40,12 +40,12 @@ const ProjectContainer = glamorous.div({
     backgroundPosition: 'center center',
     height: '60vw',
     width: '100%',
-    marginBottom: 'calc(2rem + 2.5rem)',
+    marginBottom: 'calc(2rem + 1rem)',
     [mediaQueries.mobile]: {
       height: '29vw',
       width: '46%',
       marginRight: '2%',
-      marginBottom: 'calc(2% + 2.5rem)',
+      marginBottom: 'calc(2% + 1rem)',
     },
     [mediaQueries.tablet]: {
       height: '24vw',
