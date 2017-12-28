@@ -85,12 +85,12 @@ const TechonologyTag = glamorous.div({
   display: 'inline-block',
 });
 
-const TechonologyTags: React.SFC<{tags: string[], selectedSkills: string[]}> =
-({ tags, selectedSkills }) => {
+const TechonologyTags: React.SFC<{tags: string[], selectedTechnologies: string[]}> =
+({ tags, selectedTechnologies }) => {
   return (
     <TechonologyTagContainer>
         {tags.map((tag: string, i: number) => {
-          const style = (selectedSkills.indexOf(tag.toLowerCase()) !== -1) ?
+          const style = (selectedTechnologies.indexOf(tag.toLowerCase()) !== -1) ?
             { fontWeight: 'bold' } : {};
           return (
             <TechonologyTag key={i} style={style}>
@@ -102,20 +102,20 @@ const TechonologyTags: React.SFC<{tags: string[], selectedSkills: string[]}> =
   );
 };
 
-const ProjectEntry: React.SFC<{project: IProjectFields, selectedSkills: string[]}> =
-({ project, selectedSkills }) => {
+const ProjectEntry: React.SFC<{project: IProjectFields, selectedTechnologies: string[]}> =
+({ project, selectedTechnologies }) => {
   const tags = project.thumbnail.fields.technologies
     ? project.thumbnail.fields.technologies : [];
 
-  const intersection = tags.filter(_ => selectedSkills.indexOf(_.toLowerCase()) !== -1);
+  const intersection = tags.filter(_ => selectedTechnologies.indexOf(_.toLowerCase()) !== -1);
 
-  if (selectedSkills.length !== 0 && intersection.length === 0) {
+  if (selectedTechnologies.length !== 0 && intersection.length === 0) {
     return null;
   }
 
   return (
     <LinkComponent project={project}>
-      <TechonologyTags tags={tags} selectedSkills={selectedSkills}/>
+      <TechonologyTags tags={tags} selectedTechnologies={selectedTechnologies}/>
       <ProjectInfo>
         <ProjectTitle>{project.thumbnail.fields.name}</ProjectTitle>
       </ProjectInfo>

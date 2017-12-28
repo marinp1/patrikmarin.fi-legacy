@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { colors } from '../../../styles';
 
-const SkillEntry = glamorous.div({
+const TechnologySelector = glamorous.div({
   cursor: 'pointer',
   ':hover': {
     opacity: 0.8,
@@ -21,49 +21,49 @@ const SkillEntry = glamorous.div({
   },
 });
 
-const SkillContainer = glamorous.div({
+const SelectorContainer = glamorous.div({
   position: 'relative',
   marginBottom: '4rem',
 });
 
 
-interface ISkillComponentProps {
-  skill: string;
+interface ISelectorComponentProps {
+  technology: string;
   selected: boolean;
   handleClick: (skill: string) => void;
 }
 
-const SkillComponent: React.SFC<ISkillComponentProps> = (props) => {
+const SelectorComponent: React.SFC<ISelectorComponentProps> = (props) => {
 
   const activeStyle = props.selected ? { fontWeight: 'bold' } : {};
 
   return (
-    <SkillEntry onClick={e => props.handleClick(props.skill)}>
-      <p style={activeStyle}>{props.skill}</p>
-    </SkillEntry>
+    <TechnologySelector onClick={e => props.handleClick(props.technology)}>
+      <p style={activeStyle}>{props.technology}</p>
+    </TechnologySelector>
   );
 };
 
-const Skills: React.SFC<{
-  skills: string[],
-  selectedSkills: string[],
+const TechnologySelectors: React.SFC<{
+  technologies: string[],
+  selectedTechnologies: string[],
   handleClick: (skill: string) => void;
 }> = (props) => {
   return (
-    <SkillContainer>
-      {props.skills.map((skill: string, i: number) => {
-        const selected = props.selectedSkills.indexOf(skill.toLowerCase()) !== -1;
+    <SelectorContainer>
+      {props.technologies.map((technology: string, i: number) => {
+        const selected = props.selectedTechnologies.indexOf(technology.toLowerCase()) !== -1;
         return (
-          <SkillComponent
+          <SelectorComponent
             key={i}
-            skill={skill}
+            technology={technology}
             selected={selected}
             handleClick={props.handleClick}
           />
         );
       })}
-    </SkillContainer>
+    </SelectorContainer>
   );
 };
 
-export default Skills;
+export default TechnologySelectors;

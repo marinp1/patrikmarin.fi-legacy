@@ -5,7 +5,7 @@ import { mediaQueries, colors } from '../../../styles';
 import { IProjectFields } from 'shared/interfaces/IProject';
 
 import ProjectEntry from './ProjectEntry';
-import Skills from './Skills';
+import TechnologySelectors from './TechnologySelectors';
 
 const Container = glamorous.section({
   borderTop: `1px solid ${colors.lightGray}`,
@@ -66,7 +66,7 @@ interface ProjectComponentProps {
 }
 
 interface ProjectComponentState {
-  selectedSkills: string[];
+  selectedTechnologies: string[];
 }
 
 class ProjectComponent extends React.Component<ProjectComponentProps, ProjectComponentState> {
@@ -74,22 +74,22 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
   constructor(props: ProjectComponentProps) {
     super(props);
     this.state = {
-      selectedSkills: [],
+      selectedTechnologies: [],
     };
 
-    this.handleSkillSelection = this.handleSkillSelection.bind(this); 
+    this.handleTechnologySelection = this.handleTechnologySelection.bind(this); 
   }
 
-  handleSkillSelection(skillName: string) {
-    const wasSelected = this.state.selectedSkills.indexOf(skillName.toLowerCase()) !== -1;
+  handleTechnologySelection(techName: string) {
+    const wasSelected = this.state.selectedTechnologies.indexOf(techName.toLowerCase()) !== -1;
     if (wasSelected) {
-      const filteredSkills = this.state.selectedSkills.filter((skill) => {
-        return skill !== skillName.toLowerCase();
+      const filteredTechs = this.state.selectedTechnologies.filter((skill) => {
+        return skill !== techName.toLowerCase();
       });
-      this.setState({ selectedSkills: filteredSkills });
+      this.setState({ selectedTechnologies: filteredTechs });
     } else {
-      const newSkills = this.state.selectedSkills.concat(skillName.toLowerCase());
-      this.setState({ selectedSkills: newSkills });
+      const newTechs = this.state.selectedTechnologies.concat(techName.toLowerCase());
+      this.setState({ selectedTechnologies: newTechs });
     }
   }
 
@@ -110,13 +110,15 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
             </Title>
           </div>
           <div className="row">
-            <Skills skills={tags} selectedSkills={this.state.selectedSkills}
-              handleClick={this.handleSkillSelection}/>
+            <TechnologySelectors
+              technologies={tags}
+              selectedTechnologies={this.state.selectedTechnologies}
+              handleClick={this.handleTechnologySelection}/>
           </div>
           <ProjectContainer>
             {this.props.projects.map((project: IProjectFields, i: number) => {
               return <ProjectEntry key={i} project={project}
-                selectedSkills={this.state.selectedSkills}/>;
+                selectedTechnologies={this.state.selectedTechnologies}/>;
             })}
           </ProjectContainer>
         </div>
