@@ -7,22 +7,24 @@ import { IProjectFields } from 'shared/interfaces/IProject';
 
 const ProjectInfo = glamorous.div({
   position: 'absolute',
-  height: '3.5rem',
   left: 0,
   right: 0,
-  bottom: 0,
-  background: colors.white,
-  borderTop: `1px solid ${colors.lightGray}`,
-  borderRadius: '0 0 0.5rem 0.5rem',
+  margin: 'auto',
+  bottom: '-2rem',
+  textAlign: 'center',
 });
 
 const ProjectTitle = glamorous.h6({
+  display: 'inline-block',
+  background: colors.lightGray,
   color: colors.black,
-  padding: 0,
+  padding: '0.5rem 1rem',
   margin: 0,
-  lineHeight: '3.75rem',
   textTransform: 'uppercase',
-  fontSize: '90%',
+  height: '2.5rem',
+  lineHeight: '2.5rem',
+  fontSize: '80%',
+  borderRadius: '0.5rem',
 
   '& a': {
     color: 'inherit',

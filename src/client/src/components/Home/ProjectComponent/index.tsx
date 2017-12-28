@@ -40,12 +40,12 @@ const ProjectContainer = glamorous.div({
     backgroundPosition: 'center center',
     height: '60vw',
     width: '100%',
-    marginBottom: '2rem',
+    marginBottom: 'calc(2rem + 2.5rem)',
     [mediaQueries.mobile]: {
       height: '29vw',
       width: '46%',
       marginRight: '2%',
-      marginBottom: '2%',
+      marginBottom: 'calc(2% + 2.5rem)',
     },
     [mediaQueries.tablet]: {
       height: '24vw',
@@ -53,8 +53,6 @@ const ProjectContainer = glamorous.div({
     [mediaQueries.desktop]: {
       height: '18vw',
       width: '31%',
-      marginRight: '2%',
-      marginBottom: '2%',
     },
   },
   '& a:hover': {
