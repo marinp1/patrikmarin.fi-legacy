@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as url from 'url';
 import glamorous from 'glamorous';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
@@ -130,6 +131,57 @@ const DataSegment: React.SFC<{
   </div>
 );
 
+interface IExternalLink {
+  link: string;
+  text: string;
+  icon: string;
+}
+
+function externalLinkMapper(linkString: string): IExternalLink | undefined {
+  const linkUrl = url.parse(linkString);
+  const host = linkUrl.hostname;
+  const urlhref = linkUrl.href;
+  // Override default linktext is linktext query parameter is given
+  const linktext = linkUrl.query !== null ?
+    new URLSearchParams(linkUrl.query as string).get('linktext') : null;
+
+  if (urlhref === undefined) {
+    return undefined;
+  }
+  if (host === undefined) {
+    return undefined;
+  }
+
+  // Remove query from url
+  let link = (linktext !== null) ?
+    urlhref.replace(`linktext=${linktext}`, '') : urlhref;
+
+  // Remove possible question mark from the end as well
+  if (link.endsWith('?')) link = link.substr(0, link.length - 1);
+
+  let text = (linktext !== null) ? linktext : '';
+  let icon = '';
+
+  switch (host) {
+    case 'github.com':
+      if (text === '') text = 'Code on GitHub!';
+      icon = 'fa-github-alt';
+      break;
+    case 'patrikmarin.fi':
+      if (text === '') text = 'Try it out!';
+      icon = 'fa-caret-right';
+      break;
+    default:
+      text = link;
+  }
+
+  return {
+    link,
+    text,
+    icon,
+  };
+}
+
 interface IProjectState {
   entry: IEntry | undefined;
 }
@@ -180,15 +232,21 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
                 <h1>{project.fields.title}</h1>
                 <h5>{project.fields.subtitle}</h5>
                 <ExternalLinkContainer>
-                  {project.fields.links && project.fields.links.map((link: string, i: number) => {
-                    return (
-                        <NavigationLink key={i}
-                          href={link}>
-                          <i className={`fa ${link} fa-lg`}></i>
-                          {link}
-                        </NavigationLink>
-                    );
-                  })}
+                  {project.fields.links &&
+                    project.fields.links.map((linkString: string, i: number) => {
+                      const link = externalLinkMapper(linkString);
+                      if (link !== undefined) {
+                        return (
+                          <NavigationLink key={i} href={link.link}>
+                            <i className={`fa ${link.icon} fa-lg`}></i>
+                            {link.text}
+                          </NavigationLink>
+                        );
+                      }
+                      console.log('Invalid link: ', linkString);
+                      return null;
+                    },
+                  )}
                 </ExternalLinkContainer>
               </div>
             </div>
