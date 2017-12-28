@@ -27,10 +27,10 @@ const ImageHolder = glamorous.div({
 });
 
 
-const ImageComponent: React.SFC<{image: any}> = ({ image }) => (
+const ImageComponent: React.SFC<{image: any, altText: string}> = ({ image, altText }) => (
   <ImageContainer>
     <ImageHolder>
-      <img src={image} alt={'Patrik Marin'}/>
+      <img src={image} alt={altText}/>
     </ImageHolder>
   </ImageContainer>
 );

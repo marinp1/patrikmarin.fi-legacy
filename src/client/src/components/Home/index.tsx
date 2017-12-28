@@ -76,6 +76,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
           email={this.state.resume.basics.email}
         />
         <CurriculumComponent
+          name={this.state.resume.basics.name}
           summary={this.state.resume.basics.summary}
           workplaces={this.state.resume.work}
           educations={this.state.resume.education}

@@ -21,6 +21,7 @@ const Container = glamorous.section({
 });
 
 interface CurriculumComponentProps {
+  name: string;
   summary: string;
   workplaces: IWork[];
   educations: IEducation[];
@@ -38,7 +39,7 @@ class CurriculumComponent extends React.Component<CurriculumComponentProps, {}> 
       <Container>
         <div className="container">
           <div className="row">
-            <ImageComponent image={image}/>
+            <ImageComponent image={image} altText={this.props.name}/>
           </div>
           <div className="row">
             <AboutComponent title="About" summary={this.props.summary}/>
