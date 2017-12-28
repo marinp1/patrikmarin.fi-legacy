@@ -128,7 +128,7 @@ const ImageHolder = glamorous.div({
   height: '10rem',
   padding: '1rem',
   margin: 'auto',
-  marginTop: '-6rem',
+  marginTop: '-7rem',
   background: colors.background,
   borderRadius: '50%',
   '& img': {

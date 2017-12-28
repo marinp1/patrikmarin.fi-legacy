@@ -7,7 +7,7 @@ export const mediaQueries = {
 
 export const colors = {
   landingPage: {
-    welcomeText: '#5a7888',
+    welcomeText: '#717396',
     foreground: '#fff',
     hoverForeground: '#E1E1E1',
     infolabel: '#e87373',

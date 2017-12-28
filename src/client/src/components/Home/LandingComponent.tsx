@@ -31,7 +31,7 @@ const Title = glamorous.h1({
   padding: 0,
   margin: 0,
   marginBottom: '2rem',
-  fontFamily: 'Lato, sans-serif',
+  fontFamily: 'Raleway, Lato, sans-serif',
 });
 
 const InfoLabel = glamorous.h6({
@@ -104,7 +104,7 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
 
   render() {
     return (
-      <div style={{ height: 'calc(100vh - 8rem)' }}>
+      <div style={{ height: 'calc(100vh - 7rem)' }}>
         <Container>
           <div className="container">
             <WelcomeText>HELLO AND WELCOME.</WelcomeText>
