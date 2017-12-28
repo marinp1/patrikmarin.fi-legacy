@@ -30,8 +30,6 @@ interface CurriculumComponentProps {
   competitions: IAward[];
   languages: ILanguage[];
   skills: ISkill[];
-  selectedSkills: string[];
-  handleSkillSelection: (skill: string) => void;
 }
 
 const CurriculumComponent: React.SFC<CurriculumComponentProps> = (props) => {
@@ -58,8 +56,6 @@ const CurriculumComponent: React.SFC<CurriculumComponentProps> = (props) => {
           <div className="twelve columns">
             <Skills
               skills={props.skills}
-              selectedSkills={props.selectedSkills}
-              handleClick={props.handleSkillSelection}
             />
           </div>
         </div>

@@ -12,12 +12,6 @@ import FooterComponent from './FooterComponent';
 import { colors, mediaQueries } from '../../styles';
 
 const resume: IResume.IResume = require('./resume.json');
-// Simply fetch all skills
-/*
-const allSkills = resume.skills.map((_: IResume.ISkill) => _.keywords.map((skill: string) => {
-  return skill;
-})).reduce((a, b) => a.concat(b), []);
-*/
 
 const Container = glamorous.div({
   [mediaQueries.tablet]: {
@@ -40,7 +34,6 @@ const Container = glamorous.div({
 interface IMainPageState {
   resume: IResume.IResume;
   projects: IProjectFields[];
-  selectedSkills: string[];
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -50,11 +43,9 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     this.state = {
       resume,
       projects: [],
-      selectedSkills: [],
     };
 
     this.getProjects = this.getProjects.bind(this);
-    this.handleSkillSelection = this.handleSkillSelection.bind(this);
   }
 
   getProjects(): void {
@@ -63,19 +54,6 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       .then((projects: IProjectFields[]) => {
         this.setState({ projects });
       });
-  }
-
-  handleSkillSelection(skillName: string) {
-    const wasSelected = this.state.selectedSkills.indexOf(skillName.toLowerCase()) !== -1;
-    if (wasSelected) {
-      const filteredSkills = this.state.selectedSkills.filter((skill) => {
-        return skill !== skillName.toLowerCase();
-      });
-      this.setState({ selectedSkills: filteredSkills });
-    } else {
-      const newSkills = this.state.selectedSkills.concat(skillName.toLowerCase());
-      this.setState({ selectedSkills: newSkills });
-    }
   }
 
   componentDidMount() {
@@ -110,12 +88,9 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
           competitions={this.state.resume.awards}
           languages={this.state.resume.languages}
           skills={this.state.resume.skills}
-          selectedSkills={this.state.selectedSkills}
-          handleSkillSelection={this.handleSkillSelection}
         />
         <ProjectComponent
           projects={this.state.projects}
-          selectedSkills={this.state.selectedSkills}
         />
         <FooterComponent/>
       </Container>

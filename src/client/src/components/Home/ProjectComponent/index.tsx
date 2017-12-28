@@ -5,6 +5,7 @@ import { mediaQueries, colors } from '../../../styles';
 import { IProjectFields } from 'shared/interfaces/IProject';
 
 import ProjectEntry from './ProjectEntry';
+import Skills from './Skills';
 
 const Container = glamorous.section({
   borderTop: `1px solid ${colors.lightGray}`,
@@ -62,11 +63,43 @@ const ProjectContainer = glamorous.div({
 
 interface ProjectComponentProps {
   projects: IProjectFields[];
+}
+
+interface ProjectComponentState {
   selectedSkills: string[];
 }
 
-class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
+class ProjectComponent extends React.Component<ProjectComponentProps, ProjectComponentState> {
+
+  constructor(props: ProjectComponentProps) {
+    super(props);
+    this.state = {
+      selectedSkills: [],
+    };
+
+    this.handleSkillSelection = this.handleSkillSelection.bind(this); 
+  }
+
+  handleSkillSelection(skillName: string) {
+    const wasSelected = this.state.selectedSkills.indexOf(skillName.toLowerCase()) !== -1;
+    if (wasSelected) {
+      const filteredSkills = this.state.selectedSkills.filter((skill) => {
+        return skill !== skillName.toLowerCase();
+      });
+      this.setState({ selectedSkills: filteredSkills });
+    } else {
+      const newSkills = this.state.selectedSkills.concat(skillName.toLowerCase());
+      this.setState({ selectedSkills: newSkills });
+    }
+  }
+
   render() {
+
+    // Create list of all unique technology tags
+    const tags = Array.from(new Set(this.props.projects.map((project: IProjectFields) => {
+      return project.thumbnail.fields.technologies;
+    }).reduce((a, b) => a.concat(b), []))).sort();
+
     return (
       <Container id="projects">
         <div className="container">
@@ -76,10 +109,14 @@ class ProjectComponent extends React.Component<ProjectComponentProps, {}> {
               Projects
             </Title>
           </div>
+          <div className="row">
+            <Skills skills={tags} selectedSkills={this.state.selectedSkills}
+              handleClick={this.handleSkillSelection}/>
+          </div>
           <ProjectContainer>
             {this.props.projects.map((project: IProjectFields, i: number) => {
               return <ProjectEntry key={i} project={project}
-                selectedSkills={this.props.selectedSkills}/>;
+                selectedSkills={this.state.selectedSkills}/>;
             })}
           </ProjectContainer>
         </div>
