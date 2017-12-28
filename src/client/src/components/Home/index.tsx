@@ -66,14 +66,14 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
   }
 
   handleSkillSelection(skillName: string) {
-    const wasSelected = this.state.selectedSkills.indexOf(skillName) !== -1;
+    const wasSelected = this.state.selectedSkills.indexOf(skillName.toLowerCase()) !== -1;
     if (wasSelected) {
       const filteredSkills = this.state.selectedSkills.filter((skill) => {
-        return skill !== skillName;
+        return skill !== skillName.toLowerCase();
       });
       this.setState({ selectedSkills: filteredSkills });
     } else {
-      const newSkills = this.state.selectedSkills.concat(skillName);
+      const newSkills = this.state.selectedSkills.concat(skillName.toLowerCase());
       this.setState({ selectedSkills: newSkills });
     }
   }

@@ -90,7 +90,7 @@ export const Skills: React.SFC<{
     <EntryContainer style={{ marginBottom: '3.2rem !important' }}>
       <EntryHeaderComponent icon="fa-star" text="Skills"/>
       {props.skills.map((_: ISkill) => _.keywords.map((skill: string, i: number) => {
-        const selected = props.selectedSkills.indexOf(skill) !== -1;
+        const selected = props.selectedSkills.indexOf(skill.toLowerCase()) !== -1;
         return (
           <SkillComponent
             key={_.name + i}

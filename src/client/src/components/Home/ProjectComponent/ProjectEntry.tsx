@@ -90,7 +90,7 @@ const TechonologyTags: React.SFC<{tags: string[], selectedSkills: string[]}> =
   return (
     <TechonologyTagContainer>
         {tags.map((tag: string, i: number) => {
-          const style = (selectedSkills.indexOf(tag) !== -1) ?
+          const style = (selectedSkills.indexOf(tag.toLowerCase()) !== -1) ?
             { fontWeight: 'bold' } : {};
           return (
             <TechonologyTag key={i} style={style}>
@@ -107,7 +107,7 @@ const ProjectEntry: React.SFC<{project: IProjectFields, selectedSkills: string[]
   const tags = project.thumbnail.fields.technologies
     ? project.thumbnail.fields.technologies : [];
 
-  const intersection = tags.filter(_ => selectedSkills.indexOf(_) !== -1);
+  const intersection = tags.filter(_ => selectedSkills.indexOf(_.toLowerCase()) !== -1);
 
   if (selectedSkills.length !== 0 && intersection.length === 0) {
     return null;
