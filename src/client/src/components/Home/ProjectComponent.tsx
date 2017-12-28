@@ -90,23 +90,38 @@ const ProjectTitle = glamorous.h6({
   },
 });
 
+const LinkComponent: React.SFC<{href: string, project: IProjectFields}> = (props) => {
+
+  const style = {
+    backgroundImage: `url(${props.project.thumbnail.fields.image.fields.file.url})`,
+    backgroundColor: props.project.thumbnail.fields.backgroundColor,
+    backgroundPosition: props.project.thumbnail.fields.backgroundPosition,
+  };
+
+  if (props.href.startsWith('/')) {
+    return (
+      <Link to={props.href} id={props.project.id} style={style}>
+        {props.children}
+      </Link>
+    );
+  }
+  return (
+    <a href={props.href} target="_blank" id={props.project.id} style={style}>
+      {props.children}
+    </a>
+  );
+};
+
 const ProjectEntry: React.SFC<{project: IProjectFields}> = ({ project }) => {
-  const bgImg = `${project.thumbnail.fields.image.fields.file.url}`;
   const href = project.directLink
     ? project.directLink
     : `/project/${project.id}`;
   return (
-    <Link to={href} id={project.id}
-      style={{
-        backgroundImage: `url(${bgImg})`,
-        backgroundColor: project.thumbnail.fields.backgroundColor,
-        backgroundPosition: project.thumbnail.fields.backgroundPosition,
-      }}
-    >
+    <LinkComponent href={href} project={project}>
       <ProjectInfo>
         <ProjectTitle>{project.thumbnail.fields.name}</ProjectTitle>
       </ProjectInfo>
-    </Link>
+    </LinkComponent>
   );
 };
 
