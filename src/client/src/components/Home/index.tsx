@@ -53,6 +53,10 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       .then(res => res.json())
       .then((projects: IProjectFields[]) => {
         this.setState({ projects });
+      })
+      .catch((err) => {
+       // Handle error
+        console.log('Couldn\'t fetch project data!');
       });
   }
 

@@ -203,6 +203,8 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
         } else {
           this.setState({ loading });
         }
+      }).catch((err) => {
+        this.setState({ loading: false });
       });
   }
 

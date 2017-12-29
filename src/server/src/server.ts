@@ -41,9 +41,7 @@ export default class Server {
               res.send(projects);
             });
           } else {
-            res.json({
-              message: [],
-            })
+            res.send([]);
           }
         }
       )
