@@ -1,5 +1,7 @@
 import * as React from 'react';
+import * as TransitionGroup from 'react-addons-transition-group';
 import glamorous from 'glamorous';
+import * as gsap from 'gsap';
 import { Link } from 'react-router-dom';
 
 import { colors } from '../../../styles';
@@ -28,27 +30,56 @@ const ProjectTitle = glamorous.h6({
   fontWeight: 'bold',
 });
 
-const ToolTipContainer = glamorous.div({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  bottom: 0,
-  background: colors.white,
-  borderTop: `0.1rem solid ${colors.lightGray}`,
-  '& p': {
-    fontSize: '80%',
-    marginLeft: '0.3rem',
-    marginRight: '0.3rem',
-    marginTop: '0.5rem',
-    marginBottom: '2rem',
-  },
+function getToolTipStyles(): React.CSSProperties {
+  const style: React.CSSProperties = {};
+  style.position = 'absolute';
+  style.left = 0;
+  style.right = 0;
+  style.bottom = 0;
+  style.background = colors.white;
+  style.borderTop = `0.1rem solid ${colors.lightGray}`;
+  return style;
+}
+
+const ToolTipText = glamorous.p({
+  fontSize: '80%',
+  marginLeft: '0.3rem',
+  marginRight: '0.3rem',
+  marginTop: '0.5rem',
+  marginBottom: '2rem',
 });
 
-const ToolTipComponent: React.SFC<{text: string}> = ({ text }) => (
-  <ToolTipContainer>
-    <p>{text}</p>
-  </ToolTipContainer>
-);
+class ToolTipComponent extends React.Component<{text: string}> {
+
+  private container: HTMLDivElement;
+
+  componentWillEnter(callback: any) {
+    const el = this.container;
+    gsap.TweenMax.fromTo(
+      el, 0.2,
+      { opacity: 0 },
+      { opacity: 1, onComplete: callback },
+    );
+  }
+
+  componentWillLeave(callback: any) {
+    const el = this.container;
+    gsap.TweenMax.fromTo(
+      el, 0.2,
+      { opacity: 1 },
+      { opacity: 0, onComplete: callback },
+    );
+  }
+
+  render() {
+    const style = getToolTipStyles();
+    return (
+      <div style={style} ref={(c: any) => this.container = c}>
+        <ToolTipText>{this.props.text}</ToolTipText>
+      </div>
+    );
+  }
+}
 
 interface ILinkState {
   showToolTip: boolean;
@@ -81,8 +112,10 @@ class LinkComponent extends React.Component<{project: IProjectFields}, ILinkStat
         <Link onMouseEnter={e => this.triggerTooltip(true)}
           onMouseLeave={e => this.triggerTooltip(false)} 
           to={`/project/${this.props.project.id}`} id={this.props.project.id} style={style}>
-          {this.state.showToolTip &&
-            <ToolTipComponent text={this.props.project.thumbnail.fields.description}/>}
+          <TransitionGroup>
+            {this.state.showToolTip &&
+              <ToolTipComponent text={this.props.project.thumbnail.fields.description}/>}
+          </TransitionGroup>
           {this.props.children}
         </Link>
       );
@@ -92,8 +125,10 @@ class LinkComponent extends React.Component<{project: IProjectFields}, ILinkStat
         onMouseLeave={e => this.triggerTooltip(false)} 
         href={this.props.project.directLink}
         target="_blank" id={this.props.project.id} style={style}>
-        {this.state.showToolTip &&
-          <ToolTipComponent text={this.props.project.thumbnail.fields.description}/>}
+        <TransitionGroup>
+          {this.state.showToolTip &&
+            <ToolTipComponent text={this.props.project.thumbnail.fields.description}/>}
+        </TransitionGroup>
         {this.props.children}
       </a>
     );
