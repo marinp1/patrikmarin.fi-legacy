@@ -3,7 +3,7 @@ require('dotenv').config();
 import * as express from 'express';
 import * as path from 'path';
 
-import { getContentfulClient, getProjects } from './fetch';
+import { getContentfulClient, getProjects } from './contentful';
 import { getRedisClient } from './redis';
 
 export default class Server {
