@@ -2,6 +2,10 @@
   "name": "patrimarin.fi",
   "version": "1.0.0",
   "scripts": {
+    "lint": "yarn run lint-server && yarn run lint-client",
+    "lint-client": "cd src/client && yarn run lint",
+    "lint-server": "cd src/server && yarn run lint",
+    "test": "yarn run lint",
     "start-client": "cd src/client && yarn start",
     "watch-server": "cd src/server && yarn run watch",
     "start": "cd src/server && yarn && yarn start",
@@ -12,6 +16,8 @@
     "typescript": "^2.6.2"
   },
   "devDependencies": {
-    "concurrently": "^3.5.0"
+    "concurrently": "^3.5.0",
+    "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.4.2"
   }
 }
