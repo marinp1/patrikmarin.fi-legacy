@@ -211,6 +211,7 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
   render() {
 
     document.body.style.background = '#FFF';
+    document.body.style.height = 'auto';
 
     if (this.state.loading) {
       return (

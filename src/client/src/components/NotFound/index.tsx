@@ -30,6 +30,7 @@ const Subtitle = glamorous.h5({
 const NotFound = () => {
   document.title = '404 - Page not found!';
   document.body.style.background = '#111';
+  document.body.style.height = 'auto';
   return (
     <Container>
       <Title>404 - PAGE NOT FOUND</Title>
