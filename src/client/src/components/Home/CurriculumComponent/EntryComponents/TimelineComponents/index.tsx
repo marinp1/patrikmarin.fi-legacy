@@ -23,6 +23,7 @@ export const WorkExperience: React.SFC<{workplaces: IWork[]}> = ({ workplaces })
             title={workplace.company}
             subtitle={workplace.position}
             text={workplace.summary}
+            textAlign={'justify'}
             last={workplaces.length - 1 === i}
           />
         </TimelineEntry>
@@ -46,6 +47,7 @@ export const Education: React.SFC<{educations: IEducation[]}> = ({ educations })
             title={education.studyType}
             subtitle={education.estGraduation ? `(est. grad. ${education.estGraduation})` : ''}
             text={description}
+            textAlign={'left'}
             last={educations.length - 1 === i}
             subtitleVisible={education.estGraduation !== undefined}
           />
@@ -68,6 +70,7 @@ export const Competitions: React.SFC<{competitions: IAward[]}> = ({ competitions
             title={headerText}
             subtitle={competition.title}
             text={competition.summary}
+            textAlign={'justify'}
             last={competitions.length - 1 === i}
             subtitleVisible={!!competition.awarder}
           />

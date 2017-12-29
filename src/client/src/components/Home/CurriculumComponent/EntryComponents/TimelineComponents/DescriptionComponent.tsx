@@ -21,12 +21,14 @@ const DescriptionSubtitle = glamorous.p({
 });
 
 const DescriptionText = glamorous.p({
-  textAlign: 'justify',
   fontSize: '90%',
 });
 
-const DescriptionTextComponent: React.SFC<{text: string, last: boolean}> = ({ text, last }) => {
-  const style = last ? {} : { marginBottom: '2rem' };
+const DescriptionTextComponent: React.SFC<{text: string, last: boolean, textAlign: string}> =
+({ text, last, textAlign }) => {
+  const style = last ?
+    { textAlign } :
+    { textAlign, marginBottom: '2rem' };
   return (
       <DescriptionText style={style}>{text}</DescriptionText>
   );
@@ -37,11 +39,12 @@ interface IDescriptionComponent {
   subtitle: string;
   text: string;
   last: boolean;
+  textAlign: string;
   subtitleVisible?: boolean;
 }
 
 const DescriptionComponent: React.SFC<IDescriptionComponent> =
-  ({ title, subtitle, subtitleVisible, text, last }) => (
+  ({ title, subtitle, subtitleVisible, text, last, textAlign }) => (
   <DescriptionContainer>
     <DescriptionHeader>{title}</DescriptionHeader>
     {subtitleVisible !== false &&
@@ -50,7 +53,7 @@ const DescriptionComponent: React.SFC<IDescriptionComponent> =
       </DescriptionSubtitle>
     }
     <DescriptionTextComponent last={last}
-      text={text}/>
+      text={text} textAlign={textAlign}/>
   </DescriptionContainer>
 );
 
