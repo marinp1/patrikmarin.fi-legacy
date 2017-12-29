@@ -28,6 +28,28 @@ const ProjectTitle = glamorous.h6({
   fontWeight: 'bold',
 });
 
+const ToolTipContainer = glamorous.div({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  bottom: 0,
+  background: colors.white,
+  borderTop: `0.1rem solid ${colors.lightGray}`,
+  '& p': {
+    fontSize: '80%',
+    marginLeft: '0.3rem',
+    marginRight: '0.3rem',
+    marginTop: '0.5rem',
+    marginBottom: '2rem',
+  },
+});
+
+const ToolTipComponent: React.SFC<{text: string}> = ({ text }) => (
+  <ToolTipContainer>
+    <p>{text}</p>
+  </ToolTipContainer>
+);
+
 interface ILinkState {
   showToolTip: boolean;
 }
@@ -53,14 +75,14 @@ class LinkComponent extends React.Component<{project: IProjectFields}, ILinkStat
       backgroundPosition:this.props.project.thumbnail.fields.backgroundPosition,
     };
 
-    console.log(this.state.showToolTip);
-
     // If direct link is not defined, assume that entry content exists
     if (!this.props.project.directLink) {
       return (
         <Link onMouseEnter={e => this.triggerTooltip(true)}
           onMouseLeave={e => this.triggerTooltip(false)} 
           to={`/project/${this.props.project.id}`} id={this.props.project.id} style={style}>
+          {this.state.showToolTip &&
+            <ToolTipComponent text={this.props.project.thumbnail.fields.description}/>}
           {this.props.children}
         </Link>
       );
@@ -70,6 +92,8 @@ class LinkComponent extends React.Component<{project: IProjectFields}, ILinkStat
         onMouseLeave={e => this.triggerTooltip(false)} 
         href={this.props.project.directLink}
         target="_blank" id={this.props.project.id} style={style}>
+        {this.state.showToolTip &&
+          <ToolTipComponent text={this.props.project.thumbnail.fields.description}/>}
         {this.props.children}
       </a>
     );
