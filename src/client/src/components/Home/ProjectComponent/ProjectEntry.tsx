@@ -26,42 +26,55 @@ const ProjectTitle = glamorous.h6({
   fontSize: '80%',
   borderRadius: '0.5rem',
   fontWeight: 'bold',
-
-  '& a': {
-    color: 'inherit',
-    textDecoration: 'none',
-  },
-  '& a:hover': {
-    color: colors.black,
-    textDecoration: 'underline',
-  },
-  '& a:active': {
-    color: colors.lightGray,
-  },
 });
 
-const LinkComponent: React.SFC<{project: IProjectFields}> = (props) => {
+interface ILinkState {
+  showToolTip: boolean;
+}
 
-  const style = {
-    backgroundImage: `url(${props.project.thumbnail.fields.image.fields.file.url})`,
-    backgroundColor: props.project.thumbnail.fields.backgroundColor,
-    backgroundPosition: props.project.thumbnail.fields.backgroundPosition,
-  };
+class LinkComponent extends React.Component<{project: IProjectFields}, ILinkState> {
 
-  // If direct link is not defined, assume that entry content exists
-  if (!props.project.directLink) {
+  constructor(props: {project: IProjectFields}) {
+    super(props);
+    this.state = {
+      showToolTip: false,
+    };
+    this.triggerTooltip = this.triggerTooltip.bind(this);
+  }
+
+  triggerTooltip(status: boolean) {
+    this.setState({ showToolTip: status });
+  }
+
+  render() {
+    const style = {
+      backgroundImage: `url(${this.props.project.thumbnail.fields.image.fields.file.url})`,
+      backgroundColor: this.props.project.thumbnail.fields.backgroundColor,
+      backgroundPosition:this.props.project.thumbnail.fields.backgroundPosition,
+    };
+
+    console.log(this.state.showToolTip);
+
+    // If direct link is not defined, assume that entry content exists
+    if (!this.props.project.directLink) {
+      return (
+        <Link onMouseEnter={e => this.triggerTooltip(true)}
+          onMouseLeave={e => this.triggerTooltip(false)} 
+          to={`/project/${this.props.project.id}`} id={this.props.project.id} style={style}>
+          {this.props.children}
+        </Link>
+      );
+    }
     return (
-      <Link to={`/project/${props.project.id}`} id={props.project.id} style={style}>
-        {props.children}
-      </Link>
+      <a onMouseEnter={e => this.triggerTooltip(true)}
+        onMouseLeave={e => this.triggerTooltip(false)} 
+        href={this.props.project.directLink}
+        target="_blank" id={this.props.project.id} style={style}>
+        {this.props.children}
+      </a>
     );
   }
-  return (
-    <a href={props.project.directLink} target="_blank" id={props.project.id} style={style}>
-      {props.children}
-    </a>
-  );
-};
+}
 
 const TechonologyTagContainer = glamorous.div({
   textAlign: 'right',
