@@ -25,8 +25,7 @@ Project data are fetched dynamically from [Contentful](https://www.contentful.co
 4. Run `yarn run dev` while in root directory
 
 ## Deployment
-Application is hosted on [Heroku](https://www.heroku.com/), simply creating a dyno with attached [Heroku Redis](https://elements.heroku.com/addons/heroku-redis) add-on and pushing to heroku will work fine.
+Application is hosted on [Heroku](https://www.heroku.com/), update to master branch will automatically trigger a new deployment. Simply creating a dyno with attached [Heroku Redis](https://elements.heroku.com/addons/heroku-redis) add-on and pushing to heroku will work fine.
 
 ## Todo
-* Push to heroku directly from master
 * Maybe some tests and CI
