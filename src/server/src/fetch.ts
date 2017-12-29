@@ -1,7 +1,6 @@
 import * as contentful from 'contentful';
 
-import { IProjectList, IProjectFields } from '../interfaces/IProject';
-
+import { IProjectList, IProjectFields } from './interfaces/IProject';
 
 export function getContentfulClient(): contentful.ContentfulClientApi | undefined {
 

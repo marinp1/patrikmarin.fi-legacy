@@ -2,33 +2,24 @@ require('dotenv').config();
 
 import * as express from 'express';
 import * as path from 'path';
-import * as url from 'url';
 
 import { getContentfulClient, getProjects } from './fetch';
+import { getRedisClient } from './redis';
 
 export default class Server {
   private app = express();
 
-  private isProduction: boolean = process.env.NODE_ENV === 'production';
-
-  private redisUrl = this.isProduction ?
-    url.parse(process.env.REDIS_URL as string) :
-    url.parse('http://localhost:6379');
-
-  private cache = require('express-redis-cache')({
-    expire: 120,
-    host: this.redisUrl.hostname,
-    port: this.redisUrl.port,
-    auth_pass: this.redisUrl.auth ? this.redisUrl.auth.split(':')[1] : undefined,
-  });
-
   private contentfulClient = getContentfulClient();
+  private isProduction: boolean = process.env.NODE_ENV === 'production';
+  private REDIS_URL = this.isProduction ? process.env.REDIS_URL as string : 'http://localhost:6379';
+  private cache = getRedisClient(this.REDIS_URL);
 
   constructor() {
     this.init();
   }
 
   init() {
+
     // Serve static files from the React app
     this.app.use(express.static(path.join(__dirname, '../../client/build')));
 

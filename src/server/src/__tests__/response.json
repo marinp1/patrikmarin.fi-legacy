@@ -1,0 +1,1791 @@
+[
+  {
+      "id": "duunitin",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "1xlvPdNND66CMAQQIS0o6c",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:17:12.634Z",
+              "updatedAt": "2017-12-29T13:28:13.499Z",
+              "revision": 3,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "Duunitin",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "5BF9kbNCdaySISM6UIKqEE",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:16:54.495Z",
+                      "updatedAt": "2017-12-27T08:16:54.495Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_Duunitin",
+                      "description": "Duunitin thumbnail image",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/5BF9kbNCdaySISM6UIKqEE/d3796986ce0d72a0b7051b7d266323a1/duunitin.jpg",
+                          "details": {
+                              "size": 211481,
+                              "image": {
+                                  "width": 2880,
+                                  "height": 1800
+                              }
+                          },
+                          "fileName": "duunitin.jpg",
+                          "contentType": "image/jpeg"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "center center",
+              "technologies": [
+                  "JavaScript",
+                  "Node.JS",
+                  "React",
+                  "Big data",
+                  "Machine learning"
+              ],
+              "description": "Junction 2017 productivity track winner, match job seekers to relevant positions based on their skills."
+          }
+      },
+      "directLink": "https://devpost.com/software/pat-reboot-your-career"
+  },
+  {
+      "id": "fb-network",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "1Z6P3LkBoc2WOCqiOgM2Ym",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:18:24.939Z",
+              "updatedAt": "2017-12-29T13:22:48.309Z",
+              "revision": 4,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "FB Network",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "4A4jnHPPGg0YyauQC4KsUI",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:18:19.521Z",
+                      "updatedAt": "2017-12-27T08:18:19.521Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_fb-network",
+                      "description": "FB Network thumbnail image",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/4A4jnHPPGg0YyauQC4KsUI/bc0c527de3e106c817794ccb7cd57d4d/network.jpg",
+                          "details": {
+                              "size": 117075,
+                              "image": {
+                                  "width": 1920,
+                                  "height": 1127
+                              }
+                          },
+                          "fileName": "network.jpg",
+                          "contentType": "image/jpeg"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "center center",
+              "technologies": [
+                  "JavaScript",
+                  "Node.JS",
+                  "D3.JS"
+              ],
+              "description": "Creates a 1.5-degree visualisation of your Facebook friends network."
+          }
+      },
+      "entry": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "3yzqMkbGeswGmQkO4eqS6Q",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:46:58.197Z",
+              "updatedAt": "2017-12-27T08:46:58.197Z",
+              "revision": 1,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectEntry"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "title": "FB Network Analyzer",
+              "subtitle": "Facebook network visualisation tool",
+              "links": [
+                  "https://github.com/marinp1/fb-network-analyser"
+              ],
+              "whatText": "A Node.JS application for creating a 1.5-degree visualisation (links between you and your friends and also the links between friends who have friends in common) of your Facebook network. Uses web scraping with Puppeteer to gather data and D3.js for displaying the network.",
+              "whatImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "6wdDNhEQRGcaGsaQ28ogks",
+                          "type": "Entry",
+                          "createdAt": "2017-12-27T08:46:12.955Z",
+                          "updatedAt": "2017-12-27T15:13:55.292Z",
+                          "revision": 2,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "6WWkRvR7oIWISIgAguWsm6",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-27T08:45:40.902Z",
+                                  "updatedAt": "2017-12-27T08:45:40.902Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "Image of my FB Network",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/6WWkRvR7oIWISIgAguWsm6/fc2a0cee0111afce854a5e9480e94a19/network.png",
+                                      "details": {
+                                          "size": 1205698,
+                                          "image": {
+                                              "width": 1196,
+                                              "height": 1174
+                                          }
+                                      },
+                                      "fileName": "network.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "My Facebook network in October 2017.",
+                          "classes": [
+                              "PORTRAIT",
+                              "NO_BG"
+                          ]
+                      }
+                  }
+              ],
+              "whyText": "I thought it would be interesting to see how my friends are connected to each other and if I could spot groups of people from the network. Since Facebook Graph API doesn't have the ability to list all your friends anymore, I had to resort to web scraping.",
+              "currentStatusText": "At the moment the application only displays your network and determines the node size from the node's degree. There's also the ability to search friends by name. I've implemented some basic network analysing functions to analyser.js-file, but haven't yet implemented these to the main application."
+          }
+      }
+  },
+  {
+      "id": "gtk-doxie-app",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "4E0wsgwnNYGsKue2umKcMw",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:19:31.536Z",
+              "updatedAt": "2017-12-29T13:22:02.262Z",
+              "revision": 4,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "GTK Doxie App",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "5iNt664hyEeG4mIEqMogmw",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:19:26.537Z",
+                      "updatedAt": "2017-12-27T08:19:26.537Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_GTK-Doxie-app",
+                      "description": "Thumbnail image of GTK Doxie App",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/5iNt664hyEeG4mIEqMogmw/211c6cc604b3a0fcacbdccc194bf6e7b/doxie.png",
+                          "details": {
+                              "size": 32422,
+                              "image": {
+                                  "width": 868,
+                                  "height": 838
+                              }
+                          },
+                          "fileName": "doxie.png",
+                          "contentType": "image/png"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "center center",
+              "technologies": [
+                  "Vala",
+                  "GTK",
+                  "CMake"
+              ],
+              "description": "A GTK implementation for Doxie scanner API."
+          }
+      },
+      "entry": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "5SW9Rgj960akI0uG8ywsIE",
+              "type": "Entry",
+              "createdAt": "2017-12-29T14:02:27.261Z",
+              "updatedAt": "2017-12-29T14:02:27.261Z",
+              "revision": 1,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectEntry"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "title": "GTK Doxie App",
+              "subtitle": "A GTK Doxie WiFi scanner sync tool",
+              "links": [
+                  "https://github.com/marinp1/doxie-gtk-app/"
+              ],
+              "whatText": "A GTK application written in Vala for fetching scans from Doxie WiFi scanners remotely, made specifically for elementary OS. The Idea is to make the application as easy to use as possible and also implement some post-processing utilities so it matches the capabilities of the official application. Uses SSDP for device discovery.",
+              "whatImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "1fngSKzXOCGysiAgEwMMWy",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T14:00:43.766Z",
+                          "updatedAt": "2017-12-29T14:00:43.766Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "3NHkwACp4IMgsSKC6ksuEc",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T14:00:36.956Z",
+                                  "updatedAt": "2017-12-29T14:00:36.956Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_gtk-doxie-app-no-scanners",
+                                  "description": "Image of GTK Doxie App no scanners",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/3NHkwACp4IMgsSKC6ksuEc/09e6148c8a32a2f366ad377fe081e572/no_scanner.png",
+                                      "details": {
+                                          "size": 32422,
+                                          "image": {
+                                              "width": 868,
+                                              "height": 838
+                                          }
+                                      },
+                                      "fileName": "no_scanner.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "Message is displayed if no scanners are available.",
+                          "classes": [
+                              "NO_BG"
+                          ]
+                      }
+                  }
+              ],
+              "whyText": "The Doxie scanners do not have an official WiFi application for Linux, which means that the scans should be fetched manually. This application tries to be that missing piece. As elementary OS is also an interesting OS, this is a good and simple application to practice development in Vala and GTK.",
+              "currentStatusText": "At the moment the application is capable of finding a remote scanner and listing the scans found in the scanner in a grid format. Those can also be exported as JPEG images, but those are currently only saved to a remote location. The application also asks for a password is one has been set for the scanner. Next step is to start implement post-processing and PDF generation.",
+              "currentStatusImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "naiPs8PQzeo6QMwWUqIai",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T14:02:11.599Z",
+                          "updatedAt": "2017-12-29T14:02:11.599Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "6oQXsi8yooECmysggeMuwq",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T14:02:04.278Z",
+                                  "updatedAt": "2017-12-29T14:02:04.278Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_gtk-doxie-app_selection-view",
+                                  "description": "Image of GTK Doxie App selection view",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/6oQXsi8yooECmysggeMuwq/dee645fac8c36bce3e825f9d43f6c588/selection_view.png",
+                                      "details": {
+                                          "size": 81145,
+                                          "image": {
+                                              "width": 868,
+                                              "height": 838
+                                          }
+                                      },
+                                      "fileName": "selection_view.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "Current selection view. Idea is to make the interface as functional and simple as possible.",
+                          "classes": [
+                              "NO_BG"
+                          ]
+                      }
+                  }
+              ]
+          }
+      }
+  },
+  {
+      "id": "playlistmixer",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "3YYPf6gQRGooeOUgsWW6oA",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:21:07.853Z",
+              "updatedAt": "2017-12-29T13:27:10.282Z",
+              "revision": 3,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "Playlistmixer",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "8qqSMa7lD2GCUouWAigMg",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:20:59.676Z",
+                      "updatedAt": "2017-12-27T08:20:59.676Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_playlistmixer",
+                      "description": "Thumbnail image of Playlistmixer",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/8qqSMa7lD2GCUouWAigMg/af38b85ba645edd66da0fba6a5b22418/playlistmixer.jpg",
+                          "details": {
+                              "size": 286404,
+                              "image": {
+                                  "width": 2880,
+                                  "height": 1800
+                              }
+                          },
+                          "fileName": "playlistmixer.jpg",
+                          "contentType": "image/jpeg"
+                      }
+                  }
+              },
+              "backgroundColor": "#000",
+              "backgroundPosition": "center center",
+              "technologies": [
+                  "HTML",
+                  "CSS",
+                  "JavaScript"
+              ],
+              "description": "Web application to combine Spotify playlists together."
+          }
+      },
+      "entry": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "3zjHFJjhxeaIyeU4MsWycc",
+              "type": "Entry",
+              "createdAt": "2017-12-29T13:46:12.905Z",
+              "updatedAt": "2017-12-29T13:46:12.906Z",
+              "revision": 1,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectEntry"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "title": "Playlistmixer",
+              "subtitle": "A Spotify web application",
+              "links": [
+                  "https://github.com/marinp1/PlaylistMixer",
+                  "https://patrikmarin.fi/web/playlistmixer/app/"
+              ],
+              "whatText": "PlaylistMixer is a responsive web application created with JavaScript that allows Spotify users to combine different playlists together. The end result is a new playlist without possible duplicates. My initial idea was to create a desktop plugin that would that play songs from multiple playlists, but since Spotify had killed its desktop plugin interface, the web application seemed as the only possibility.",
+              "whatImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "22FkQsi3Ws62CQ6m2K40Oo",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T13:44:13.266Z",
+                          "updatedAt": "2017-12-29T13:44:13.266Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "31onayEpT2MaG0c2KOQiWC",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T13:43:58.173Z",
+                                  "updatedAt": "2017-12-29T13:43:58.173Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_playlistmixer_desktop",
+                                  "description": "Image of Playlistmixer on desktop.",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/31onayEpT2MaG0c2KOQiWC/9e0b785ea4a0a6ba778fce87cf244788/desktop.png",
+                                      "details": {
+                                          "size": 1081243,
+                                          "image": {
+                                              "width": 2000,
+                                              "height": 1316
+                                          }
+                                      },
+                                      "fileName": "desktop.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "Desktop view.",
+                          "classes": [
+                              "NO_BG"
+                          ]
+                      }
+                  },
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "6v0NzfFTwciq8OEq0Sa88U",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T13:45:40.685Z",
+                          "updatedAt": "2017-12-29T13:45:40.685Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "4tBPNf6fluAcKGYcMy6SiO",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T13:45:35.797Z",
+                                  "updatedAt": "2017-12-29T13:45:35.797Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_playlistmixer_portrait",
+                                  "description": "Image of Playlistmixer on phone",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/4tBPNf6fluAcKGYcMy6SiO/07c9dc7b7e5c65d35adbf2393782d02b/mobile.png",
+                                      "details": {
+                                          "size": 795640,
+                                          "image": {
+                                              "width": 2000,
+                                              "height": 1730
+                                          }
+                                      },
+                                      "fileName": "mobile.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "The application also scales well on mobile devices.",
+                          "classes": [
+                              "PORTRAIT",
+                              "NO_BG"
+                          ]
+                      }
+                  }
+              ],
+              "whyText": "The idea for this application came from my own requirements. My Spotify playlists contain all different type of music and sometimes I'd like to listen multiple playlists at the same time. However, there isn't a possibility to do so currently in Spotify so I wanted to quicken the process for making those playlists.",
+              "currentStatusText": "At the moment the application is working fine and will probably do so until Spotify changes its API. I personally still use it time to time and try to keep in going, but it's not under active development."
+          }
+      }
+  },
+  {
+      "id": "turboclean",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "oy6qbeSHYWmk82g8ykEuy",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:22:05.734Z",
+              "updatedAt": "2017-12-29T13:29:14.301Z",
+              "revision": 4,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "Turboclean",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "6KMBzxMqic4qE6WSYEMyqA",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:21:57.634Z",
+                      "updatedAt": "2017-12-27T08:21:57.634Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_Turboclean",
+                      "description": "Thumbnail image of Turboclean",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/6KMBzxMqic4qE6WSYEMyqA/dbbcf0b8aad8c9b01c368d0255cae15b/turboclean.jpg",
+                          "details": {
+                              "size": 46595,
+                              "image": {
+                                  "width": 695,
+                                  "height": 494
+                              }
+                          },
+                          "fileName": "turboclean.jpg",
+                          "contentType": "image/jpeg"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "center top",
+              "technologies": [
+                  "JavaScript",
+                  "Node.JS",
+                  "React",
+                  "SQL"
+              ],
+              "description": "Our Junction 2016 project for improving building maintenance using IoT data."
+          }
+      },
+      "directLink": "https://devpost.com/software/turboclean"
+  },
+  {
+      "id": "infoboard",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "2LmjhyUonSi8m4iwkKCcMo",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:24:42.507Z",
+              "updatedAt": "2017-12-29T13:26:34.657Z",
+              "revision": 3,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "Infoboard",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "5zOqaY9s2cG6O2QS46Yy22",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:24:35.817Z",
+                      "updatedAt": "2017-12-27T08:24:35.817Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_Infoboard",
+                      "description": "Thumbnail image of Infoboard",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/5zOqaY9s2cG6O2QS46Yy22/21e698b2d7b6692278c65ae21c1aacfe/infoboard.jpg",
+                          "details": {
+                              "size": 748610,
+                              "image": {
+                                  "width": 1080,
+                                  "height": 1440
+                              }
+                          },
+                          "fileName": "infoboard.jpg",
+                          "contentType": "image/jpeg"
+                      }
+                  }
+              },
+              "backgroundColor": "#000",
+              "backgroundPosition": "center top",
+              "technologies": [
+                  "Java",
+                  "Python",
+                  "Maven",
+                  "Raspberry Pi"
+              ],
+              "description": "A small personal infoboard from an old monitor."
+          }
+      },
+      "entry": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "iCamRVODpQSMuo0OOomi8",
+              "type": "Entry",
+              "createdAt": "2017-12-29T14:06:40.036Z",
+              "updatedAt": "2017-12-29T14:06:40.036Z",
+              "revision": 1,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectEntry"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "title": "Infoboard",
+              "subtitle": "A personal information display",
+              "links": [
+                  "https://github.com/marinp1/java-infoboard"
+              ],
+              "whatText": "This is an information display created with Java and JavaFX that runs on Raspberry Pi connected to an old computer monitor. At the moment it displays current time and date, weather forecast from FMIs API, my future events from Google Calendar and Tasks and current indoor temperature measured with a sensor connected to the Pi.",
+              "whatImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "3NJmq2UmfC4koaUWcwuSeG",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T14:06:20.506Z",
+                          "updatedAt": "2017-12-29T14:06:20.506Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "40RsktmuCQ0m8moSUyW6Om",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T14:06:12.759Z",
+                                  "updatedAt": "2017-12-29T14:06:12.759Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_infoboard_screen",
+                                  "description": "Image of infoboard",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/40RsktmuCQ0m8moSUyW6Om/c58a3365bfca050f8ffa633e7ca7323f/real_20163012.jpg",
+                                      "details": {
+                                          "size": 2754684,
+                                          "image": {
+                                              "width": 1200,
+                                              "height": 1740
+                                          }
+                                      },
+                                      "fileName": "real_20163012.jpg",
+                                      "contentType": "image/jpeg"
+                                  }
+                              }
+                          },
+                          "altText": "Current status of the infoboard.",
+                          "classes": [
+                              "PORTRAIT"
+                          ]
+                      }
+                  }
+              ],
+              "whyText": "I've had an old computer monitor laying around with a broken stand and didn't really want to throw it out. One day I thought that it would be cool to have a personalized information display and the project seemed interesting challenge that would combine multiple different aspects. I could also make use of the Raspberry Pi I had bought recently.",
+              "currentStatusText": "This project is still under development and currently is working fine. In the future, I'd like to utilize the bluetooth-functionality of the RaspberryPi and create an Android application that could be used to control the display as it doesn't have a touchscreen. The display also needs a new frame and it needs to dim and shut down according to light levels and time of day."
+          }
+      }
+  },
+  {
+      "id": "mc-course-hider",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "54W10wD3PyokQ86MioEI6C",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:26:06.875Z",
+              "updatedAt": "2017-12-29T13:26:08.581Z",
+              "revision": 3,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "MC Course Hider",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "4NEMkj249iu2Ae86G84qw4",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:25:57.892Z",
+                      "updatedAt": "2017-12-27T08:25:57.892Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_MC-course-hider",
+                      "description": "Thumbnail image of MC Course Hider",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/4NEMkj249iu2Ae86G84qw4/2ce4bb0f73e536dc3557ec3f7483a005/mccoursehider.png",
+                          "details": {
+                              "size": 518406,
+                              "image": {
+                                  "width": 1280,
+                                  "height": 800
+                              }
+                          },
+                          "fileName": "mccoursehider.png",
+                          "contentType": "image/png"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "right top",
+              "technologies": [
+                  "HTML",
+                  "CSS",
+                  "JavaScript"
+              ],
+              "description": "A Chrome extension to hide unwanted courses in the MyCourses portal."
+          }
+      },
+      "entry": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "4RlMi9KS8gOksICo2YiSqO",
+              "type": "Entry",
+              "createdAt": "2017-12-29T13:54:10.279Z",
+              "updatedAt": "2017-12-29T13:54:10.279Z",
+              "revision": 1,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectEntry"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "title": "MyCourses Course Hider",
+              "subtitle": "A Google Chrome Extension",
+              "links": [
+                  "https://github.com/marinp1/mc-coursehider"
+              ],
+              "whatText": "MyCourses Course Hider is exactly what it says. It is pretty quickly built Google Chrome application that allows students to hide their courses from the Aalto University's course portal. At its highest it gathered over 150 users with just word-of-mouth marketing.",
+              "whatImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "202VXvX8m0moCmeGK0WwEW",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T13:51:27.034Z",
+                          "updatedAt": "2017-12-29T13:51:27.034Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "2J5jLp2MWcGCWkmCgGIEM6",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T13:51:19.280Z",
+                                  "updatedAt": "2017-12-29T13:51:19.280Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_mc-course-hider",
+                                  "description": "Image of MC Course Hider",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/2J5jLp2MWcGCWkmCgGIEM6/2ac39b47ca04604992b08b6f11e15c0b/full-view.png",
+                                      "details": {
+                                          "size": 518406,
+                                          "image": {
+                                              "width": 1280,
+                                              "height": 800
+                                          }
+                                      },
+                                      "fileName": "full-view.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "Main view of the extension. The hidden courses are visible when the user clicks the extension icon visible in the address bar."
+                      }
+                  }
+              ],
+              "whyText": "I created the extension because I was annoyed that courses that were already over were still visible on the main site, making it very cluttered and annoying to use. The existing way of hiding the courses was hard and unintuitive so I wanted to create a more user-friendly experience.",
+              "currentStatusText": "The project is now discontinued as there was an update to MyCourses which finally implements this feature. Funnily enough (coincedence or not), from UI standpoint the new way to hide courses matches my solution pretty much exactly.",
+              "currentStatusImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "6Mqc7TcCRiqUIUk8k4MWaq",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T13:52:51.252Z",
+                          "updatedAt": "2017-12-29T13:52:51.252Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "3rh88DMLUQuSkwgm8SycMC",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T13:52:45.505Z",
+                                  "updatedAt": "2017-12-29T13:52:45.505Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_of_mc-course-hider_my-solution",
+                                  "description": "Image of MC Course Hider my solution",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/3rh88DMLUQuSkwgm8SycMC/59c67aeee9bd559b50127186045d008f/course-hide.png",
+                                      "details": {
+                                          "size": 15281,
+                                          "image": {
+                                              "width": 526,
+                                              "height": 85
+                                          }
+                                      },
+                                      "fileName": "course-hide.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "My solution"
+                      }
+                  },
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "GJ4tVGqpSoWoa4smM6M4C",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T13:54:05.680Z",
+                          "updatedAt": "2017-12-29T13:54:05.680Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "24gUnx9UGkgUG8YQCEMAMY",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T13:53:58.917Z",
+                                  "updatedAt": "2017-12-29T13:53:58.917Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_of_mc-course-hider_current_way",
+                                  "description": "Image of MC Course Hider Current way",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/24gUnx9UGkgUG8YQCEMAMY/7c121ac6395856d42cc40928eddbc019/current-way.png",
+                                      "details": {
+                                          "size": 4528,
+                                          "image": {
+                                              "width": 627,
+                                              "height": 50
+                                          }
+                                      },
+                                      "fileName": "current-way.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "The current way"
+                      }
+                  }
+              ]
+          }
+      }
+  },
+  {
+      "id": "ruokalistat",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "2m28Wh9sEcGwOmOMayMOGq",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:27:46.343Z",
+              "updatedAt": "2017-12-29T13:25:33.055Z",
+              "revision": 3,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "Ruokalista",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "2tHu2iNTmwig488Kkc24KW",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:27:20.712Z",
+                      "updatedAt": "2017-12-27T08:27:20.712Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_Ruokalistat",
+                      "description": "Thumbnail image of Ruokalistat",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/2tHu2iNTmwig488Kkc24KW/5ab45dc0183a7d95993b944147828252/ruokalistat.png",
+                          "details": {
+                              "size": 252582,
+                              "image": {
+                                  "width": 2880,
+                                  "height": 1650
+                              }
+                          },
+                          "fileName": "ruokalistat.png",
+                          "contentType": "image/png"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "left top",
+              "technologies": [
+                  "HTML",
+                  "CSS",
+                  "JavaScript",
+                  "PHP"
+              ],
+              "description": "A small website to check menus for student restaurants in Otaniemi area."
+          }
+      },
+      "entry": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "5e5hJ9Ijegw2AoAEe8A4sY",
+              "type": "Entry",
+              "createdAt": "2017-12-29T14:10:52.953Z",
+              "updatedAt": "2017-12-29T14:10:52.953Z",
+              "revision": 1,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectEntry"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "title": "Ruokalistat",
+              "subtitle": "A website to find where to eat lunch today in Otaniemi",
+              "links": [
+                  "https://patrikmarin.fi/web/ruokalista/app/"
+              ],
+              "whatText": "Ruokalistat is a responsive website which displays the menus from most restaurants in Otaniemi in order to find the most appealing choice easily. Created with PHP and JavaScript, the application downloads the menus each day on the first visit to a MySQL database from which it is then fetched when one enters the site. It quickly gained some popularity and had in its peak over 200 weekly users.",
+              "whatImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "4BS3hP1DscO4mU4MiCyqGm",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T14:08:43.624Z",
+                          "updatedAt": "2017-12-29T14:08:43.624Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "3otI0Mx2f6i0OCO2AcGCaA",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T14:08:37.572Z",
+                                  "updatedAt": "2017-12-29T14:08:37.572Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_ruokalistat_mobile",
+                                  "description": "Image of ruokalistat on mobile",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/3otI0Mx2f6i0OCO2AcGCaA/ddadabec8cdb19d2547bf71925fffc33/new_mobile.png",
+                                      "details": {
+                                          "size": 320919,
+                                          "image": {
+                                              "width": 2000,
+                                              "height": 1808
+                                          }
+                                      },
+                                      "fileName": "new_mobile.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "Created mobile first, it allows easy browsing and comparing. The earlier version had a swipe mechanism for browsing on mobile, but it was discarded as it didn't work correctly on some phones.",
+                          "classes": [
+                              "PORTRAIT",
+                              "NO_BG"
+                          ]
+                      }
+                  },
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "jX2zh73Mw888WwUSckWGw",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T14:10:00.464Z",
+                          "updatedAt": "2017-12-29T14:10:00.464Z",
+                          "revision": 1,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "5Az4RjqLcWYaOwgssCuc0g",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T14:09:57.950Z",
+                                  "updatedAt": "2017-12-29T14:09:57.950Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_ruokalistat_desktop",
+                                  "description": "Image of ruokalistat on desktop",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/5Az4RjqLcWYaOwgssCuc0g/e8f695c4b9c00732f6dc5e9c2d0e8431/new_desktop.png",
+                                      "details": {
+                                          "size": 444213,
+                                          "image": {
+                                              "width": 2000,
+                                              "height": 1700
+                                          }
+                                      },
+                                      "fileName": "new_desktop.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "On desktop, the website has always listed the restaurants in a big list. In the latest version, a selection dropdrown was added for easier selection. A possibility to choose the day was also planned but never implemented.",
+                          "classes": [
+                              "NO_BG"
+                          ]
+                      }
+                  }
+              ],
+              "whyText": "In early 2015 when this was created all the sites which show daily menus of restaurants were almost unusable on mobile phones, so I wanted to create a website which would be not just easy but also fast to use. As I had for some time at the moment wanted to create a web app, this seemed easy enough project to start with.",
+              "currentStatusText": "This project is now discontinued, because other great websites and applications, which have been created with more care, have been created to tackle the same issue. But you can still browse the static snapshot, no javascript functionality on the page though."
+          }
+      }
+  },
+  {
+      "id": "tg-bots",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "2WN8YvqZmw88e0MGU6yA8g",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:28:47.180Z",
+              "updatedAt": "2017-12-29T13:24:04.062Z",
+              "revision": 3,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "Telegram Bots",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "5tAN4yUj0kSI4gGMmo0QY",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:28:35.675Z",
+                      "updatedAt": "2017-12-27T08:28:35.675Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_TG-bots",
+                      "description": "Thumbnail image of Telegram Bots",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/5tAN4yUj0kSI4gGMmo0QY/746d1bc3d96f8664ae52170557c57caf/tgbots.jpg",
+                          "details": {
+                              "size": 125871,
+                              "image": {
+                                  "width": 1789,
+                                  "height": 1586
+                              }
+                          },
+                          "fileName": "tgbots.jpg",
+                          "contentType": "image/jpeg"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "center top",
+              "technologies": [
+                  "Scala"
+              ],
+              "description": "I've also made a few Telegram bots."
+          }
+      },
+      "entry": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "3KKHhWzA0wIAGQ22Wo02Gi",
+              "type": "Entry",
+              "createdAt": "2017-12-29T14:16:27.196Z",
+              "updatedAt": "2017-12-29T14:16:27.196Z",
+              "revision": 1,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectEntry"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "title": "Telegram bots",
+              "subtitle": "Telegram bots for answering simple questions",
+              "links": [
+                  "https://github.com/marinp1/alkofinder-telegrambot?linktext=Alkofinder",
+                  "https://github.com/marinp1/otasubi-bot?linktext=Otasubi"
+              ],
+              "whatText": "Thus far I've created two bots for Telegram. The first one, Otasubibot (@otasubi_bot) is a simple bot that answers a simple question common in the student life: what is Today's Sub in Subway? The second bot, Alkofinder (@alkofinder_bot) is a bit more complicated. It helps the users find Alkos with multiple different ways. All the bots are created in Scala and are running on my Raspberry Pi.",
+              "whatImages": [
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "35fpSrlugoSMMQGW6Yc4e4",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T14:14:44.975Z",
+                          "updatedAt": "2017-12-29T14:30:41.705Z",
+                          "revision": 2,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "3qTrWOOWi4I8EeGm6AKcQo",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T14:14:38.187Z",
+                                  "updatedAt": "2017-12-29T14:14:38.187Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_tg-bots_alkofinder-location",
+                                  "description": "Image of Alkofinder by location",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/3qTrWOOWi4I8EeGm6AKcQo/6b3065c9a038c720c4631f2879a362c9/alkobot_location.png",
+                                      "details": {
+                                          "size": 985312,
+                                          "image": {
+                                              "width": 1034,
+                                              "height": 1904
+                                          }
+                                      },
+                                      "fileName": "alkobot_location.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "Given location, the Alkobot will return the three closest Alkos.",
+                          "classes": [
+                              "PORTRAIT",
+                              "NO_BG",
+                              "HALF_WIDTH"
+                          ]
+                      }
+                  },
+                  {
+                      "sys": {
+                          "space": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "Space",
+                                  "id": "7qqo1q66ojom"
+                              }
+                          },
+                          "id": "4VJlhxDPRKkui6IgSEGmYa",
+                          "type": "Entry",
+                          "createdAt": "2017-12-29T14:16:00.781Z",
+                          "updatedAt": "2017-12-29T14:30:50.868Z",
+                          "revision": 2,
+                          "contentType": {
+                              "sys": {
+                                  "type": "Link",
+                                  "linkType": "ContentType",
+                                  "id": "projectEntryImage"
+                              }
+                          },
+                          "locale": "fi-FI"
+                      },
+                      "fields": {
+                          "image": {
+                              "sys": {
+                                  "space": {
+                                      "sys": {
+                                          "type": "Link",
+                                          "linkType": "Space",
+                                          "id": "7qqo1q66ojom"
+                                      }
+                                  },
+                                  "id": "2ZdLJbJ7Ko4EUAAcQSuaqG",
+                                  "type": "Asset",
+                                  "createdAt": "2017-12-29T14:15:55.167Z",
+                                  "updatedAt": "2017-12-29T14:15:55.167Z",
+                                  "revision": 1,
+                                  "locale": "fi-FI"
+                              },
+                              "fields": {
+                                  "title": "img_tg-bots_alkofinder_name",
+                                  "description": "Image of Alkofinder using location name",
+                                  "file": {
+                                      "url": "//images.contentful.com/7qqo1q66ojom/2ZdLJbJ7Ko4EUAAcQSuaqG/4f0de9295a489ea8fc5dc46102b36012/alkobot_placename.png",
+                                      "details": {
+                                          "size": 1016013,
+                                          "image": {
+                                              "width": 1034,
+                                              "height": 1904
+                                          }
+                                      },
+                                      "fileName": "alkobot_placename.png",
+                                      "contentType": "image/png"
+                                  }
+                              }
+                          },
+                          "altText": "User can also search Alkos using a part of location name.",
+                          "classes": [
+                              "PORTRAIT",
+                              "NO_BG",
+                              "HALF_WIDTH"
+                          ]
+                      }
+                  }
+              ],
+              "whyText": "Otasubi bot was created because I noticed that our group chat had almost every day the same question: What is today's sub? The Alkofinder bot was created mostly just because I thought it might be interesting to create one and explore multiple different aspects that Telegram bots support. It has, however, proved itself useful at least few times.",
+              "currentStatusText": "Otasubibot: Not running anymore, since other easy way to access the daily sub has been created. \nAlkobot: Sadly Alkobot is not functioning anymore, as Alko changed their website quite a lot which broke the web scraping process."
+          }
+      }
+  },
+  {
+      "id": "club-afterski",
+      "thumbnail": {
+          "sys": {
+              "space": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "Space",
+                      "id": "7qqo1q66ojom"
+                  }
+              },
+              "id": "58ny3ZPgkEMOc22Y2wwcIU",
+              "type": "Entry",
+              "createdAt": "2017-12-27T08:29:51.452Z",
+              "updatedAt": "2017-12-29T13:23:18.923Z",
+              "revision": 3,
+              "contentType": {
+                  "sys": {
+                      "type": "Link",
+                      "linkType": "ContentType",
+                      "id": "projectThumbnail"
+                  }
+              },
+              "locale": "fi-FI"
+          },
+          "fields": {
+              "name": "Club Afterski",
+              "image": {
+                  "sys": {
+                      "space": {
+                          "sys": {
+                              "type": "Link",
+                              "linkType": "Space",
+                              "id": "7qqo1q66ojom"
+                          }
+                      },
+                      "id": "57zyB5qRxmcc0w62OciGeW",
+                      "type": "Asset",
+                      "createdAt": "2017-12-27T08:29:38.798Z",
+                      "updatedAt": "2017-12-27T08:29:38.798Z",
+                      "revision": 1,
+                      "locale": "fi-FI"
+                  },
+                  "fields": {
+                      "title": "Thumbnail_img_Club-Afterski",
+                      "description": "Thumbnail image of Club Afterski",
+                      "file": {
+                          "url": "//images.contentful.com/7qqo1q66ojom/57zyB5qRxmcc0w62OciGeW/040afc63b40ed5de477e20dadd105a5d/clubafterski.jpg",
+                          "details": {
+                              "size": 176720,
+                              "image": {
+                                  "width": 2878,
+                                  "height": 1636
+                              }
+                          },
+                          "fileName": "clubafterski.jpg",
+                          "contentType": "image/jpeg"
+                      }
+                  }
+              },
+              "backgroundColor": "#fff",
+              "backgroundPosition": "left top",
+              "technologies": [
+                  "HTML",
+                  "CSS",
+                  "JavaScript"
+              ],
+              "description": "Website for Information Networks freshman party in 2015."
+          }
+      }
+  }
+]
