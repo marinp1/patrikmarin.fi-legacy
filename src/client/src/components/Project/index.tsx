@@ -85,10 +85,29 @@ const FooterContainer = glamorous.div({
 export enum ImageClassEnum {
   NO_BG = 'NO_BG',
   PORTRAIT = 'PORTRAIT',
+  HALF_WIDTH = 'HALF_WIDTH',
+}
+
+function getContainerClasses(classNames: string[]): React.CSSProperties {
+  const style: React.CSSProperties = {};
+
+  classNames.forEach((name: ImageClassEnum) => {
+    switch (name) {
+      case ImageClassEnum.HALF_WIDTH:
+        style.width = '48%';
+        style.marginLeft = 0;
+        style.float = 'left';
+        style.boxSizing = 'border-box';
+        break;
+    }
+  });
+
+  return style;
 }
 
 function getImageClasses(classNames: string[]): React.CSSProperties {
   const style: React.CSSProperties = {};
+
   classNames.forEach((name: ImageClassEnum) => {
     switch (name) {
       case ImageClassEnum.PORTRAIT:
@@ -100,6 +119,7 @@ function getImageClasses(classNames: string[]): React.CSSProperties {
         break;
     }
   });
+
   return style;
 }
 
@@ -110,10 +130,11 @@ const DataSegment: React.SFC<{
     <SegmentTitle>{title}</SegmentTitle>
     <SegmentText>{text}</SegmentText>
     {images && images.map((image: IEntryImage, i: number) => {
+      const imgClasses = !! image.fields.classes ? image.fields.classes : [];
       return (
-        <SegmentImageContainer key={i}>
+        <SegmentImageContainer key={i} style={getContainerClasses(imgClasses)}>
           <img
-            style={getImageClasses(image.fields.classes)}
+            style={getImageClasses(imgClasses)}
             src={image.fields.image.fields.file.url}
           />
           <SegmentImageDescription>
