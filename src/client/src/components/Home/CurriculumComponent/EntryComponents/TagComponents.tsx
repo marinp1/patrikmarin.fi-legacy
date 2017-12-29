@@ -27,7 +27,7 @@ const TagEntryMain = glamorous.p({
 
 export const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) => (
   <EntryContainer style={{ marginBottom: '3.2rem !important' }}>
-    <EntryHeaderComponent icon="fa-globe" text="Languages"/>
+    <EntryHeaderComponent icon="fa-flag" text="Languages"/>
     {languages.map((language: ILanguage, i: number) => {
       return (
         <TagEntry key={i}>
@@ -39,15 +39,66 @@ export const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) =>
   </EntryContainer>
 );
 
+const SkillListHeader = glamorous.p({
+  background: colors.lightGray,
+  fontWeight: 'bold',
+  padding: '0.8rem 1rem',
+  margin: 0,
+  marginBottom: '0.8rem',
+  '& i': {
+    marginRight: '0.8rem',
+  },
+});
+
+const SkillContainer = glamorous.div({
+  background: colors.white,
+  borderRadius: '0.5rem',
+  border: `0.3rem solid ${colors.lightGray}`,
+  marginBottom: '1rem',
+  marginRight: 'auto',
+});
+
+const SkillTagContainer = glamorous.div({
+  padding: '0.2rem 0.2rem 0.2rem 1rem',
+});
+
+function getIconName(skill: string): string | undefined {
+  switch (skill.toLowerCase()) {
+    case 'web development':
+      return 'fa-globe';
+    case 'software development':
+      return 'fa-code-fork';
+    default:
+      return undefined;
+  } 
+}
+
+const SkillTypeComponent: React.SFC<{skill: ISkill}> = ({ skill }) => {
+  const iconName = getIconName(skill.name);
+  return (
+    <SkillContainer>
+      <SkillListHeader>
+        {iconName && <i className={`fa ${iconName}`} aria-hidden="true"></i>}
+        {skill.name}
+      </SkillListHeader>
+      <SkillTagContainer>
+        {skill.keywords.map((_: string, i: number) => {
+          return (
+            <TagEntry key={skill.name + _}>
+              <p>{_}</p>
+            </TagEntry>
+          );
+        })}
+      </SkillTagContainer>
+    </SkillContainer>
+  );
+};
+
 export const Skills: React.SFC<{skills: ISkill[]}> = ({ skills }) => (
   <EntryContainer style={{ marginBottom: '3.2rem !important' }}>
     <EntryHeaderComponent icon="fa-star" text="Skills"/>
-    {skills.map((_: ISkill) => _.keywords.map((skill: string, i: number) => {
-      return (
-        <TagEntry key={_.name + i}>
-          <TagEntryMain>{skill}</TagEntryMain>
-        </TagEntry>
-      );
-    }))}
+    <div>
+      {skills.map((skill: ISkill, i: number) => <SkillTypeComponent skill={skill} key={i}/>)}
+    </div>
   </EntryContainer>
 );
