@@ -24,8 +24,10 @@ Project data are fetched dynamically from [Contentful](https://www.contentful.co
 3. Run `redis-server` with default parameters
 4. Run `yarn run dev` while in root directory
 
-## Deployment
-Application is hosted on [Heroku](https://www.heroku.com/), update to master branch will automatically trigger a new deployment. Simply creating a dyno with attached [Heroku Redis](https://elements.heroku.com/addons/heroku-redis) add-on and pushing to heroku will work fine.
+## Testing
+Currently CI runs only linter as no tests are defined. Tests could probably be added for testing redis cache and API calls.
 
-## Todo
-* Maybe some tests and CI
+## Deployment
+Application is hosted on [Heroku](https://www.heroku.com/), update to master branch will automatically trigger a new deployment.
+
+Simply creating a dyno with attached [Heroku Redis](https://elements.heroku.com/addons/heroku-redis) add-on and pushing to heroku will work fine.
