@@ -6,6 +6,7 @@ import { colors } from '../../../../styles';
 import { EntryContainer, EntryHeaderComponent } from './CommonComponents';
 
 const TagEntry = glamorous.div({
+  position: 'relative',
   border: `0.3rem solid ${colors.lightGray}`,
   borderRadius: '0.5rem',
   background: colors.white,
@@ -21,17 +22,43 @@ const TagEntry = glamorous.div({
   },
 });
 
-const TagEntryMain = glamorous.p({
+const LanguageName = glamorous.p({
   fontWeight: 'bold',
+  marginLeft: '2.75rem !important',
+});
+
+function getFlagFromLanguage(language: string): string | undefined {
+  switch (language.toLowerCase()) {
+    case 'finnish':
+      return '🇫🇮';
+    case 'english':
+      return '🇬🇧';
+    case 'german':
+      return '🇩🇪';
+    case 'swedish':
+      return '🇸🇪';
+    case 'chinese':
+      return '🇨🇳';
+    default:
+      return '🏳️‍🌈';
+  }
+}
+
+const FlagContainer = glamorous.div({
+  position: 'absolute',
+  background: colors.lightGray,
+  padding: '0 0.75rem 0 0.5rem',
 });
 
 export const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) => (
   <EntryContainer style={{ marginBottom: '3.2rem !important' }}>
     <EntryHeaderComponent icon="fa-flag" text="Languages"/>
     {languages.map((language: ILanguage, i: number) => {
+      const flag = getFlagFromLanguage(language.language);
       return (
         <TagEntry key={i}>
-          <TagEntryMain>{language.language}</TagEntryMain>
+          {flag && <FlagContainer>{flag}</FlagContainer>}
+          <LanguageName>{language.language}</LanguageName>
           <p>{language.fluency}</p>
         </TagEntry>
       );
