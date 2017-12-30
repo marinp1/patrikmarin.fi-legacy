@@ -18,13 +18,16 @@ const TagEntry = glamorous.div({
     padding: '0 0.5rem',
     margin: 0,
     color: colors.black,
-    display: 'inline-block',
   },
 });
 
 const LanguageName = glamorous.p({
   fontWeight: 'bold',
-  marginLeft: '2.75rem !important',
+  display: 'inline-block',
+});
+
+const LanguageFluency = glamorous.p({
+  display: 'block',
 });
 
 function getFlagFromLanguage(language: string): string | undefined {
@@ -45,9 +48,8 @@ function getFlagFromLanguage(language: string): string | undefined {
 }
 
 const FlagContainer = glamorous.div({
-  position: 'absolute',
-  background: colors.lightGray,
-  padding: '0 0.75rem 0 0.5rem',
+  display: 'inline-block',
+  padding: '0 0.25rem 0 0.5rem',
 });
 
 export const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) => (
@@ -57,9 +59,11 @@ export const Languages: React.SFC<{languages: ILanguage[]}> = ({ languages }) =>
       const flag = getFlagFromLanguage(language.language);
       return (
         <TagEntry key={i}>
-          {flag && <FlagContainer>{flag}</FlagContainer>}
-          <LanguageName>{language.language}</LanguageName>
-          <p>{language.fluency}</p>
+          <div style={{ background: colors.lightGray }}>
+            {flag && <FlagContainer>{flag}</FlagContainer>}
+            <LanguageName>{language.language}</LanguageName>
+          </div>
+          <LanguageFluency>{language.fluency}</LanguageFluency>
         </TagEntry>
       );
     })}
