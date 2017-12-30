@@ -62,16 +62,23 @@ const ProjectContainer = glamorous.div({
 });
 
 const ButtonContainer = glamorous.button({
+  background: colors.lightGray,
+  color: 'black',
   margin: 0,
 });
 
 const ClearSelectionButton: React.SFC<{
   handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }> = ({ handleClick }) => (
-  <ButtonContainer className="button-primary" onClick={e => handleClick(e)}>
+  <ButtonContainer onClick={e => handleClick(e)}>
     Clear selection
   </ButtonContainer>
 );
+
+const SelectionInfo = glamorous.p({
+  margin: 0,
+  marginBottom: '0.8rem',
+});
 
 interface ProjectComponentProps {
   projects: IProjectFields[];
@@ -117,6 +124,20 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
       return project.thumbnail.fields.technologies;
     }).reduce((a, b) => a.concat(b), []))).sort();
 
+    // Get amount projects that are displayed
+    const projectCount = this.props.projects.filter((_) => {
+      return _.thumbnail.fields.technologies.filter((tech) => {
+        return this.state.selectedTechnologies.indexOf(tech.toLowerCase()) !== -1;
+      }).length > 0;
+    }).length;
+
+    // If selection is empty, all projects are displayed
+    const displayedProjectCount = projectCount === 0
+      ? this.props.projects.length : projectCount;
+
+    const message = 'Displaying ' + displayedProjectCount + 
+                    ' / ' + this.props.projects.length + ' projects';
+
     return (
       <Container id="projects">
         <div className="container">
@@ -131,6 +152,9 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
               technologies={tags}
               selectedTechnologies={this.state.selectedTechnologies}
               handleClick={this.handleTechnologySelection}/>
+              <SelectionInfo>
+                {message}
+              </SelectionInfo>
               <ClearSelectionButton handleClick={this.clearSelection}/>
           </div>
           <ProjectContainer>
