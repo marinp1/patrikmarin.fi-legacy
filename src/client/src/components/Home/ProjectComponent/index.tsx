@@ -61,6 +61,18 @@ const ProjectContainer = glamorous.div({
   },
 });
 
+const ButtonContainer = glamorous.button({
+  margin: 0,
+});
+
+const ClearSelectionButton: React.SFC<{
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
+}> = ({ handleClick }) => (
+  <ButtonContainer className="button-primary" onClick={e => handleClick(e)}>
+    Clear selection
+  </ButtonContainer>
+);
+
 interface ProjectComponentProps {
   projects: IProjectFields[];
 }
@@ -77,7 +89,12 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
       selectedTechnologies: [],
     };
 
-    this.handleTechnologySelection = this.handleTechnologySelection.bind(this); 
+    this.handleTechnologySelection = this.handleTechnologySelection.bind(this);
+    this.clearSelection = this.clearSelection.bind(this);
+  }
+
+  clearSelection() {
+    this.setState({ selectedTechnologies: [] });
   }
 
   handleTechnologySelection(techName: string) {
@@ -109,11 +126,12 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
               Projects
             </Title>
           </div>
-          <div className="row">
+          <div className="row" style={{ marginBottom: '2rem' }}>
             <TechnologySelectors
               technologies={tags}
               selectedTechnologies={this.state.selectedTechnologies}
               handleClick={this.handleTechnologySelection}/>
+              <ClearSelectionButton handleClick={this.clearSelection}/>
           </div>
           <ProjectContainer>
             {this.props.projects.map((project: IProjectFields, i: number) => {

@@ -23,7 +23,6 @@ const TechnologySelector = glamorous.div({
 
 const SelectorContainer = glamorous.div({
   position: 'relative',
-  marginBottom: '4rem',
 });
 
 
