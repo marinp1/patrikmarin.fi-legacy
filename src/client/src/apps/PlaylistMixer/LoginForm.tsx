@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 
 const CLIENT_ID = '65f99b0c4a234b4db6ce2f3e9084fb44';
-const SCOPES = [
+const SCOPES = ['user-read-private',
   'playlist-read-private', 'playlist-read-collaborative',
   'playlist-modify-public', 'playlist-modify-private',
 ];

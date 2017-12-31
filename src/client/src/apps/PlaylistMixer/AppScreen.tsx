@@ -1,6 +1,7 @@
 import * as React from 'react';
 // import glamorous from 'glamorous';
 import { getUserId, getUserPlaylists } from './spotify';
+import { Playlist } from './classes';
 const SpotifyWebApi = require('spotify-web-api-node');
 
 interface AppScreenProps {
@@ -11,6 +12,7 @@ interface AppScreenProps {
 interface AppScreenState {
   spotifyApi: any;
   userId: string;
+  playlists: Playlist[];
 }
 
 class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
@@ -19,12 +21,14 @@ class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
     super(props);
     const spotifyApi = new SpotifyWebApi();
     spotifyApi.setAccessToken(this.props.accessToken);
-    this.state = { spotifyApi, userId: '' };
+    this.state = { spotifyApi, userId: '', playlists: [] };
   }
 
   async fetchData() {
-    const id = await getUserId(this.state.spotifyApi, this.props.errorHandler);
-    getUserPlaylists(this.state.spotifyApi, id, this.props.errorHandler);
+    const userId = await getUserId(this.state.spotifyApi, this.props.errorHandler);
+    const playlists = await getUserPlaylists(
+      this.state.spotifyApi, userId, this.props.errorHandler);
+    this.setState({ userId, playlists });
   }
 
   async componentDidMount() {
@@ -34,7 +38,13 @@ class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
   render() {
     return (
       <div>
-        sadas
+        {this.state.playlists.map((list) => {
+          return (
+            <div key={list.id}>
+              {list.name}
+            </div>
+          );
+        })}
       </div>
     );
   }
