@@ -289,21 +289,27 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
             </div>
           </HeaderContainer>
           <ContentContainer>
-            <DataSegment
+            {!!project.fields.whatText && 
+              <DataSegment
               title="What?"
               text={project.fields.whatText}
               images={project.fields.whatImages}
-            />
-            <DataSegment
-              title="Why?"
-              text={project.fields.whyText}
-              images={project.fields.whyImages}
-            />
-            <DataSegment
-              title="Current status"
-              text={project.fields.currentStatusText}
-              images={project.fields.currentStatusImages}
-            />
+              />
+            }
+            {!!project.fields.whyText && 
+              <DataSegment
+                title="Why?"
+                text={project.fields.whyText}
+                images={project.fields.whyImages}
+              />
+            }
+            {!!project.fields.currentStatusText && 
+              <DataSegment
+                title="Current status"
+                text={project.fields.currentStatusText}
+                images={project.fields.currentStatusImages}
+              />
+            }
           </ContentContainer>
           <div className="row">
             <FooterContainer>
