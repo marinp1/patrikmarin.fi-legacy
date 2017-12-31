@@ -29,11 +29,12 @@ export class Playlist {
     this.public = data.public;
     this.imageUrl = data.images[0].url;
     this.length = data.tracks.total;
-    this.runtime = 0;
+    this.runtime = -1;
   }
 
   setTracks(tracks: Track[]) {
     this.tracks = tracks;
+    this.runtime = tracks.map(_ => _.duration).reduce((a, b) => a + b);
   }
 }
 

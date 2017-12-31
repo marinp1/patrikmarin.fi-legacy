@@ -1,8 +1,23 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
-import { getUserId, getUserPlaylists } from './spotify';
+import { getUserId, getUserPlaylists, getPlaylistTracks } from './spotify';
 import { Playlist, User } from './classes';
+import Loader from './Loader';
 import PlaylistComponent from './PlaylistComponent';
+import StatusTextComponent from './StatusTextComponent';
+
+const Title = glamorous.h5({
+  letterSpacing: '0.2rem',
+  marginTop: '3rem',
+  marginBottom: '1rem',
+  color: '#f8f8f8',
+  fontWeight: 'bold',
+});
+
+const Subtitle = glamorous.h6({
+  marginBottom: '2rem',
+  color: '#c8c8c8',
+});
 
 const PlaylistContainer = glamorous.div({
   display: 'flex',
@@ -17,21 +32,31 @@ interface AppScreenProps {
 interface AppScreenState {
   user: User | undefined;
   playlists: Playlist[] | undefined;
+  selected: Playlist[];
 }
 
 class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
 
   constructor(props: AppScreenProps) {
     super(props);
-    this.state = { user: undefined, playlists: [] };
+    this.state = { user: undefined, playlists: [], selected: [] };
   }
 
   async fetchData() {
     const user = await getUserId(this.props.accessToken, this.props.errorHandler);
     if (user !== undefined) {
+      this.setState({ user });
       const playlists = await getUserPlaylists(
         this.props.accessToken, user.id, this.props.errorHandler);
-      this.setState({ user, playlists });
+      this.setState({ playlists });
+      if (!!playlists) {
+        for (const playlist of playlists) {
+          const tracks = await getPlaylistTracks(this.props.accessToken, playlist.owner.id,
+                                                 playlist.id, this.props.errorHandler);
+          if (!!tracks) playlist.setTracks(tracks);
+          this.setState({ playlists });
+        }
+      }
     }
   }
 
@@ -41,12 +66,23 @@ class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
 
   render() {
 
+    if (this.state.user === undefined) {
+      return <Loader/>;
+    }
+
     if (this.state.playlists === undefined) {
-      return null;
+      return (
+        <div className="container u-full-width" style={{ maxWidth: '1024px' }}>
+          <Title>PLAYLISTMIXER</Title>
+          <Subtitle>Hello {this.state.user.name}! Playlists are being loaded...</Subtitle>
+        </div>
+      );
     }
 
     return (
-      <div className="container">
+      <div className="container u-full-width" style={{ maxWidth: '1024px' }}>
+        <Title>PLAYLISTMIXER</Title>
+        <Subtitle>Hello {this.state.user.name}! Select playlists you want to combine</Subtitle>
         <PlaylistContainer>
           {this.state.playlists.map((list) => {
             return (
@@ -54,6 +90,7 @@ class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
             );
           })}
         </PlaylistContainer>
+        <StatusTextComponent playlists={this.state.selected}/>
       </div>
     );
   }

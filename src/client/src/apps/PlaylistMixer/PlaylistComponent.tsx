@@ -37,6 +37,7 @@ const Container = glamorous.div({
   background: 'linear-gradient(to bottom, #f2f1ef 0%,#dedbd2 100%)',
   borderRadius: '0.2rem',
   display: 'flex',
+  cursor: 'pointer',
 });
 
 const Title = glamorous.h6({
@@ -56,19 +57,33 @@ const Subtext = glamorous.p({
   fontSize: '90%',
 });
 
-const PlaylistComponent: React.SFC<{data: Playlist}> = ({ data }) => (
-  <Wrapper>
-    <Container>
-      <ImageContainer>
-        <img src={data.imageUrl}/>
-      </ImageContainer>
-      <div>
-        <Title>{data.name}</Title>
-        <Subtext>{data.length} songs</Subtext>
-        <Subtext>{data.runtime}</Subtext>
-      </div>
-    </Container>
-  </Wrapper>
-);
+function runtimeToString(runtime: number): string {
+  if (runtime === -1) return 'Loading...';
+  const inMinutes = runtime / 60000;
+  const inHours = inMinutes / 60;
+  const hours = Math.floor(inHours);
+  const minutes = Math.floor((inHours - hours) * 60);
+  return `${hours} hours, ${minutes} minutes`;
+}
+
+const PlaylistComponent: React.SFC<{data: Playlist}> = ({ data }) => {
+  const loading = data.runtime === -1;
+  const extraStyle: React.CSSProperties = {};
+  if (loading) extraStyle.background = '#b1b1b1';
+  return (
+    <Wrapper>
+      <Container style={extraStyle}>
+        <ImageContainer>
+          <img src={data.imageUrl}/>
+        </ImageContainer>
+        <div>
+          <Title>{data.name}</Title>
+          <Subtext>{data.length} songs</Subtext>
+          <Subtext>{runtimeToString(data.runtime)}</Subtext>
+        </div>
+      </Container>
+    </Wrapper>
+  );
+};
 
 export default PlaylistComponent;
