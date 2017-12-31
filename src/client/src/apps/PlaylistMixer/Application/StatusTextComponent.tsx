@@ -16,13 +16,12 @@ function getTotalRuntime(tracks: Track[]): string {
 
 const StatusTextComponent: React.SFC<{playlists: Playlist[]}> = ({ playlists }) => {
   const playlistString = (playlists.length === 1) ? ' playlist selected' : ' playlists selected';
-  // Make setting for this
   const uniqueTracks = getUniquetracks(playlists, true);
-  const runtime = getTotalRuntime(uniqueTracks);
+  const runtime = getTotalRuntime(uniqueTracks.uniques);
   return (
     <StatusText>
       {playlists.length + playlistString + ', with a total of ' +
-      uniqueTracks.length + ' unique tracks and total runtime of ' + runtime + '.'}
+      uniqueTracks.uniques.length + ' unique tracks and total runtime of ' + runtime + '.'}
     </StatusText>
   );
 };

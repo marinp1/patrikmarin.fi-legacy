@@ -10,17 +10,34 @@ export function timeToString(time: number): string {
   return `${hours} ${hourString}, ${minutes} ${minuteString}`;
 }
 
-export function getUniquetracks(playlists: Playlist[], aggressive: boolean): Track[] {
-  if (aggressive) {
-    const trackMap = new Map<string, Track>();
-    playlists.map(_ => _.tracks).reduce((a, b) => a.concat(b), []).forEach((_: Track) => {
-      if (!trackMap.get(_.artist + _.name)) trackMap.set(_.artist + _.name, _);
-    });
-    return Array.from(trackMap.values());
-  }
-  const trackMap = new Map<string, Track>();
+interface TrackPair {
+  _1: Track;
+  _2: Track;
+}
+
+interface UniqueResult {
+  uniques: Track[];
+  unsures: TrackPair[];
+}
+
+export function getUniquetracks(playlists: Playlist[], aggressive: boolean): UniqueResult {
+
+  const unsureDuplicates: TrackPair[] = [];
+
+  const hardTrackMap = new Map<string, Track>();
   playlists.map(_ => _.tracks).reduce((a, b) => a.concat(b), []).forEach((_: Track) => {
-    if (!trackMap.get(_.id)) trackMap.set(_.id, _);
+    const existing = hardTrackMap.get(_.artist + _.name);
+    if (!existing) {
+      hardTrackMap.set(_.artist + _.name, _);
+    } else {
+      if (existing.id !== _.id) {
+        unsureDuplicates.push({ _1: existing, _2: _ });
+      }
+    }
   });
-  return Array.from(trackMap.values());
+
+  return {
+    uniques: Array.from(hardTrackMap.values()),
+    unsures: unsureDuplicates,
+  };
 }
