@@ -2,6 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import ErrorScreen from './ErrorScreen';
+import AppScreen from './AppScreen';
 
 function parseHashString(hash: string): Map<string, string> {
   const hashMap = new Map<string,string>();
@@ -23,6 +24,7 @@ class PlaylistMixer extends React.Component<RouteComponentProps<any>, PlaylistMi
     super(props);
     this.state = { accessToken: undefined, errorMessage: undefined };
     this.resetState = this.resetState.bind(this);
+    this.errorHandling = this.errorHandling.bind(this);
   }
 
   componentWillMount() {
@@ -36,13 +38,19 @@ class PlaylistMixer extends React.Component<RouteComponentProps<any>, PlaylistMi
     this.setState({ accessToken: undefined, errorMessage: undefined });
   }
 
+  errorHandling(msg: string) {
+    this.setState({ errorMessage: msg });
+  }
+
   render() {
     document.body.style.backgroundColor = '#272822';
     document.body.style.backgroundImage = `url(${require('./images/dark_tile.png')})`;
 
     if (this.state.errorMessage) {
       return (
-        <ErrorScreen msg={this.state.errorMessage} handleClick={this.resetState}/>
+        <ErrorScreen
+          msg={this.state.errorMessage}
+          handleClick={this.resetState}/>
       );
     }
 
@@ -54,9 +62,9 @@ class PlaylistMixer extends React.Component<RouteComponentProps<any>, PlaylistMi
     }
 
     return (
-      <div>
-        Hello
-      </div>
+      <AppScreen
+        accessToken={this.state.accessToken}
+        errorHandler={this.errorHandling}/>
     );
   }
 }

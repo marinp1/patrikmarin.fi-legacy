@@ -21,7 +21,7 @@ const ErrorScreen: React.SFC<{
 }> = ({ msg, handleClick }) => (
   <div className="container">
     <LoginContainer>
-      <Title>Authentication error</Title>
+      <Title>Something happened...</Title>
       <Subtitle>{ msg }</Subtitle>
       <button className="button-primary" onClick={e => handleClick(e)}>
         Try again
