@@ -1,30 +1,39 @@
 import * as url from 'url';
 import { ParsedUrlQuery } from 'querystring';
-import { Playlist, Track } from './classes';
+import * as Spotify from 'spotify-web-api-js';
+import { Playlist, Track, User } from './classes';
 
-export function getUserId(api: any, errorHandler: (e: any) => void): string {
-  return api.getMe()
-    .then(
-      (data: any) => {
-        return data.body.id;
-      }, 
-      (error: any) => {
-        errorHandler(`${error.name}: ${error.message}`);
-      });
+export async function getUserId(accessToken: string,
+                                errorHandler: (e: any) => void) {
+
+  const spotifyApi = new Spotify();
+  spotifyApi.setAccessToken(accessToken);
+  const user = spotifyApi.getMe()
+    .then((user) => {
+      return new User(user);
+    }).catch((err) => {
+      const error = JSON.parse(err.response).error;
+      errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+      return undefined;
+    });
+  return user;
 }
 
-export async function getPlaylistTracks(api: any, userId: string,
+export async function getPlaylistTracks(accessToken: string, ownerId: string,
                                         playlistId: string, errorHandler: (e: any) => void) {
-  
-  function getNext(tracks: Track[], offset: number) {
-    return api.getPlaylistTracks(userId, playlistId, { offset, limit: 100 })
+
+  const spotifyApi = new Spotify();
+  spotifyApi.setAccessToken(accessToken);
+
+  async function getNext(tracks: Track[], offset: number): Promise<Track[] | undefined> {
+    return spotifyApi.getPlaylistTracks(ownerId, playlistId, { offset, limit: 100 })
     .then(
-      (data: any) => {
+      (response) => {
         // Merge fetched data to existing tracklist information
-        const merged = tracks.concat(data.body.items.map((_: any) => new Track(_)));
+        const merged = tracks.concat(response.items.map(_ => new Track(_)));
         // Proceed to next page if all tracks haven't been found
-        if (data.body.next) {
-          const nextUrl = url.parse(data.body.next, true);
+        if (response.next) {
+          const nextUrl = url.parse(response.next, true);
           if (nextUrl.query !== undefined) {
             const nextOffset = Number((nextUrl.query as ParsedUrlQuery).offset);
             return getNext(merged, nextOffset);
@@ -32,10 +41,10 @@ export async function getPlaylistTracks(api: any, userId: string,
         }
         // Return data
         return merged;
-      },
-      (error: any) => {
-        console.error(error);
-        return [];
+      }).catch((err) => {
+        const error = JSON.parse(err.response).error;
+        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+        return undefined;
       });
   }
 
@@ -43,31 +52,31 @@ export async function getPlaylistTracks(api: any, userId: string,
   return allTracks;
 }
 
-export async function getUserPlaylists(api: any, id: string, errorHandler: (e: any) => void) {
+export async function getUserPlaylists(accessToken: string, id: string,
+                                       errorHandler: (e: any) => void) {
 
-  function getNext(playlists: Playlist[], offset: number) {
-    return api.getUserPlaylists(id, { offset, limit: 20 })
-    .then(
-      (data: any) => {
-        // Merge fetched data to existing playlist information
-        const merged = playlists.concat(data.body.items.map((_: any) => new Playlist(_)));
-        // Proceed to next page if all playlists haven't been found
-        if (data.body.next) {
-          const nextUrl = url.parse(data.body.next, true);
+  const spotifyApi = new Spotify();
+  spotifyApi.setAccessToken(accessToken);
+
+  async function getNext(playlists: Playlist[], offset: number): Promise<Playlist[] | undefined> {
+    return spotifyApi.getUserPlaylists(id, { offset, limit: 10 })
+      .then((lists) => {
+        const merged = playlists.concat(lists.items.map(_ => new Playlist(_)));
+        if (lists.next) {
+          const nextUrl = url.parse(lists.next, true);
           if (nextUrl.query !== undefined) {
             const nextOffset = Number((nextUrl.query as ParsedUrlQuery).offset);
             return getNext(merged, nextOffset);
           }
         }
-        // Return data
         return merged;
-      }, 
-      (error: any) => {
-        errorHandler(`${error.name}: ${error.message}`);
+      }).catch((err) => {
+        const error = JSON.parse(err.response).error;
+        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+        return undefined;
       });
   }
 
-  const allPlaylists: Playlist[] = await getNext([], 0);
-  console.log(allPlaylists);
+  const allPlaylists = await getNext([], 0);
   return allPlaylists;
 }

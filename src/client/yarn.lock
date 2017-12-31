@@ -50,6 +50,10 @@
   version "16.0.31"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.31.tgz#5285da62f3ac62b797f6d0729a1d6181f3180c3e"
 
+"@types/spotify-api@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@types/spotify-api/-/spotify-api-0.0.0.tgz#5ea9e9ca7549dbb595900a53b74b8dfb3ca3da21"
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -5099,6 +5103,10 @@ spdy@^3.4.1:
     safe-buffer "^5.0.1"
     select-hose "^2.0.0"
     spdy-transport "^2.0.18"
+
+spotify-web-api-js@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/spotify-web-api-js/-/spotify-web-api-js-0.23.0.tgz#7701fbe365bbec56505dfa46c16604f7e4d36408"
 
 spotify-web-api-node@^2.5.0:
   version "2.5.0"
