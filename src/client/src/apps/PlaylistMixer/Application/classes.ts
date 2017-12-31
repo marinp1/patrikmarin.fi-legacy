@@ -1,4 +1,4 @@
-/// <reference path="../../../node_modules/spotify-web-api-js/src/typings/spotify-api.d.ts" />
+/// <reference path="../../../../node_modules/spotify-web-api-js/src/typings/spotify-api.d.ts" />
 
 export class User {
   id: string;

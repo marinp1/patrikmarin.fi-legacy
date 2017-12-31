@@ -24,20 +24,20 @@ const PlaylistContainer = glamorous.div({
   flexFlow: 'row wrap',
 });
 
-interface AppScreenProps {
+interface ApplicationProps {
   accessToken: string;
   errorHandler: (msg: string) => void;
 }
 
-interface AppScreenState {
+interface ApplicationState {
   user: User | undefined;
   playlists: Playlist[] | undefined;
   selected: Playlist[];
 }
 
-class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
+class Application extends React.Component<ApplicationProps, ApplicationState> {
 
-  constructor(props: AppScreenProps) {
+  constructor(props: ApplicationProps) {
     super(props);
     this.state = { user: undefined, playlists: [], selected: [] };
     this.handleSelection = this.handleSelection.bind(this);
@@ -108,4 +108,4 @@ class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
   }
 }
 
-export default AppScreen;
+export default Application;

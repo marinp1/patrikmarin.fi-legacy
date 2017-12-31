@@ -1,8 +1,6 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 
-import { colors } from '../../styles';
-
 const Container = glamorous.div({
   position: 'absolute',
   top: 0,
@@ -17,7 +15,7 @@ const Container = glamorous.div({
 const Content = glamorous.div({
   margin: 'auto',
   padding: 0,
-  color: colors.white,
+  color: '#FFF',
 });
 
 const Loader = () => {

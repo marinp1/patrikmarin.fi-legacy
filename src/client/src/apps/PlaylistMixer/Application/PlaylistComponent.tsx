@@ -2,6 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { Playlist } from './classes';
 import { mediaQueries } from './styles';
+import { timeToString } from './helpers';
 
 const COMPONENT_SIZE = 6; // rem
 const COMPONENT_PADDING = 1; // rem
@@ -72,11 +73,7 @@ const Subtext = glamorous.p({
 
 function runtimeToString(runtime: number): string {
   if (runtime === -1) return 'Loading...';
-  const inMinutes = runtime / 60000;
-  const inHours = inMinutes / 60;
-  const hours = Math.floor(inHours);
-  const minutes = Math.floor((inHours - hours) * 60);
-  return `${hours} hours, ${minutes} minutes`;
+  return timeToString(runtime);
 }
 
 interface PlaylistComponentProps {

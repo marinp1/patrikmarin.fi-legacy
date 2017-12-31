@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import ErrorScreen from './ErrorScreen';
-import AppScreen from './AppScreen';
+import Application from './Application';
 
 function parseHashString(hash: string): Map<string, string> {
   const hashMap = new Map<string,string>();
@@ -62,7 +62,7 @@ class PlaylistMixer extends React.Component<RouteComponentProps<any>, PlaylistMi
     }
 
     return (
-      <AppScreen
+      <Application
         accessToken={this.state.accessToken}
         errorHandler={this.errorHandling}/>
     );
