@@ -3,7 +3,8 @@ import glamorous from 'glamorous';
 import { Playlist } from './classes';
 import { mediaQueries } from './styles';
 
-const COMPONENT_SIZE = '6rem';
+const COMPONENT_SIZE = 6; // rem
+const COMPONENT_PADDING = 1; // rem
 
 const Wrapper = glamorous.div({
   width: '100%',
@@ -15,29 +16,38 @@ const Wrapper = glamorous.div({
   },
 });
 
+const Selector = glamorous.div({
+  height: `${COMPONENT_SIZE + COMPONENT_PADDING * 2}rem`,
+  width: '1.5rem',
+  marginTop: `-${COMPONENT_PADDING}rem`,
+  marginLeft: `-${COMPONENT_PADDING}rem`,
+  marginRight: `${COMPONENT_PADDING}rem`,
+  background: 'rgb(132,189,0)',
+  borderRadius: '0.1rem 0 0 0.1rem',
+});
+
+const Container = glamorous.div({
+  height: `${COMPONENT_SIZE}rem`,
+  marginBottom: '0.8rem',
+  marginRight: '0.8rem',
+  padding: `${COMPONENT_PADDING}rem`,
+  backgroundColor: '#f2f1ef',
+  background: 'linear-gradient(to bottom, #f2f1ef 0%,#dedbd2 100%)',
+  borderRadius: '0.2rem',
+  display: 'flex',
+});
+
 const ImageContainer = glamorous.div({
   position: 'relative',
-  height: COMPONENT_SIZE,
-  width: COMPONENT_SIZE,
-  marginRight: '1rem',
+  height: `${COMPONENT_SIZE}rem`,
+  width: `${COMPONENT_SIZE}rem`,
+  marginRight: `${COMPONENT_PADDING}rem`,
   '& img': {
     width: 'inherit',
     border: '0.1rem solid #656565',
     borderRadius: '0.2rem',
     height: 'inherit',
   },
-});
-
-const Container = glamorous.div({
-  height: COMPONENT_SIZE,
-  marginBottom: '0.8rem',
-  marginRight: '0.8rem',
-  padding: '1rem',
-  backgroundColor: '#f2f1ef',
-  background: 'linear-gradient(to bottom, #f2f1ef 0%,#dedbd2 100%)',
-  borderRadius: '0.2rem',
-  display: 'flex',
-  cursor: 'pointer',
 });
 
 const Title = glamorous.h6({
@@ -66,24 +76,43 @@ function runtimeToString(runtime: number): string {
   return `${hours} hours, ${minutes} minutes`;
 }
 
-const PlaylistComponent: React.SFC<{data: Playlist}> = ({ data }) => {
-  const loading = data.runtime === -1;
-  const extraStyle: React.CSSProperties = {};
-  if (loading) extraStyle.background = '#b1b1b1';
-  return (
-    <Wrapper>
-      <Container style={extraStyle}>
-        <ImageContainer>
-          <img src={data.imageUrl}/>
-        </ImageContainer>
-        <div>
-          <Title>{data.name}</Title>
-          <Subtext>{data.length} songs</Subtext>
-          <Subtext>{runtimeToString(data.runtime)}</Subtext>
-        </div>
-      </Container>
-    </Wrapper>
-  );
-};
+class PlaylistComponent extends React.Component<{data: Playlist}, {selected: boolean}> {
+
+  constructor(props: {data: Playlist}) {
+    super(props);
+    this.state = { selected: false };
+  }
+
+  handleClick() {
+    if (this.props.data.runtime !== -1) {
+      this.setState({ selected: !this.state.selected });
+    }
+  }
+
+  render() {
+    const loading = this.props.data.runtime === -1;
+    const extraStyle: React.CSSProperties = {};
+    if (loading) {
+      extraStyle.background = '#b1b1b1';
+    } else {
+      extraStyle.cursor = 'pointer';
+    }
+    return (
+      <Wrapper>
+        <Container style={extraStyle} onClick={e => this.handleClick()}>
+          {this.state.selected && <Selector/>}
+          <ImageContainer>
+            <img src={this.props.data.imageUrl}/>
+          </ImageContainer>
+          <div>
+            <Title>{this.props.data.name}</Title>
+            <Subtext>{this.props.data.length} songs</Subtext>
+            <Subtext>{runtimeToString(this.props.data.runtime)}</Subtext>
+          </div>
+        </Container>
+      </Wrapper>
+    );
+  }
+}
 
 export default PlaylistComponent;
