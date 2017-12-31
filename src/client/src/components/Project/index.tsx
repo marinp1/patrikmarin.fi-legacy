@@ -32,9 +32,9 @@ const NavigationLink = glamorous.a({
 const ExternalLinkContainer = glamorous.div({
   '& a': {
     color: '#000',
-  },
-  '& a:hover': {
-    color: '#000',
+    ':hover': {
+      color: '#000',
+    },
   },
 });
 
@@ -264,6 +264,11 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
                 <h1 style={{ fontWeight: 'bold' }}>{project.fields.title}</h1>
                 <h5>{project.fields.subtitle}</h5>
                 <ExternalLinkContainer>
+                  {project.fields.previewAvailable &&
+                    <NavigationLink href={`/apps/${this.props.match.params.id}`}>
+                      <i className="fa fa-caret-right fa-lg"></i>
+                      Try it out!
+                    </NavigationLink>}
                   {project.fields.links &&
                     project.fields.links.map((linkString: string, i: number) => {
                       const link = externalLinkMapper(linkString);
