@@ -31,10 +31,13 @@ const Container = glamorous.div({
   marginBottom: '0.8rem',
   marginRight: '0.8rem',
   padding: `${COMPONENT_PADDING}rem`,
-  backgroundColor: '#f2f1ef',
-  background: 'linear-gradient(to bottom, #f2f1ef 0%,#dedbd2 100%)',
   borderRadius: '0.2rem',
   display: 'flex',
+  backgroundColor: '#f2f1ef',
+  background: 'linear-gradient(to bottom, #f2f1ef 0%,#dedbd2 100%)',
+  ':hover': {
+    opacity: 0.9,
+  },
 });
 
 const ImageContainer = glamorous.div({
@@ -76,16 +79,23 @@ function runtimeToString(runtime: number): string {
   return `${hours} hours, ${minutes} minutes`;
 }
 
-class PlaylistComponent extends React.Component<{data: Playlist}, {selected: boolean}> {
+interface PlaylistComponentProps {
+  data: Playlist;
+  handleSelection: (playlist: Playlist) => void;
+}
 
-  constructor(props: {data: Playlist}) {
+class PlaylistComponent extends React.Component<PlaylistComponentProps, {selected: boolean}> {
+
+  constructor(props: PlaylistComponentProps) {
     super(props);
     this.state = { selected: false };
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    if (this.props.data.runtime !== -1) {
+  handleClick(list: Playlist) {
+    if (list.runtime !== -1) {
       this.setState({ selected: !this.state.selected });
+      this.props.handleSelection(list);
     }
   }
 
@@ -99,7 +109,7 @@ class PlaylistComponent extends React.Component<{data: Playlist}, {selected: boo
     }
     return (
       <Wrapper>
-        <Container style={extraStyle} onClick={e => this.handleClick()}>
+        <Container style={extraStyle} onClick={e => this.handleClick(this.props.data)}>
           {this.state.selected && <Selector/>}
           <ImageContainer>
             <img src={this.props.data.imageUrl}/>

@@ -40,6 +40,16 @@ class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
   constructor(props: AppScreenProps) {
     super(props);
     this.state = { user: undefined, playlists: [], selected: [] };
+    this.handleSelection = this.handleSelection.bind(this);
+  }
+
+  handleSelection(playlist: Playlist) {
+    if (this.state.selected.indexOf(playlist) !== -1) {
+      const filteredList = this.state.selected.filter(_ => _.id !== playlist.id);
+      this.setState({ selected: filteredList });
+    } else {
+      this.setState({ selected: this.state.selected.concat(playlist) });
+    }
   }
 
   async fetchData() {
@@ -86,7 +96,9 @@ class AppScreen extends React.Component<AppScreenProps, AppScreenState> {
         <PlaylistContainer>
           {this.state.playlists.map((list) => {
             return (
-                <PlaylistComponent key={list.id} data={list}/>
+                <PlaylistComponent key={list.id}
+                  data={list}
+                  handleSelection={this.handleSelection}/>
             );
           })}
         </PlaylistContainer>
