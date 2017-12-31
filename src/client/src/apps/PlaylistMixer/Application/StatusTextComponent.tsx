@@ -1,7 +1,7 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 import { Playlist, Track } from './classes';
-import { timeToString, getUniquetracks } from './helpers';
+import { timeToString } from './helpers';
 
 const StatusText = glamorous.p({
   margin: 0,
@@ -14,14 +14,16 @@ function getTotalRuntime(tracks: Track[]): string {
   return timeToString(runtime);
 }
 
-const StatusTextComponent: React.SFC<{playlists: Playlist[]}> = ({ playlists }) => {
+const StatusTextComponent: React.SFC<{
+  playlists: Playlist[],
+  tracks: Track[],
+}> = ({ playlists, tracks }) => {
   const playlistString = (playlists.length === 1) ? ' playlist selected' : ' playlists selected';
-  const uniqueTracks = getUniquetracks(playlists, true);
-  const runtime = getTotalRuntime(uniqueTracks.uniques);
+  const runtime = getTotalRuntime(tracks);
   return (
     <StatusText>
       {playlists.length + playlistString + ', with a total of ' +
-      uniqueTracks.uniques.length + ' unique tracks and total runtime of ' + runtime + '.'}
+      tracks.length + ' unique tracks and total runtime of ' + runtime + '.'}
     </StatusText>
   );
 };

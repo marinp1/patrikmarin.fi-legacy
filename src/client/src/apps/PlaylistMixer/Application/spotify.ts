@@ -12,9 +12,14 @@ export async function getUserId(accessToken: string,
     .then((user) => {
       return new User(user);
     }).catch((err) => {
-      const error = JSON.parse(err.response).error;
-      errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-      return undefined;
+      try {
+        const error = JSON.parse(err.response).error;
+        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+        return undefined;
+      } catch (e)  {
+        errorHandler(`${err.status} ${err.statusText}`);
+        return undefined;
+      }
     });
   return user;
 }
@@ -42,9 +47,14 @@ export async function getPlaylistTracks(accessToken: string, ownerId: string,
         // Return data
         return merged;
       }).catch((err) => {
-        const error = JSON.parse(err.response).error;
-        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-        return undefined;
+        try {
+          const error = JSON.parse(err.response).error;
+          errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+          return undefined;
+        } catch (e)  {
+          errorHandler(`${err.status} ${err.statusText}`);
+          return undefined;
+        }
       });
   }
 
@@ -71,9 +81,14 @@ export async function getUserPlaylists(accessToken: string, id: string,
         }
         return merged;
       }).catch((err) => {
-        const error = JSON.parse(err.response).error;
-        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-        return undefined;
+        try {
+          const error = JSON.parse(err.response).error;
+          errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+          return undefined;
+        } catch (e)  {
+          errorHandler(`${err.status} ${err.statusText}`);
+          return undefined;
+        }
       });
   }
 

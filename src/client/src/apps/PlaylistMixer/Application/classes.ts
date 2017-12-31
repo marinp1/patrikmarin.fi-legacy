@@ -42,12 +42,23 @@ export class Track {
   id: string;
   duration: number;
   name: string;
+  album: Album;
   artist: string;
 
   constructor(data: SpotifyApi.PlaylistTrackObject) {
     this.id = data.track.id;
     this.duration = data.track.duration_ms;
+    this.album = new Album(data.track.album);
     this.name = data.track.name;
     this.artist = data.track.artists.map(_ => _.name).join(' & ');
+  }
+}
+
+export class Album {
+  name: string;
+  imageUrl: string;
+  constructor(data: SpotifyApi.AlbumObjectSimplified) {
+    this.name = data.name;
+    this.imageUrl = (data.images.length > 0) ? data.images[0].url : '';
   }
 }

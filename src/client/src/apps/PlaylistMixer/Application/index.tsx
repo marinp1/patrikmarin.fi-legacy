@@ -1,7 +1,8 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 import { getUserId, getUserPlaylists, getPlaylistTracks } from './spotify';
-import { Playlist, User } from './classes';
+import { Playlist, User, Track } from './classes';
+import { getUniquetracks, TrackPair } from './helpers';
 import Loader from './Loader';
 import PlaylistComponent from './PlaylistComponent';
 import StatusTextComponent from './StatusTextComponent';
@@ -32,23 +33,49 @@ interface ApplicationProps {
 interface ApplicationState {
   user: User | undefined;
   playlists: Playlist[] | undefined;
-  selected: Playlist[];
+  selectedPlaylists: Playlist[];
+  selectedTracks: Track[];
+  unsureDuplicates: TrackPair[];
 }
 
 class Application extends React.Component<ApplicationProps, ApplicationState> {
 
   constructor(props: ApplicationProps) {
     super(props);
-    this.state = { user: undefined, playlists: [], selected: [] };
+    this.state = {
+      user: undefined,
+      playlists: [],
+      selectedPlaylists: [],
+      selectedTracks: [],
+      unsureDuplicates: [],
+    };
     this.handleSelection = this.handleSelection.bind(this);
+    this.createNewPlaylist = this.createNewPlaylist.bind(this);
   }
 
   handleSelection(playlist: Playlist) {
-    if (this.state.selected.indexOf(playlist) !== -1) {
-      const filteredList = this.state.selected.filter(_ => _.id !== playlist.id);
-      this.setState({ selected: filteredList });
+    if (this.state.selectedPlaylists.indexOf(playlist) !== -1) {
+      const filteredList = this.state.selectedPlaylists.filter(_ => _.id !== playlist.id);
+      const uniqueTracks = getUniquetracks(filteredList);
+      this.setState({
+        selectedPlaylists: filteredList,
+        selectedTracks: uniqueTracks.uniques,
+        unsureDuplicates: uniqueTracks.unsures,
+      });
     } else {
-      this.setState({ selected: this.state.selected.concat(playlist) });
+      const newList = this.state.selectedPlaylists.concat(playlist);
+      const uniqueTracks = getUniquetracks(newList);
+      this.setState({
+        selectedPlaylists: newList,
+        selectedTracks: uniqueTracks.uniques,
+        unsureDuplicates: uniqueTracks.unsures,
+      });
+    }
+  }
+
+  createNewPlaylist() {
+    if (this.state.unsureDuplicates.length > 0) {
+      this.state.unsureDuplicates.forEach(_ => console.log(_));
     }
   }
 
@@ -102,7 +129,9 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
             );
           })}
         </PlaylistContainer>
-        <StatusTextComponent playlists={this.state.selected}/>
+        <StatusTextComponent
+          playlists={this.state.selectedPlaylists} tracks={this.state.selectedTracks}/>
+        <button onClick={e => this.createNewPlaylist()}>Create new playlist</button>
       </div>
     );
   }
