@@ -11,7 +11,7 @@ class Main extends React.Component {
       <Switch>
         <Route exact={true} path="/" component={Home} />
         <Route path={'/project/:id'} component={Project} />
-        <Route path={'/apps/playlistmixer-ts'} component={PlaylistMixer} />
+        <Route path={'/apps/playlistmixer'} component={PlaylistMixer} />
         <Route path="*" component={NotFound}/>
       </Switch>
     );
