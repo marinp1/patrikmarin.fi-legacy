@@ -20,6 +20,11 @@ interface UniqueResult {
   unsures: TrackPair[];
 }
 
+export interface ResolveResult {
+  saved: Track[];
+  discarded: Track[];
+}
+
 export function getUniquetracks(playlists: Playlist[]): UniqueResult {
 
   const unsureIdMap = new Map<string, TrackPair>();
@@ -43,4 +48,8 @@ export function getUniquetracks(playlists: Playlist[]): UniqueResult {
     uniques: Array.from(hardTrackMap.values()),
     unsures: Array.from(unsureIdMap.values()),
   };
+}
+
+export function generatePlaylist() {
+  console.log('hello');
 }

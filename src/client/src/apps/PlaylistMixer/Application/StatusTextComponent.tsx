@@ -7,6 +7,8 @@ const StatusText = glamorous.p({
   margin: 0,
   padding: 0,
   color: '#A1A1A1',
+  marginTop: '0.5rem',
+  marginBottom: '1.5rem',
 });
 
 function getTotalRuntime(tracks: Track[]): string {

@@ -2,10 +2,12 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import { getUserId, getUserPlaylists, getPlaylistTracks } from './spotify';
 import { Playlist, User, Track } from './classes';
-import { getUniquetracks, TrackPair } from './helpers';
+import { getUniquetracks, TrackPair, generatePlaylist, ResolveResult } from './helpers';
 import Loader from './Loader';
 import PlaylistComponent from './PlaylistComponent';
 import StatusTextComponent from './StatusTextComponent';
+import UnsureResolver from './UnsureResolver';
+import CreatePlaylistButton from './CreatePlaylistButton';
 
 const Title = glamorous.h5({
   letterSpacing: '0.2rem',
@@ -36,6 +38,7 @@ interface ApplicationState {
   selectedPlaylists: Playlist[];
   selectedTracks: Track[];
   unsureDuplicates: TrackPair[];
+  modalOpen: boolean;
 }
 
 class Application extends React.Component<ApplicationProps, ApplicationState> {
@@ -44,6 +47,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     super(props);
     this.state = {
       user: undefined,
+      modalOpen: false,
       playlists: [],
       selectedPlaylists: [],
       selectedTracks: [],
@@ -51,6 +55,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     };
     this.handleSelection = this.handleSelection.bind(this);
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
+    this.handleUnsures = this.handleUnsures.bind(this);
   }
 
   handleSelection(playlist: Playlist) {
@@ -73,9 +78,19 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     }
   }
 
-  createNewPlaylist() {
+  createNewPlaylist(name: string) {
     if (this.state.unsureDuplicates.length > 0) {
-      this.state.unsureDuplicates.forEach(_ => console.log(_));
+      this.setState({ modalOpen: true });
+    } else {
+      generatePlaylist();
+    }
+  }
+
+  handleUnsures(result?: ResolveResult) {
+    this.setState({ modalOpen: false });
+    if (!!result) {
+      console.log(result.discarded.length);
+      console.log(result.saved.length);
     }
   }
 
@@ -109,7 +124,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
 
     if (this.state.playlists === undefined) {
       return (
-        <div className="container u-full-width" style={{ maxWidth: '1024px' }}>
+        <div className="container" style={{ maxWidth: '1024px' }}>
           <Title>PLAYLISTMIXER</Title>
           <Subtitle>Hello {this.state.user.name}! Playlists are being loaded...</Subtitle>
         </div>
@@ -117,7 +132,13 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     }
 
     return (
-      <div className="container u-full-width" style={{ maxWidth: '1024px' }}>
+      <div
+        className="container"
+        style={{ maxWidth: '1024px' }}
+        >
+        {this.state.modalOpen && <UnsureResolver
+          unsures={this.state.unsureDuplicates}
+          onClose={this.handleUnsures}/>}
         <Title>PLAYLISTMIXER</Title>
         <Subtitle>Hello {this.state.user.name}! Select playlists you want to combine</Subtitle>
         <PlaylistContainer>
@@ -131,7 +152,10 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
         </PlaylistContainer>
         <StatusTextComponent
           playlists={this.state.selectedPlaylists} tracks={this.state.selectedTracks}/>
-        <button onClick={e => this.createNewPlaylist()}>Create new playlist</button>
+        <CreatePlaylistButton
+          onClick={this.createNewPlaylist}>
+            Create new playlist
+          </CreatePlaylistButton>
       </div>
     );
   }

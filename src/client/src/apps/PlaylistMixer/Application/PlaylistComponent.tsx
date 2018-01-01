@@ -111,7 +111,7 @@ class PlaylistComponent extends React.Component<PlaylistComponentProps, {selecte
           <ImageContainer>
             <img src={this.props.data.imageUrl}/>
           </ImageContainer>
-          <div>
+          <div style={{ overflow: 'hidden' }}>
             <Title>{this.props.data.name}</Title>
             <Subtext>{this.props.data.length} songs</Subtext>
             <Subtext>{runtimeToString(this.props.data.runtime)}</Subtext>
