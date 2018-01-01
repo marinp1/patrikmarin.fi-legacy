@@ -132,6 +132,16 @@ interface UnsureResolverState {
   trackStatus: Map<Track, boolean>;
 }
 
+const CloseButton = glamorous.div({
+  position: 'absolute',
+  top: '2rem',
+  right: '2rem',
+  cursor: 'pointer',
+  ':hover': {
+    opacity: 0.85,
+  },
+});
+
 class UnsureResolver extends React.Component<UnsureResolverProps, UnsureResolverState> {
 
   constructor(props: UnsureResolverProps) {
@@ -192,6 +202,9 @@ class UnsureResolver extends React.Component<UnsureResolverProps, UnsureResolver
     return (
       <Container className="u-full-width">
         <ResolverContainer className="container">
+          <CloseButton onClick={e => this.props.onClose(undefined)}>
+            <i className="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+          </CloseButton>
           <Title>{this.props.unsures.length} unsure duplicates</Title>
           <Subtitle>Select which ones to save</Subtitle>
           {this.props.unsures.map((_) => {
