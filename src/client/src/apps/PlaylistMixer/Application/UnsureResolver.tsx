@@ -206,7 +206,7 @@ class UnsureResolver extends React.Component<UnsureResolverProps, UnsureResolver
             <i className="fa fa-times-circle fa-2x" aria-hidden="true"></i>
           </CloseButton>
           <Title>{this.props.unsures.length} unsure duplicates</Title>
-          <Subtitle>Select which ones to save</Subtitle>
+          <Subtitle>Select which songs of the duplicates to save to the new playlist</Subtitle>
           {this.props.unsures.map((_) => {
             return (
               <TrackPairComponent key={_.a.id + _.b.id} pair={_}
