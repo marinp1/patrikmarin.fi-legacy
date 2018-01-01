@@ -40,7 +40,7 @@ interface ApplicationState {
   selectedTracks: Track[];
   unsureDuplicates: TrackPair[];
   modalOpen: boolean;
-  resolveResult: ResolveResult | undefined;
+  resolveResult: ResolveResult | undefined; // Keep state of duplicate resolution
 }
 
 class Application extends React.Component<ApplicationProps, ApplicationState> {
@@ -60,8 +60,10 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
     this.handleUnsures = this.handleUnsures.bind(this);
     this.handleUnsureResult = this.handleUnsureResult.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
+  // Handle playlist selection, either add or remove the playlist from selected
   handleSelection(playlist: Playlist) {
     if (this.state.selectedPlaylists.indexOf(playlist) !== -1) {
       const filteredList = this.state.selectedPlaylists.filter(_ => _.id !== playlist.id);
@@ -102,15 +104,32 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
                                              this.state.selectedTracks, this.props.errorHandler);
     if (createdList !== undefined) {
       console.log('Playlist ', createdList.name, 'created!');
+      this.resetState();
     } else {
       console.log('Error with creating playlist');
     }
   }
 
+  // Simulate refresing the page
+  resetState() {
+    this.setState({
+      user: undefined,
+      modalOpen: false,
+      playlists: [],
+      selectedPlaylists: [],
+      selectedTracks: [],
+      unsureDuplicates: [],
+      resolveResult: undefined,
+    });
+    this.fetchData();
+  }
+
+  // Open duplicate resolution modal
   handleUnsures() {
     this.setState({ modalOpen: true });
   }
 
+  // Remove discarded tracks from selected tracks and add saved ones if they do not exist
   handleUnsureResult(result?: ResolveResult) {
     this.setState({ modalOpen: false });
     if (!!result) {
@@ -124,6 +143,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     }
   }
 
+  // Get user and playlist data
   async fetchData() {
     const user = await getUserId(this.props.accessToken, this.props.errorHandler);
     if (user !== undefined) {

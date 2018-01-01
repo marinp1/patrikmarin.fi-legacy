@@ -3,6 +3,17 @@ import { ParsedUrlQuery } from 'querystring';
 import * as Spotify from 'spotify-web-api-js';
 import { Playlist, Track, User } from './classes';
 
+function handleError(err: any, errorHandler: (e: any) => void): undefined {
+  // Display error screen with appropriate information
+  try {
+    const error = JSON.parse(err.response).error;
+    errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+  } catch (e)  {
+    errorHandler(`${err.status} ${err.statusText}`);
+  }
+  return undefined;
+}
+
 export async function getUserId(accessToken: string,
                                 errorHandler: (e: any) => void) {
 
@@ -12,14 +23,7 @@ export async function getUserId(accessToken: string,
     .then((user) => {
       return new User(user);
     }).catch((err) => {
-      try {
-        const error = JSON.parse(err.response).error;
-        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-        return undefined;
-      } catch (e)  {
-        errorHandler(`${err.status} ${err.statusText}`);
-        return undefined;
-      }
+      return handleError(err, errorHandler);
     });
   return user;
 }
@@ -47,14 +51,7 @@ export async function getPlaylistTracks(accessToken: string, ownerId: string,
         // Return data
         return merged;
       }).catch((err) => {
-        try {
-          const error = JSON.parse(err.response).error;
-          errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-          return undefined;
-        } catch (e)  {
-          errorHandler(`${err.status} ${err.statusText}`);
-          return undefined;
-        }
+        return handleError(err, errorHandler);
       });
   }
 
@@ -81,14 +78,7 @@ export async function getUserPlaylists(accessToken: string, id: string,
         }
         return merged;
       }).catch((err) => {
-        try {
-          const error = JSON.parse(err.response).error;
-          errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-          return undefined;
-        } catch (e)  {
-          errorHandler(`${err.status} ${err.statusText}`);
-          return undefined;
-        }
+        return handleError(err, errorHandler);
       });
   }
 
@@ -108,14 +98,7 @@ export async function createPlaylist(accessToken: string, userId: string, playli
     .then((playlist) => {
       return playlist;
     }).catch((err) => {
-      try {
-        const error = JSON.parse(err.response).error;
-        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-        return undefined;
-      } catch (e)  {
-        errorHandler(`${err.status} ${err.statusText}`);
-        return undefined;
-      }
+      return handleError(err, errorHandler);
     });
 
   async function addTracksToPlaylist(playlistId: string, uris: string[]):
@@ -125,14 +108,7 @@ export async function createPlaylist(accessToken: string, userId: string, playli
       .then((playlist) => {
         return playlist;
       }).catch((err) => {
-        try {
-          const error = JSON.parse(err.response).error;
-          errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
-          return undefined;
-        } catch (e)  {
-          errorHandler(`${err.status} ${err.statusText}`);
-          return undefined;
-        }
+        return handleError(err, errorHandler);
       });
     if (uris.length > 100) {
       return addTracksToPlaylist(playlistId, uris.splice(100));

@@ -31,7 +31,7 @@ export class Playlist {
     this.public = data.public;
     this.imageUrl = data.images[0].url;
     this.length = data.tracks.total;
-    this.runtime = -1;
+    this.runtime = -1; // Use -1 to inform that tracks are being loaded
   }
 
   setTracks(tracks: Track[]) {

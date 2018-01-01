@@ -140,6 +140,7 @@ class UnsureResolver extends React.Component<UnsureResolverProps, UnsureResolver
     this.handleTrackSelection = this.handleTrackSelection.bind(this);
   }
 
+  // Select or unselect track 
   handleTrackSelection(track: Track): void {
     const value = this.state.trackStatus.get(track);
     if (value !== undefined) {
@@ -152,6 +153,7 @@ class UnsureResolver extends React.Component<UnsureResolverProps, UnsureResolver
     const saved: Track[] = [];
     const discarded: Track[] = [];
 
+    // Transform trackstatus map data into two arrays
     const iter = this.state.trackStatus.entries();
     let entry = iter.next();
     while (!!entry && !entry.done) {
@@ -172,6 +174,8 @@ class UnsureResolver extends React.Component<UnsureResolverProps, UnsureResolver
 
   componentDidMount() {
     const map: Map<Track, boolean> = new Map();
+    // If saved result exists, use that; otherwise initate that
+    // 'left' side is saved and right side is discarded
     if (!!this.props.existingResult) {
       this.props.existingResult.saved.forEach(_ => map.set(_, true));
       this.props.existingResult.discarded.forEach(_ => map.set(_, false));
