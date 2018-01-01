@@ -37,6 +37,28 @@ export default class Server {
         }
       },
     );
+
+    this.app.get(
+      '/apps/club-afterski',
+      (req, res) => {
+        res.sendFile(path.join(__dirname, '../../client/build/apps/club-afterski/index.html'));
+      },
+    );
+
+    this.app.get(
+      '/apps/ruokalistat',
+      (req, res) => {
+        res.sendFile(path.join(__dirname, '../../client/build/apps/ruokalistat/index.html'));
+      },
+    );
+
+    this.app.get(
+      '/resources/cv_patrik-marin_en_web.pdf',
+      (req, res) => {
+        // tslint:disable-next-line
+        res.sendFile(path.join(__dirname, '../../client/build/resources/cv_patrik-marin_en_web.pdf'));
+      },
+    );
     
     // The "catchall" handler: for any request that doesn't
     // match one above, send back React's index.html file.
