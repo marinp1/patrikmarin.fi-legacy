@@ -8,6 +8,7 @@ import PlaylistComponent from './PlaylistComponent';
 import StatusTextComponent from './StatusTextComponent';
 import UnsureResolver from './UnsureResolver';
 import CreatePlaylistButton from './CreatePlaylistButton';
+import ResolveDuplicatesButton from './ResolveDuplicatesButton';
 
 const Title = glamorous.h5({
   letterSpacing: '0.2rem',
@@ -58,6 +59,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     this.handleSelection = this.handleSelection.bind(this);
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
     this.handleUnsures = this.handleUnsures.bind(this);
+    this.handleUnsureResult = this.handleUnsureResult.bind(this);
   }
 
   handleSelection(playlist: Playlist) {
@@ -68,6 +70,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
         selectedPlaylists: filteredList,
         selectedTracks: uniqueTracks.uniques,
         unsureDuplicates: uniqueTracks.unsures,
+        resolveResult: undefined,
       });
     } else {
       const newList = this.state.selectedPlaylists.concat(playlist);
@@ -76,19 +79,20 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
         selectedPlaylists: newList,
         selectedTracks: uniqueTracks.uniques,
         unsureDuplicates: uniqueTracks.unsures,
+        resolveResult: undefined,
       });
     }
   }
 
   createNewPlaylist(name: string) {
-    if (this.state.unsureDuplicates.length > 0) {
-      this.setState({ modalOpen: true });
-    } else {
-      generatePlaylist();
-    }
+    generatePlaylist();
   }
 
-  handleUnsures(result?: ResolveResult) {
+  handleUnsures() {
+    this.setState({ modalOpen: true });
+  }
+
+  handleUnsureResult(result?: ResolveResult) {
     this.setState({ modalOpen: false });
     if (!!result) {
       const finalTracks = this.state.selectedTracks.filter((_) => {
@@ -146,7 +150,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
         {this.state.modalOpen && <UnsureResolver
           existingResult={this.state.resolveResult}
           unsures={this.state.unsureDuplicates}
-          onClose={this.handleUnsures}/>}
+          onClose={this.handleUnsureResult}/>}
         <Title>PLAYLISTMIXER</Title>
         <Subtitle>Hello {this.state.user.name}! Select playlists you want to combine</Subtitle>
         <PlaylistContainer>
@@ -160,6 +164,9 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
         </PlaylistContainer>
         <StatusTextComponent
           playlists={this.state.selectedPlaylists} tracks={this.state.selectedTracks}/>
+        {this.state.unsureDuplicates.length > 0 &&
+          <ResolveDuplicatesButton onClick={this.handleUnsures}
+            duplicateCount={this.state.unsureDuplicates.length}/>}
         <CreatePlaylistButton
           onClick={this.createNewPlaylist}>
             Create new playlist

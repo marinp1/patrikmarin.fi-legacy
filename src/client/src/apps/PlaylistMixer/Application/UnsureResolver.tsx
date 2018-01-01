@@ -31,6 +31,9 @@ const TrackContainer = glamorous.div({
 const TrackText = glamorous.p({
   margin: 0,
   padding: 0,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
 });
 
 const TrackImageContainer = glamorous.div({
@@ -60,9 +63,11 @@ class TrackComponent extends React.Component<
         <TrackImageContainer>
           <img src={this.props.track.album.imageUrl}/>
         </TrackImageContainer>
-        <div>
-          <TrackText><b>{this.props.track.artist}</b>: {this.props.track.name}</TrackText>
-          <TrackText><i>{this.props.track.album.name}</i></TrackText>
+        <div style={{ overflow: 'hidden' }}>
+          <TrackText>
+            {this.props.track.artist} - <i>{this.props.track.album.name}</i>
+          </TrackText>
+          <TrackText><b>{this.props.track.name}</b></TrackText>
         </div>
       </TrackContainer>
     );
@@ -97,12 +102,16 @@ const Container = glamorous.div({
   alignItems: 'center',
   justifyContent: 'center',
   background: 'rgba(0,0,0,0.8)',
+  paddingTop: '2rem',
+  paddingBottom: '2rem',
 });
 
 const ResolverContainer = glamorous.div({
   padding: '2rem !important',
   background: '#FFF',
   borderRadius: '0.3rem',
+  overflow: 'auto',
+  maxHeight: '100%',
 });
 
 const Title = glamorous.h5({
