@@ -35,7 +35,7 @@ export class Playlist {
   }
 
   setTracks(tracks: Track[]) {
-    this.tracks = tracks;
+    this.tracks = tracks.filter(_ => _.local === false);
     this.runtime = tracks.map(_ => _.duration).reduce((a, b) => a + b);
   }
 }
@@ -47,6 +47,7 @@ export class Track {
   name: string;
   album: Album;
   artist: string;
+  local: boolean;
 
   constructor(data: SpotifyApi.PlaylistTrackObject) {
     this.id = data.track.id;
@@ -55,6 +56,7 @@ export class Track {
     this.album = new Album(data.track.album);
     this.name = data.track.name;
     this.artist = data.track.artists.map(_ => _.name).join(' & ');
+    this.local = data.is_local;
   }
 }
 

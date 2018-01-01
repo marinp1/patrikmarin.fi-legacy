@@ -9,6 +9,7 @@ import StatusTextComponent from './StatusTextComponent';
 import UnsureResolver from './UnsureResolver';
 import CreatePlaylistButton from './CreatePlaylistButton';
 import ResolveDuplicatesButton from './ResolveDuplicatesButton';
+import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 
 const Title = glamorous.h5({
   letterSpacing: '0.2rem',
@@ -69,7 +70,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
     this.handleUnsures = this.handleUnsures.bind(this);
     this.handleUnsureResult = this.handleUnsureResult.bind(this);
-    this.resetState = this.resetState.bind(this);
+    this.refreshPage = this.refreshPage.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
@@ -103,30 +104,44 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
   async createNewPlaylist(name: string) {
     const listName = name.trim();
     if (listName.length === 0) {
-      console.log('List name cannot be empty');
+      toast.warn('List name cannot be empty!');
       return;
     }
     if (this.state.selectedTracks.length === 0) {
-      console.log('Cannot create empty list');
+      toast.warn('Cannot create empty list!');
       return;
     }
     if (this.state.user === undefined) {
       this.props.errorHandler('Authorization error');
       return;
     }
+
+    const toastOptions: ToastOptions = {};
+    toastOptions.autoClose = false;
+    toast.info(`Creating playlist ${name}...`, toastOptions);
+
     const createdList = await createPlaylist(this.props.accessToken, this.state.user.id, listName,
                                              this.state.selectedTracks, this.props.errorHandler);
     if (createdList !== undefined) {
-      console.log('Playlist ', createdList.name, 'created!');
-      this.resetState();
+      toast.dismiss();
+      this.refreshPage(createdList.name);
     } else {
-      console.log('Error with creating playlist');
+      toast.error(`Error with creating playlist!`);
     }
   }
 
   // Simulate refresing the page
-  resetState() {
-    this.setState({ ...this.initialStateValue });
+  refreshPage(listName: string) {
+    toast.success(`Playlist! ${listName} created!`);
+    // Reset relevant information
+    this.setState({
+      playlists: [],
+      selectedPlaylists: [],
+      selectedTracks: [],
+      unsureDuplicates: [],
+      resolveResult: undefined,
+      searchValue: '',
+    })
     this.fetchData();
   }
 
@@ -145,6 +160,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
       result.saved.forEach((_) => {
         if (finalTracks.indexOf(_) === -1) finalTracks.push(_);
       });
+      toast.info(`Duplicate resolution saved.`);
       this.setState({ selectedTracks: finalTracks, resolveResult: result });
     }
   }
@@ -196,6 +212,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
           existingResult={this.state.resolveResult}
           unsures={this.state.unsureDuplicates}
           onClose={this.handleUnsureResult}/>}
+        <ToastContainer />
         <Title>PLAYLISTMIXER</Title>
         <Subtitle>Hello {this.state.user.name}! Select playlists you want to combine</Subtitle>
         <Label>Filter playlists:</Label>
