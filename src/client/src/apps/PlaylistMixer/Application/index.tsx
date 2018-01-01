@@ -39,6 +39,7 @@ interface ApplicationState {
   selectedTracks: Track[];
   unsureDuplicates: TrackPair[];
   modalOpen: boolean;
+  resolveResult: ResolveResult | undefined;
 }
 
 class Application extends React.Component<ApplicationProps, ApplicationState> {
@@ -52,6 +53,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
       selectedPlaylists: [],
       selectedTracks: [],
       unsureDuplicates: [],
+      resolveResult: undefined,
     };
     this.handleSelection = this.handleSelection.bind(this);
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
@@ -89,8 +91,13 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
   handleUnsures(result?: ResolveResult) {
     this.setState({ modalOpen: false });
     if (!!result) {
-      console.log(result.discarded.length);
-      console.log(result.saved.length);
+      const finalTracks = this.state.selectedTracks.filter((_) => {
+        return (result.discarded.indexOf(_) === -1);
+      });
+      result.saved.forEach((_) => {
+        if (finalTracks.indexOf(_) === -1) finalTracks.push(_);
+      });
+      this.setState({ selectedTracks: finalTracks, resolveResult: result });
     }
   }
 
@@ -137,6 +144,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
         style={{ maxWidth: '1024px' }}
         >
         {this.state.modalOpen && <UnsureResolver
+          existingResult={this.state.resolveResult}
           unsures={this.state.unsureDuplicates}
           onClose={this.handleUnsures}/>}
         <Title>PLAYLISTMIXER</Title>

@@ -115,7 +115,8 @@ const Subtitle = glamorous.p({
 
 interface UnsureResolverProps {
   unsures: TrackPair[];
-  onClose: (e: ResolveResult | undefined) => void; 
+  onClose: (e: ResolveResult | undefined) => void;
+  existingResult: ResolveResult | undefined;
 }
 
 interface UnsureResolverState {
@@ -162,10 +163,15 @@ class UnsureResolver extends React.Component<UnsureResolverProps, UnsureResolver
 
   componentDidMount() {
     const map: Map<Track, boolean> = new Map();
-    this.props.unsures.forEach((_) => {
-      map.set(_.a, true);
-      map.set(_.b, false);
-    });
+    if (!!this.props.existingResult) {
+      this.props.existingResult.saved.forEach(_ => map.set(_, true));
+      this.props.existingResult.discarded.forEach(_ => map.set(_, false));
+    } else {
+      this.props.unsures.forEach((_) => {
+        map.set(_.a, true);
+        map.set(_.b, false);
+      });
+    }
     this.setState({ trackStatus: map });
   }
 
