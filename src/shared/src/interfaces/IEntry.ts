@@ -12,6 +12,7 @@ export interface IEntryFields {
   whyText: string;
   currentStatusText: string;
   links?: string[];
+  previewAvailable: boolean;
   whatImages?: IEntryImage[];
   whyImages?: IEntryImage[];
   currentStatusImages?: IEntryImage[];

@@ -112,7 +112,10 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
             <InfoLabel>{this.props.infoLabel}</InfoLabel>
             <ButtonContainer>
               <Button className="button" href="#description">READ MORE</Button>
-              <Button className="button">DOWNLOAD CV</Button>
+              <Button className="button"
+                href="/resources/cv_patrik-marin_en_web.pdf"
+                >DOWNLOAD CV
+              </Button>
             </ButtonContainer>
             <LinkContainer>
               {this.props.profiles.map((profile: IProfile, index: number) => {

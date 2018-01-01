@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Otaniemen ruokalistat</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="description" content="Otaniemen opiskelijaravintoloiden lounaslistat.">
+  <meta name="author" content="Patrik Marin">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <script src="js/hammer-min.js"></script>
+  <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67350900-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<div class="container">
+		<nav class='row u-full-max-width'><ul id='navbar'><li id='selector'><span id='curRes'>Ruokalistat</span><span class='sp-right'><i class='fa fa-lg fa-caret-down'></i></span><ul id='dropbar'><li href='Tietotekniikka'><span class='bar bopen'></span>Tietotekniikka</li><li href='Alvari'><span class='bar bopen'></span>Alvari</li><li href='Subway'><span class='bar bopen'></span>Subway</li><li href='Kvarkki'><span class='bar bopen'></span>Kvarkki</li><li href='TUAS'><span class='bar bclosed'></span>TUAS</li><li href='Täffä'><span class='bar bopen'></span>Täffä</li><li href='Puu2'><span class='bar bopen'></span>Puu2</li><li href='Konetekniikka'><span class='bar bopen'></span>Konetekniikka</li><li href='Sähkötekniikka'><span class='bar bopen'></span>Sähkötekniikka</li></ul></li><li id='settings-btn'><span><i class='fa fa-lg fa-bars'></i></span><span>Asetukset</span></li></ul></nav><div id='content'><div id='updated'><p>Päivitetty viimeksi: 29.11.2016-11.07:06</p></div><div class='menu activeres' id='Tietotekniikka'><div class='row restaurant'><h4>Tietotekniikka</h4></div><div class='row time open'><p>(10.30 - 14.30)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Kalapyörykät, tilli-kermaviilikastike<span class='props'>G L</span><br></p><p>Naudanlihastifadoa<span class='props'>G M</span><br></p><p>Chili sin carne<span class='props'>G M</span><br></p><p>Juuressosekeittoa<span class='props'>G L</span><br></p><p>Broileri-caesarsalaattia<span class='props'>L</span><br></p><p>Subway: Tonnikala<span class='props'></span><br></p></div></div><div class='menu' id='Alvari'><div class='row restaurant'><h4>Alvari</h4></div><div class='row time open'><p>(10.30 - 17.00)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Luomutofua ja kasviksia kormakastikkeessa<span class='props'>A G L VS</span><br>Täysjyvävehnää<span class='props'>A L M</span><br></p><p>Papu-kasviskeittoa<span class='props'>G L M Veg</span><br></p><p>Jauhelihakiusausta<span class='props'>A G L</span><br></p><p>Ruohosipulikermaviilikastiketta<span class='props'>A G L</span><br>Kalapyöryköitä<span class='props'>A G L M</span><br>Tilliperunoita<span class='props'>G L M Veg</span><br></p><p>Chorizomakkarasalaatti<span class='props'>A G L VS</span><br></p></div></div><div class='menu' id='Subway'><div class='row restaurant'><h4>Subway</h4></div><div class='row time open'><p>(10.00 - 19.30)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Ravintola suljettu tai ruokalistaa ei kyetty noutamaan.</p></div></div><div class='menu' id='Kvarkki'><div class='row restaurant'><h4>Kvarkki</h4></div><div class='row time open'><p>(10.30 - 15.00)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Punasipuli-inkiväärilisäkettä<span class='props'>A G L M Veg VS</span><br>Pinaatti-fetapiirakkaa<span class='props'>A VL VS</span><br></p><p>Liha-makaronilaatikkoa<span class='props'>A VL</span><br></p><p>Broileri-kookoskastiketta<span class='props'>A G L</span><br>Höyrytettyä tummaa riisiä<span class='props'>G L M Veg</span><br></p><p>Siikacevicheä<span class='props'>A G L M VS</span><br>Yrttimarinoitua luomutofua<span class='props'>A G L M Veg VS</span><br>Mandariini-inkiväärijuoma<span class='props'>G L M Veg</span><br></p><p>Paneroitu kampelafilee<span class='props'>A L M</span><br>Muna-sinappirelishkermaviilikastiketta<span class='props'>A G L</span><br>Herne-punasipulilisäkettä<span class='props'>G L M Veg</span><br>Tilliperunoita<span class='props'>G L M Veg</span><br></p><p>Mandariini-inkiväärijuoma<span class='props'>G L M Veg</span><br></p><p>Englantilainen aamiainen<span class='props'></span><br></p></div></div><div class='menu' id='TUAS'><div class='row restaurant'><h4>TUAS</h4></div><div class='row food'><p>Ravintola suljettu tai ruokalistaa ei kyetty noutamaan.</p></div></div><div class='menu' id='Täffä'><div class='row restaurant'><h4>Täffä</h4></div><div class='row time open'><p>(10.30 - 16.00)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Ravintola suljettu tai ruokalistaa ei kyetty noutamaan.</p></div></div><div class='menu' id='Puu2'><div class='row restaurant'><h4>Puu2</h4></div><div class='row time open'><p>(10.30 - 14.00)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Ravintola suljettu tai ruokalistaa ei kyetty noutamaan.</p></div></div><div class='menu' id='Konetekniikka'><div class='row restaurant'><h4>Konetekniikka</h4></div><div class='row time open'><p>(10.30 - 14.00)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Kalapyörykät<span class='props'>G L</span><br></p><p>Naudaliha stifado<span class='props'>G M</span><br></p><p>Chili sin carne<span class='props'>G M</span><br></p><p>Juuressosekeitto<span class='props'>G L</span><br></p><p>Broileri caesar<span class='props'>L</span><br></p></div></div><div class='menu' id='Sähkötekniikka'><div class='row restaurant'><h4>Sähkötekniikka</h4></div><div class='row time open'><p>(10.30 - 15.00)</p><span><i class='fa fa-check'></i></span></div><div class='row food'><p>Naudanliha stifado<span class='props'>G M</span><br></p><p>Chili sin carne<span class='props'>G M</span><br></p><p>Juuressosekeitto<span class='props'>G L</span><br></p><p>Broileri-caesarsalaatti<span class='props'>L</span><br></p></div></div></div>		<script type="text/javascript" src="js/script.js"></script>
+	</div>
+	<div id="overlay">
+		<h1><span class="fa fa-refresh fa-pulse"></span></h1>
+	</div>
+  <div id="settings-box">
+    <div id="day-selector">
+      <ul>
+        <li class="day day-selected">MA</li>
+        <li class="day">TI</li>
+        <li class="day">KE</li>
+        <li class="day">TO</li>
+        <li class="day">PE</li>
+        <li class="day">LA</li>
+        <li class="day">SU</li>
+        <li id="notify-btn"><i class="fa fa-rss"></i></li>
+        <li id="update-btn"><i class="fa fa-database"></i></li>
+      </ul>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+
+</html>
