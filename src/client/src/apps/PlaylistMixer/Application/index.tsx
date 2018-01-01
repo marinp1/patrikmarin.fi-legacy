@@ -19,8 +19,13 @@ const Title = glamorous.h5({
 });
 
 const Subtitle = glamorous.h6({
-  marginBottom: '2rem',
+  marginBottom: '1.5rem',
   color: '#c8c8c8',
+});
+
+const Label = glamorous.p({
+  color: '#c8c8c8',
+  marginBottom: '1rem',
 });
 
 const PlaylistContainer = glamorous.div({
@@ -41,26 +46,35 @@ interface ApplicationState {
   unsureDuplicates: TrackPair[];
   modalOpen: boolean;
   resolveResult: ResolveResult | undefined; // Keep state of duplicate resolution
+  searchValue: string;
 }
 
 class Application extends React.Component<ApplicationProps, ApplicationState> {
 
+  initialStateValue: ApplicationState = {
+    user: undefined,
+    modalOpen: false,
+    playlists: [],
+    selectedPlaylists: [],
+    selectedTracks: [],
+    unsureDuplicates: [],
+    resolveResult: undefined,
+    searchValue: '',
+  };
+
   constructor(props: ApplicationProps) {
     super(props);
-    this.state = {
-      user: undefined,
-      modalOpen: false,
-      playlists: [],
-      selectedPlaylists: [],
-      selectedTracks: [],
-      unsureDuplicates: [],
-      resolveResult: undefined,
-    };
+    this.state = { ...this.initialStateValue };
     this.handleSelection = this.handleSelection.bind(this);
     this.createNewPlaylist = this.createNewPlaylist.bind(this);
     this.handleUnsures = this.handleUnsures.bind(this);
     this.handleUnsureResult = this.handleUnsureResult.bind(this);
     this.resetState = this.resetState.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+  }
+
+  handleSearchChange(value: string) {
+    this.setState({ searchValue: value });
   }
 
   // Handle playlist selection, either add or remove the playlist from selected
@@ -112,15 +126,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
 
   // Simulate refresing the page
   resetState() {
-    this.setState({
-      user: undefined,
-      modalOpen: false,
-      playlists: [],
-      selectedPlaylists: [],
-      selectedTracks: [],
-      unsureDuplicates: [],
-      resolveResult: undefined,
-    });
+    this.setState({ ...this.initialStateValue });
     this.fetchData();
   }
 
@@ -192,13 +198,22 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
           onClose={this.handleUnsureResult}/>}
         <Title>PLAYLISTMIXER</Title>
         <Subtitle>Hello {this.state.user.name}! Select playlists you want to combine</Subtitle>
+        <Label>Filter playlists:</Label>
+        <input className="u-full-width" type="text" value={this.state.searchValue}
+          onChange={e => this.handleSearchChange(e.currentTarget.value)}/>
         <PlaylistContainer>
           {this.state.playlists.map((list) => {
-            return (
+            const isSelected = this.state.selectedPlaylists.indexOf(list) !== -1;
+            const compVal = this.state.searchValue.toLowerCase().trim();
+            if (isSelected || compVal.length === 0 ||
+              list.name.toLowerCase().indexOf(compVal) !== -1) {
+              return (
                 <PlaylistComponent key={list.id}
                   data={list}
                   handleSelection={this.handleSelection}/>
-            );
+              );
+            }
+            return null;
           })}
         </PlaylistContainer>
         <StatusTextComponent
