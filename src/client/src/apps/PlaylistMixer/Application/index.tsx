@@ -141,7 +141,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
       unsureDuplicates: [],
       resolveResult: undefined,
       searchValue: '',
-    })
+    });
     this.fetchData();
   }
 

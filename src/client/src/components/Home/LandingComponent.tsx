@@ -112,8 +112,7 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
             <InfoLabel>{this.props.infoLabel}</InfoLabel>
             <ButtonContainer>
               <Button className="button" href="#description">READ MORE</Button>
-              <Button className="button"
-                href="/resources/cv_patrik-marin_en_web.pdf"
+              <Button className="button" href={require('./resources/cv_patrik-marin_en_web.pdf')}
                 >DOWNLOAD CV
               </Button>
             </ButtonContainer>
