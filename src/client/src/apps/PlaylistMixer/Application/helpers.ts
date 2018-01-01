@@ -49,7 +49,3 @@ export function getUniquetracks(playlists: Playlist[]): UniqueResult {
     unsures: Array.from(unsureIdMap.values()),
   };
 }
-
-export function generatePlaylist() {
-  console.log('hello');
-}

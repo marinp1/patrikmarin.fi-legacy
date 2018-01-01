@@ -60,7 +60,7 @@ class CreatePlaylistButton
           value={this.state.playlistName}
           onChange={e => this.onPlaylistValueChange(e)}/>
         <Button className="button-primary"
-          onClick={e => this.props.onClick('Blaa')}
+          onClick={e => this.props.onClick(this.state.playlistName)}
           type="image" src={createImage}/>
       </Container>
     );

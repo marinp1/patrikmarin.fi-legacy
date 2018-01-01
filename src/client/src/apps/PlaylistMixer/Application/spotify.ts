@@ -95,3 +95,55 @@ export async function getUserPlaylists(accessToken: string, id: string,
   const allPlaylists = await getNext([], 0);
   return allPlaylists;
 }
+
+export async function createPlaylist(accessToken: string, userId: string, playlistName: string,
+                                     tracks: Track[], errorHandler: (e: any) => void) {
+
+  const spotifyApi = new Spotify();
+  spotifyApi.setAccessToken(accessToken);
+
+  const trackUris = tracks.map(_ => _.uri);
+
+  const newPlaylist = spotifyApi.createPlaylist(userId, { name: playlistName })
+    .then((playlist) => {
+      return playlist;
+    }).catch((err) => {
+      try {
+        const error = JSON.parse(err.response).error;
+        errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+        return undefined;
+      } catch (e)  {
+        errorHandler(`${err.status} ${err.statusText}`);
+        return undefined;
+      }
+    });
+
+  async function addTracksToPlaylist(playlistId: string, uris: string[]):
+   Promise<SpotifyApi.CreatePlaylistResponse | undefined> {
+    const limitedUris = uris.length > 100 ? uris.slice(0, 100) : uris;
+    await spotifyApi.addTracksToPlaylist(userId, playlistId, limitedUris)
+      .then((playlist) => {
+        return playlist;
+      }).catch((err) => {
+        try {
+          const error = JSON.parse(err.response).error;
+          errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
+          return undefined;
+        } catch (e)  {
+          errorHandler(`${err.status} ${err.statusText}`);
+          return undefined;
+        }
+      });
+    if (uris.length > 100) {
+      return addTracksToPlaylist(playlistId, uris.splice(100));
+    }
+    return newPlaylist;
+  }
+
+  return newPlaylist.then((response) => {
+    if (response === undefined) {
+      return undefined;
+    }
+    return addTracksToPlaylist(response.id, trackUris);
+  });
+}                                      

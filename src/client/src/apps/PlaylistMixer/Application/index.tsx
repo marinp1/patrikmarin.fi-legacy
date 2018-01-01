@@ -1,8 +1,8 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
-import { getUserId, getUserPlaylists, getPlaylistTracks } from './spotify';
+import { getUserId, getUserPlaylists, getPlaylistTracks, createPlaylist } from './spotify';
 import { Playlist, User, Track } from './classes';
-import { getUniquetracks, TrackPair, generatePlaylist, ResolveResult } from './helpers';
+import { getUniquetracks, TrackPair, ResolveResult } from './helpers';
 import Loader from './Loader';
 import PlaylistComponent from './PlaylistComponent';
 import StatusTextComponent from './StatusTextComponent';
@@ -84,8 +84,27 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     }
   }
 
-  createNewPlaylist(name: string) {
-    generatePlaylist();
+  async createNewPlaylist(name: string) {
+    const listName = name.trim();
+    if (listName.length === 0) {
+      console.log('List name cannot be empty');
+      return;
+    }
+    if (this.state.selectedTracks.length === 0) {
+      console.log('Cannot create empty list');
+      return;
+    }
+    if (this.state.user === undefined) {
+      this.props.errorHandler('Authorization error');
+      return;
+    }
+    const createdList = await createPlaylist(this.props.accessToken, this.state.user.id, listName,
+                                             this.state.selectedTracks, this.props.errorHandler);
+    if (createdList !== undefined) {
+      console.log('Playlist ', createdList.name, 'created!');
+    } else {
+      console.log('Error with creating playlist');
+    }
   }
 
   handleUnsures() {
@@ -145,7 +164,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     return (
       <div
         className="container"
-        style={{ maxWidth: '1024px' }}
+        style={{ maxWidth: '1024px', marginBottom: '3rem' }}
         >
         {this.state.modalOpen && <UnsureResolver
           existingResult={this.state.resolveResult}

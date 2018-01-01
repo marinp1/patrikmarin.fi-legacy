@@ -42,6 +42,7 @@ export class Playlist {
 
 export class Track {
   id: string;
+  uri: string;
   duration: number;
   name: string;
   album: Album;
@@ -49,6 +50,7 @@ export class Track {
 
   constructor(data: SpotifyApi.PlaylistTrackObject) {
     this.id = data.track.id;
+    this.uri = data.track.uri;
     this.duration = data.track.duration_ms;
     this.album = new Album(data.track.album);
     this.name = data.track.name;
