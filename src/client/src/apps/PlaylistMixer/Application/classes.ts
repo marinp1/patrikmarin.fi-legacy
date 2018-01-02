@@ -10,7 +10,6 @@ export class User {
   constructor(data: SpotifyApi.UserProfileResponse) {
     this.id = data.id;
     this.name = data.display_name ? data.display_name : data.id;
-    this.imageUrl = data.images ? data.images[0].url : '';
   }
 }
 

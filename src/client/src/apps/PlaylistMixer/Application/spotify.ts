@@ -9,7 +9,7 @@ function handleError(err: any, errorHandler: (e: any) => void): undefined {
     const error = JSON.parse(err.response).error;
     errorHandler(`${err.status} ${err.statusText}: ${error.message}`);
   } catch (e)  {
-    errorHandler(`${err.status} ${err.statusText}`);
+    console.error(err);
   }
   return undefined;
 }
