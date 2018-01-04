@@ -31,6 +31,20 @@ const Container = glamorous.div({
   },
 });
 
+const Background = glamorous.div({
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  zIndex: -1,
+  backgroundColor: colors.black,
+  backgroundImage: `url(${require('./images/bg.jpg')})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center center',
+  backgroundSize: 'cover',
+});
+
 interface IMainPageState {
   resume: IResume.IResume;
   projects: IProjectFields[];
@@ -69,35 +83,32 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     document.title = 'Patrik Marin';
 
     document.body.style.backgroundColor = colors.black;
-    document.body.style.height = '100vh';
-    document.body.style.backgroundImage = `url(${require('./images/bg.jpg')})`;
-    document.body.style.backgroundRepeat = 'no-repeat';
-    document.body.style.backgroundPosition = 'center center';
-    document.body.style.backgroundAttachment = 'fixed';
-    document.body.style.backgroundSize = 'cover';
 
     return (
-      <Container>
-        <LandingComponent
-          name={this.state.resume.basics.name}
-          infoLabel={this.state.resume.basics.label}
-          profiles={this.state.resume.basics.profiles}
-          email={this.state.resume.basics.email}
-        />
-        <CurriculumComponent
-          name={this.state.resume.basics.name}
-          summary={this.state.resume.basics.summary}
-          workplaces={this.state.resume.work}
-          educations={this.state.resume.education}
-          competitions={this.state.resume.awards}
-          languages={this.state.resume.languages}
-          skills={this.state.resume.skills}
-        />
-        <ProjectComponent
-          projects={this.state.projects}
-        />
-        <FooterComponent/>
-      </Container>
+      <div>
+        <Background/>
+        <Container>
+          <LandingComponent
+            name={this.state.resume.basics.name}
+            infoLabel={this.state.resume.basics.label}
+            profiles={this.state.resume.basics.profiles}
+            email={this.state.resume.basics.email}
+          />
+          <CurriculumComponent
+            name={this.state.resume.basics.name}
+            summary={this.state.resume.basics.summary}
+            workplaces={this.state.resume.work}
+            educations={this.state.resume.education}
+            competitions={this.state.resume.awards}
+            languages={this.state.resume.languages}
+            skills={this.state.resume.skills}
+          />
+          <ProjectComponent
+            projects={this.state.projects}
+          />
+          <FooterComponent/>
+        </Container>
+      </div>
     );
   }
 }
