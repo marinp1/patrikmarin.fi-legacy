@@ -187,7 +187,8 @@ function externalLinkMapper(linkString: string): IExternalLink | undefined {
       icon = 'fa-caret-right';
       break;
     default:
-      text = link;
+      if (text === '') text = 'Take a look!';
+      icon = 'fa-caret-right';
   }
 
   return {
