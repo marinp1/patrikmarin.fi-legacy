@@ -33,12 +33,14 @@ export function getThumbnailsWithSizes(
 
   const withSizes = chunked.map((row) => {
 
-    // Get total ratios for images in the row
-    const totalRatios = row.reduce((a: number, b: IThumbnailPhoto) => a + (b.ratio as number), 0);
+    // Get total ratio for images in the row
+    const totalRatio = row.reduce((a: number, b: IThumbnailPhoto) => a + (b.ratio as number), 0);
 
     // Calculate initial scaled pixel width and height for images in the row
     const newRow = row.map((elem, i) => {
-      const width = Math.floor(((elem.ratio as number) / totalRatios) * rowWidth);
+      const width = row.length === rowLength ? 
+        Math.floor(((elem.ratio as number) / totalRatio) * rowWidth) :
+        Math.floor(((elem.ratio as number) / totalRatio / (rowLength / row.length)) * rowWidth);
       const height = Math.floor((width / elem.originalWidth) * elem.originalHeight);
       return {
         ...elem,
@@ -53,7 +55,7 @@ export function getThumbnailsWithSizes(
     const unusedSpace = rowWidth - newRow.reduce((a, b) => a + b.width, 0);
 
     return newRow.map((_, i) => {
-      return (i % rowLength === 0) ?
+      return (i % rowLength === 0 && newRow.length === rowLength) ?
         { ..._, height: maxRowHeight, width: _.width + unusedSpace } :
         { ..._, height: maxRowHeight };
     });
