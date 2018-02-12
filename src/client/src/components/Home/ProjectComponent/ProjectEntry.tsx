@@ -162,7 +162,8 @@ const TechonologyTags: React.SFC<{tags: string[], selectedTechnologies: string[]
   return (
     <TechonologyTagContainer>
         {tags.map((tag: string, i: number) => {
-          const style = (selectedTechnologies.indexOf(tag.toLowerCase()) !== -1) ?
+          const style: React.CSSProperties =
+            (selectedTechnologies.indexOf(tag.toLowerCase()) !== -1) ?
             { fontWeight: 'bold' } : {};
           return (
             <TechonologyTag key={i} style={style}>
