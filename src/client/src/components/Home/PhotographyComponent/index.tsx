@@ -3,8 +3,7 @@ import glamorous from 'glamorous';
 
 import { colors } from '../../../styles';
 
-import { getThumbnailsWithSizes } from './imageUtils';
-import { images } from './GalleryComponent';
+import GalleryComponent from './GalleryComponent';
 
 const Container = glamorous.section({
   borderTop: `1px solid ${colors.lightGray}`,
@@ -23,9 +22,6 @@ const Title = glamorous.h6({
 
 class PhotographyComponent extends React.Component<{}, {}> {
   render() {
-
-    getThumbnailsWithSizes(images, { itemsPerRow: 3 }, 200);
-
     return (
       <Container id="projects">
         <div className="container">
@@ -34,6 +30,7 @@ class PhotographyComponent extends React.Component<{}, {}> {
               <i className="fa fa-desktop" style={{ marginRight: '1rem' }}/>
               Photography
             </Title>
+            <GalleryComponent itemsPerRow={3}/>
           </div>
         </div>
       </Container>

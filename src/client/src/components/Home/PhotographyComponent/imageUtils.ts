@@ -1,7 +1,3 @@
-interface IGalleryProps {
-  itemsPerRow: number;
-}
-
 export interface IThumbnailPhoto {
   src: string;
   originalWidth: number;
@@ -22,7 +18,7 @@ function getThumbnailRatio(thumbnail: IThumbnailPhoto): Number {
 }
 
 export function getThumbnailsWithSizes(
-  thumbnails: IThumbnailPhoto[], gProps: IGalleryProps, rowWidth: number) {
+  thumbnails: IThumbnailPhoto[], rowLength: number, rowWidth: number): IThumbnailPhoto[] {
 
   // Calculate ratios for each image
   const withRatios = thumbnails.map((_) => {
@@ -30,16 +26,40 @@ export function getThumbnailsWithSizes(
     return { ..._, ratio };
   });
   
-  // Divide into rows of predefined items
+  // Divide into chunks of predefined length
   const chunked = withRatios.map((e, i) => {
-    return  i % gProps.itemsPerRow === 0 && withRatios.slice(i, i + gProps.itemsPerRow);
+    return  i % rowLength === 0 && withRatios.slice(i, i + rowLength);
   }).filter(e => e) as IThumbnailPhoto[][];
 
-  chunked.forEach((row) => {
+  const withSizes = chunked.map((row) => {
+
+    // Get total ratios for images in the row
     const totalRatios = row.reduce((a: number, b: IThumbnailPhoto) => a + (b.ratio as number), 0);
-    // Get percentage of widths for images
-    const scaledRatios = row.map(_ => (_.ratio as number) / totalRatios);
-    console.log(scaledRatios);
+
+    // Calculate initial scaled pixel width and height for images in the row
+    const newRow = row.map((elem, i) => {
+      const width = Math.floor(((elem.ratio as number) / totalRatios) * rowWidth);
+      const height = Math.floor((width / elem.originalWidth) * elem.originalHeight);
+      return {
+        ...elem,
+        width,
+        height,
+      };
+    });
+
+    // Make small adjustments for images in the row to fill all the available space
+    // and correct rounding errors
+    const maxRowHeight: number = Math.max.apply(Math, newRow.map(_ => _.height));
+    const unusedSpace = rowWidth - newRow.reduce((a, b) => a + b.width, 0);
+
+    return newRow.map((_, i) => {
+      return (i % rowLength === 0) ?
+        { ..._, height: maxRowHeight, width: _.width + unusedSpace } :
+        { ..._, height: maxRowHeight };
+    });
+
   });
+
+  return [].concat.apply([], withSizes);
   
 }

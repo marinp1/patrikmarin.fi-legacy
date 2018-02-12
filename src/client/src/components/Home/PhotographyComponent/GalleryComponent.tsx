@@ -1,8 +1,10 @@
-// import * as React from 'react';
+import * as React from 'react';
+import glamorous from 'glamorous';
 
-import { IThumbnailPhoto } from './imageUtils';
+import { IThumbnailPhoto, getThumbnailsWithSizes } from './imageUtils';
+import ImageComponent from './ImageComponent';
 
-export const images: IThumbnailPhoto[] = [
+const images: IThumbnailPhoto[] = [
   {
     src: require('./images/photo_1.jpg'),
     originalWidth: 800,
@@ -39,3 +41,46 @@ export const images: IThumbnailPhoto[] = [
     originalHeight: 533,
   },
 ];
+
+const GalleryContainer = glamorous.div({
+  display: 'flex',
+  flexFlow: 'row wrap',
+  justifyContent: 'flex-start',
+  alignContent: 'stretch',
+  alignItems: 'stretch',
+  lineHeight: 0,
+});
+
+interface IGalleryProps {
+  itemsPerRow: number;
+}
+
+interface IGalleryState {
+  images: IThumbnailPhoto[];
+  width: number;
+}
+
+class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
+
+  state = {
+    images: [],
+    width: 800,
+  };
+
+  componentDidMount() {
+    const thumbnails = getThumbnailsWithSizes(images, this.props.itemsPerRow, this.state.width);
+    this.setState({
+      images: thumbnails,
+    });
+  }
+
+  render() {
+    return (
+      <GalleryContainer>
+        {this.state.images.map((img, i) => <ImageComponent key={`img-${i}`} img={img}/>)}
+      </GalleryContainer>
+    );
+  }
+}
+
+export default GalleryComponent;
