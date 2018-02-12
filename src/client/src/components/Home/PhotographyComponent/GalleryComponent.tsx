@@ -43,6 +43,7 @@ const images: IThumbnailPhoto[] = [
 ];
 
 const GalleryContainer = glamorous.div({
+  width: '100%',
   display: 'flex',
   flexFlow: 'row wrap',
   justifyContent: 'flex-start',
@@ -57,28 +58,46 @@ interface IGalleryProps {
 
 interface IGalleryState {
   images: IThumbnailPhoto[];
-  width: number;
 }
 
 class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
 
-  state = {
-    images: [],
-    width: 800,
-  };
+  ref: HTMLDivElement | null = null;
+
+  constructor(props: IGalleryProps) {
+    super(props);
+    this.state = {
+      images: [],
+    };
+    this.refreshData = this.refreshData.bind(this);
+  }
+
+  refreshData() {
+    if (!!this.ref) {
+      const width = Math.floor((this.ref as HTMLDivElement).clientWidth - 1);
+      const thumbnails = getThumbnailsWithSizes(images, this.props.itemsPerRow, width);
+      this.setState({
+        images: thumbnails,
+      });
+    }
+  }
 
   componentDidMount() {
-    const thumbnails = getThumbnailsWithSizes(images, this.props.itemsPerRow, this.state.width);
-    this.setState({
-      images: thumbnails,
-    });
+    window.addEventListener('resize', this.refreshData);
+    this.refreshData();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.refreshData);
   }
 
   render() {
     return (
-      <GalleryContainer>
-        {this.state.images.map((img, i) => <ImageComponent key={`img-${i}`} img={img}/>)}
-      </GalleryContainer>
+      <div ref={(input: HTMLDivElement) => { this.ref = input; }}>
+        <GalleryContainer>
+          {this.state.images.map((img, i) => <ImageComponent key={`img-${i}`} img={img}/>)}
+        </GalleryContainer>
+      </div>
     );
   }
 }
