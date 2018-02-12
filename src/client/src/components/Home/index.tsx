@@ -7,6 +7,7 @@ import { IProjectFields } from 'shared/interfaces/IProject';
 import LandingComponent from './LandingComponent';
 import CurriculumComponent from './CurriculumComponent';
 import ProjectComponent from './ProjectComponent';
+import PhotographyComponent from './PhotographyComponent';
 import FooterComponent from './FooterComponent';
 
 import { colors, mediaQueries } from '../../styles';
@@ -106,6 +107,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
           <ProjectComponent
             projects={this.state.projects}
           />
+          <PhotographyComponent/>
           <FooterComponent/>
         </Container>
       </div>

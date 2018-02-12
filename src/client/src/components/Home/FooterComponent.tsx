@@ -5,7 +5,7 @@ import { colors, mediaQueries } from '../../styles';
 
 const Container = glamorous.section({
   borderTop: `0.1rem solid ${colors.lightGray}`,
-  background: colors.background,
+  background: colors.white,
   paddingTop: '2rem',
   paddingBottom: '2rem',
   '& p': {
