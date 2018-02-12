@@ -17,8 +17,10 @@ function getThumbnailRatio(thumbnail: IThumbnailPhoto): Number {
   return round(thumbnail.originalWidth / thumbnail.originalHeight, 2);
 }
 
+// Partly ported from
+// https://github.com/neptunian/react-photo-gallery/blob/master/src/utils.js
 export function getThumbnailsWithSizes(
-  thumbnails: IThumbnailPhoto[], rowLength: number, rowWidth: number): IThumbnailPhoto[] {
+  thumbnails: IThumbnailPhoto[], columnCount: number, rowWidth: number): IThumbnailPhoto[] {
 
   // Calculate ratios for each image
   const withRatios = thumbnails.map((_) => {
@@ -28,7 +30,7 @@ export function getThumbnailsWithSizes(
   
   // Divide into chunks of predefined length
   const chunked = withRatios.map((e, i) => {
-    return  i % rowLength === 0 && withRatios.slice(i, i + rowLength);
+    return  i % columnCount === 0 && withRatios.slice(i, i + columnCount);
   }).filter(e => e) as IThumbnailPhoto[][];
 
   const withSizes = chunked.map((row) => {
@@ -38,9 +40,9 @@ export function getThumbnailsWithSizes(
 
     // Calculate initial scaled pixel width and height for images in the row
     const newRow = row.map((elem, i) => {
-      const width = row.length === rowLength ? 
+      const width = row.length === columnCount ? 
         Math.floor(((elem.ratio as number) / totalRatio) * rowWidth) :
-        Math.floor(((elem.ratio as number) / totalRatio / (rowLength / row.length)) * rowWidth);
+        Math.floor(((elem.ratio as number) / totalRatio / (columnCount / row.length)) * rowWidth);
       const height = Math.floor((width / elem.originalWidth) * elem.originalHeight);
       return {
         ...elem,
@@ -55,7 +57,7 @@ export function getThumbnailsWithSizes(
     const unusedSpace = rowWidth - newRow.reduce((a, b) => a + b.width, 0);
 
     return newRow.map((_, i) => {
-      return (i % rowLength === 0 && newRow.length === rowLength) ?
+      return (i % columnCount === 0 && newRow.length === columnCount) ?
         { ..._, height: maxRowHeight, width: _.width + unusedSpace } :
         { ..._, height: maxRowHeight };
     });
