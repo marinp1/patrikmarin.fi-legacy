@@ -11,6 +11,8 @@ Back-end contains a simple [express.js](http://expressjs.com/) server.
 Resume data is hosted locally and follows generally [JSON Resume](https://jsonresume.org/) standard, with the exception of estimated graduation date.
 ### Projects
 Project data are fetched dynamically from [Contentful](https://www.contentful.com/) and the data is cached for two minutes with [Redis](https://redis.io/).
+### Photography
+Photographs are fetched from [Flickr](https://www.flickr.com/) and the data is also cached for two minutes.
 
 ## Development
 ### Requirements

@@ -28,7 +28,7 @@ class PhotographyComponent extends React.Component<{ photos: IFlickrPhoto[] }, {
         <div className="container">
           <div className="row">
             <Title>
-              <i className="fa fa-desktop" style={{ marginRight: '1rem' }}/>
+              <i className="fa fa-camera" style={{ marginRight: '1rem' }}/>
               Photography
             </Title>
             <GalleryComponent photos={this.props.photos}/>
