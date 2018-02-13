@@ -29,12 +29,14 @@ interface LightBoxComponentProps {
 
 interface LightboxComponentState {
   currentIndex: number;
+  loading: boolean;
 }
 
 class LightboxComponent extends React.Component<LightBoxComponentProps, LightboxComponentState> {
   
   state = {
     currentIndex: this.props.currentIndex,
+    loading: true,
   };
 
   componentDidMount() {
@@ -44,15 +46,17 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
   componentWillUpdate(nextProps: LightBoxComponentProps, nextState: LightboxComponentState) {
     if (nextProps.currentIndex >= 0 && this.state.currentIndex === -1) {
       disableScrolling();
-      this.setState({ currentIndex: this.props.currentIndex });
+      this.setState({ currentIndex: this.props.currentIndex, loading: true });
     } else if (nextProps.currentIndex === -1 && this.state.currentIndex >= 0) {
       enableScrolling();
-      this.setState({ currentIndex: this.props.currentIndex });
+      this.setState({ currentIndex: this.props.currentIndex, loading: true });
     }
   }
 
   handleImageLoaded(e: React.SyntheticEvent<HTMLImageElement>) {
-    console.log('Loaded');
+    this.setState({
+      loading: false,
+    });
   }
 
   render() {
@@ -61,13 +65,25 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
 
     if (!currentImage) return null;
 
-    const style = currentImage.originalHeight > currentImage.originalWidth ?
+    let style: React.CSSProperties = currentImage.originalHeight > currentImage.originalWidth ?
       { height: '70%' } : { width: '70%' };
+
+    if (this.state.loading) {
+      style = { ...style, display: 'none'};
+    } else {
+      style = { ...style, display: 'block'};
+    }
 
     return (
       this.state.currentIndex >= 0 &&
       <Container>
-        <Image src={currentImage.largeSrc} style={style} onLoad={ e => this.handleImageLoaded(e) } />
+        { this.state.loading &&
+          <i style={{ color: '#FFF' }} className="fa fa-circle-o-notch fa-spin fa-3x"/> }
+        <Image
+          src={currentImage.largeSrc}
+          style={style}
+          onLoad={ e => this.handleImageLoaded(e) }
+        />
       </Container>
     );
   }
