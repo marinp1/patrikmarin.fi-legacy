@@ -4,12 +4,14 @@ import * as express from 'express';
 import * as path from 'path';
 
 import { getContentfulClient, getProjects } from './contentful';
+import { getFlickrURL, getFlickrImages } from './flickr';
 import { getRedisClient } from './redis';
 
 export default class Server {
   private app = express();
 
   private contentfulClient = getContentfulClient();
+  private flickrURL = getFlickrURL();
   private isProduction: boolean = process.env.NODE_ENV === 'production';
   private REDIS_URL = this.isProduction ? process.env.REDIS_URL as string : 'http://localhost:6379';
   private cache = getRedisClient(this.REDIS_URL);
@@ -31,6 +33,20 @@ export default class Server {
         if (this.contentfulClient !== undefined) {
           getProjects(this.contentfulClient).then((projects) => {
             res.send(projects);
+          });
+        } else {
+          res.send([]);
+        }
+      },
+    );
+
+    this.app.get(
+      '/api/photos',
+      this.cache.route(),
+      (req, res) => {
+        if (!!this.flickrURL) {
+          getFlickrImages(this.flickrURL).then((images) => {
+            res.send(images);
           });
         } else {
           res.send([]);
