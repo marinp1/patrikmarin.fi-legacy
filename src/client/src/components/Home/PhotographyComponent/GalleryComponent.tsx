@@ -1,6 +1,7 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 
+import { breakpoints } from '../../../styles';
 import { IThumbnailPhoto, getThumbnailsWithSizes } from './imageUtils';
 import ImageComponent from './ImageComponent';
 
@@ -52,19 +53,22 @@ const GalleryContainer = glamorous.div({
   lineHeight: 0,
 });
 
-interface IGalleryProps {
-  itemsPerRow: number;
-}
-
 interface IGalleryState {
   images: IThumbnailPhoto[];
 }
 
-class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
+// Gets number of elements to be displayed on a row defined by component width
+function getGalleryWidth(componentWidth: number): number {
+  if (componentWidth <= breakpoints.mobile) return 2;
+  if (componentWidth <= breakpoints.desktop) return 3;
+  return 4;
+}
+
+class GalleryComponent extends React.Component<{}, IGalleryState> {
 
   ref: HTMLDivElement | null = null;
 
-  constructor(props: IGalleryProps) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       images: [],
@@ -75,7 +79,8 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
   refreshData() {
     if (!!this.ref) {
       const width = Math.floor((this.ref as HTMLDivElement).clientWidth - 1);
-      const thumbnails = getThumbnailsWithSizes(images, this.props.itemsPerRow, width);
+      const itemsPerRow = getGalleryWidth(width);
+      const thumbnails = getThumbnailsWithSizes(images, itemsPerRow, width);
       this.setState({
         images: thumbnails,
       });
