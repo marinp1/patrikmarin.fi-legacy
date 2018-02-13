@@ -1,6 +1,7 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 
+import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import { colors } from '../../../styles';
 
 import GalleryComponent from './GalleryComponent';
@@ -20,7 +21,7 @@ const Title = glamorous.h6({
   fontWeight: 'bold',
 });
 
-class PhotographyComponent extends React.Component<{}, {}> {
+class PhotographyComponent extends React.Component<{ photos: IFlickrPhoto[] }, {}> {
   render() {
     return (
       <Container id="projects">
@@ -30,7 +31,7 @@ class PhotographyComponent extends React.Component<{}, {}> {
               <i className="fa fa-desktop" style={{ marginRight: '1rem' }}/>
               Photography
             </Title>
-            <GalleryComponent/>
+            <GalleryComponent photos={this.props.photos}/>
           </div>
         </div>
       </Container>

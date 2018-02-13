@@ -4,6 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
 import * as IResume from 'shared/interfaces/IResume';
 import { IProjectFields } from 'shared/interfaces/IProject';
+import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import LandingComponent from './LandingComponent';
 import CurriculumComponent from './CurriculumComponent';
 import ProjectComponent from './ProjectComponent';
@@ -49,6 +50,7 @@ const Background = glamorous.div({
 interface IMainPageState {
   resume: IResume.IResume;
   projects: IProjectFields[];
+  photos: IFlickrPhoto[];
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -58,9 +60,11 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     this.state = {
       resume,
       projects: [],
+      photos: [],
     };
 
     this.getProjects = this.getProjects.bind(this);
+    this.getPhotos = this.getPhotos.bind(this);
   }
 
   getProjects(): void {
@@ -75,8 +79,21 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       });
   }
 
+  getPhotos(): void {
+    fetch('/api/photos')
+      .then(res => res.json())
+      .then((photos: IFlickrPhoto[]) => {
+        this.setState({ photos });
+      })
+      .catch((err) => {
+       // Handle error
+        console.log('Couldn\'t fetch photos from Flickr!');
+      });
+  }
+
   componentDidMount() {
     this.getProjects();
+    this.getPhotos();
   }
 
   render() {
@@ -107,7 +124,9 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
           <ProjectComponent
             projects={this.state.projects}
           />
-          <PhotographyComponent/>
+          <PhotographyComponent
+            photos={this.state.photos}
+          />
           <FooterComponent/>
         </Container>
       </div>

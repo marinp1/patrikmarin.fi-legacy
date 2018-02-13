@@ -1,3 +1,5 @@
+import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
+
 export interface IThumbnailPhoto {
   src: string;
   originalWidth: number;
@@ -17,10 +19,22 @@ function getThumbnailRatio(thumbnail: IThumbnailPhoto): Number {
   return round(thumbnail.originalWidth / thumbnail.originalHeight, 2);
 }
 
+function convertToThumbnails(flickerPhotos: IFlickrPhoto[]): IThumbnailPhoto[] {
+  return flickerPhotos.map((_) => {
+    return {
+      src: _.url_z,
+      originalWidth: Number(_.width_h),
+      originalHeight: Number(_.height_h),
+    };
+  });
+}
+
 // Partly ported from
 // https://github.com/neptunian/react-photo-gallery/blob/master/src/utils.js
 export function getThumbnailsWithSizes(
-  thumbnails: IThumbnailPhoto[], columnCount: number, rowWidth: number): IThumbnailPhoto[] {
+  flickrPhotos: IFlickrPhoto[], columnCount: number, rowWidth: number): IThumbnailPhoto[] {
+
+  const thumbnails = convertToThumbnails(flickrPhotos);
 
   // Calculate ratios for each image
   const withRatios = thumbnails.map((_) => {

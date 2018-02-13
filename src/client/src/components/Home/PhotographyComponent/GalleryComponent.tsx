@@ -2,46 +2,9 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 
 import { colors, breakpoints } from '../../../styles';
+import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import { IThumbnailPhoto, getThumbnailsWithSizes } from './imageUtils';
 import ImageComponent from './ImageComponent';
-
-const demoImages: IThumbnailPhoto[] = [
-  {
-    src: require('./images/photo_1.jpg'),
-    originalWidth: 800,
-    originalHeight: 533,
-  },
-  {
-    src: require('./images/photo_2.jpg'),
-    originalWidth: 800,
-    originalHeight: 533,
-  },
-  {
-    src: require('./images/photo_3.jpg'),
-    originalWidth: 800,
-    originalHeight: 533,
-  },
-  {
-    src: require('./images/photo_4.jpg'),
-    originalWidth: 800,
-    originalHeight: 533,
-  },
-  {
-    src: require('./images/photo_5.jpg'),
-    originalWidth: 800,
-    originalHeight: 533,
-  },
-  {
-    src: require('./images/photo_6.jpg'),
-    originalWidth: 800,
-    originalHeight: 1195,
-  },
-  {
-    src: require('./images/photo_7.jpg'),
-    originalWidth: 800,
-    originalHeight: 533,
-  },
-];
 
 // Same width as a row of gallery images
 const LoadMoreButton = glamorous.button({
@@ -62,6 +25,10 @@ const GalleryContainer = glamorous.div({
   lineHeight: 0,
 });
 
+interface IGalleryProps {
+  photos: IFlickrPhoto[];
+}
+
 interface IGalleryState {
   rowsDisplayed: number;
   allVisible: boolean;
@@ -78,11 +45,11 @@ function getGalleryWidth(componentWidth: number): number {
 // Numbers of image rows to load per iteration
 const DEFAULT_ROW_CHUNK = 3;
 
-class GalleryComponent extends React.Component<{}, IGalleryState> {
+class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
 
   ref: HTMLDivElement | null = null;
 
-  constructor(props: {}) {
+  constructor(props: IGalleryProps) {
     super(props);
     this.state = {
       rowsDisplayed: 1,
@@ -98,8 +65,9 @@ class GalleryComponent extends React.Component<{}, IGalleryState> {
     });
   }
 
-  componentDidUpdate(nextProps: {}, nextState: IGalleryState) {
-    if (nextState.rowsDisplayed !== this.state.rowsDisplayed) {
+  componentDidUpdate(nextProps: IGalleryProps, nextState: IGalleryState) {
+    if ((nextProps.photos.length !== this.props.photos.length) || 
+        (nextState.rowsDisplayed !== this.state.rowsDisplayed))  {
       this.refreshData();
     }
   }
@@ -110,11 +78,8 @@ class GalleryComponent extends React.Component<{}, IGalleryState> {
       const itemsPerRow = getGalleryWidth(width);
       const imagesToBeDisplayed = this.state.rowsDisplayed * DEFAULT_ROW_CHUNK * itemsPerRow;
 
-      const demo = [...demoImages, ...demoImages, ...demoImages];
-      const images = demo.slice(0, imagesToBeDisplayed);
-
-      const allVisible = images.length >= demo.length;
-
+      const images = this.props.photos.slice(0, imagesToBeDisplayed);
+      const allVisible = images.length >= this.props.photos.length;
       const thumbnails = getThumbnailsWithSizes(images, itemsPerRow, width);
       this.setState({
         thumbnails,
