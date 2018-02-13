@@ -12,6 +12,14 @@ const Container = glamorous.div({
   left: 0,
   right: 0,
   position: 'fixed',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const Image = glamorous.img({
+  // width: '70%',
+  border: '0.5rem solid #FFF',
 });
 
 interface LightBoxComponentProps {
@@ -43,9 +51,24 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
     }
   }
 
+  handleImageLoaded(e: React.SyntheticEvent<HTMLImageElement>) {
+    console.log('Loaded');
+  }
+
   render() {
+
+    const currentImage = this.props.images[this.state.currentIndex];
+
+    if (!currentImage) return null;
+
+    const style = currentImage.originalHeight > currentImage.originalWidth ?
+      { height: '70%' } : { width: '70%' };
+
     return (
-      this.state.currentIndex >= 0 && <Container/>
+      this.state.currentIndex >= 0 &&
+      <Container>
+        <Image src={currentImage.largeSrc} style={style} onLoad={ e => this.handleImageLoaded(e) } />
+      </Container>
     );
   }
 
