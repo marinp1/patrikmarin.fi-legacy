@@ -30,7 +30,7 @@ class PhotographyComponent extends React.Component<{}, {}> {
               <i className="fa fa-desktop" style={{ marginRight: '1rem' }}/>
               Photography
             </Title>
-            <GalleryComponent itemsPerRow={4}/>
+            <GalleryComponent itemsPerRow={3}/>
           </div>
         </div>
       </Container>

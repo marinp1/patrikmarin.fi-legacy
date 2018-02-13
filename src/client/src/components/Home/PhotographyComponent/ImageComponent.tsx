@@ -10,6 +10,11 @@ const ImageContainer = glamorous.div({
   '& img': {
     width: '100%',
     height: '100%',
+    ':hover': {
+      cursor: 'pointer',
+      filter: 'brightness(80%)',
+      transition: 'filter 0.2s',
+    },
   },
 });
 
