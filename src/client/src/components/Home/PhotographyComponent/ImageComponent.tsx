@@ -18,11 +18,17 @@ const ImageContainer = glamorous.div({
   },
 });
 
-const ImageComponent: React.SFC<{img: IThumbnailPhoto}> = ({ img }) => {
+interface ImageComponentProps {
+  img: IThumbnailPhoto;
+  index: number;
+  onClick: (e: number) => void;
+}
+
+const ImageComponent: React.SFC<ImageComponentProps> = ({ img, onClick, index }) => {
   if (!img.width || !img.height) return null;
   const style = { width: `${img.width as number}px`, height: `${img.height as number}px` };
   return (
-    <ImageContainer style={style}>
+    <ImageContainer style={style} onClick={e => onClick(index)}>
       <img src={img.src}/>
     </ImageContainer>
   );

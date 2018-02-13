@@ -4,6 +4,8 @@ import glamorous from 'glamorous';
 import { colors, breakpoints } from '../../../styles';
 import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import { IThumbnailPhoto, getThumbnailsWithSizes } from './imageUtils';
+
+import LightboxComponent from './LightboxComponent';
 import ImageComponent from './ImageComponent';
 
 // Same width as a row of gallery images
@@ -33,6 +35,7 @@ interface IGalleryState {
   rowsDisplayed: number;
   allVisible: boolean;
   thumbnails: IThumbnailPhoto[];
+  selectedIndex: number;
 }
 
 // Gets number of elements to be displayed on a row defined by component width
@@ -55,8 +58,10 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
       rowsDisplayed: 1,
       allVisible: false,
       thumbnails: [],
+      selectedIndex: -1,
     };
     this.refreshData = this.refreshData.bind(this);
+    this.handleImageClick = this.handleImageClick.bind(this);
   }
 
   loadImageRow() {
@@ -88,6 +93,12 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
     }
   }
 
+  handleImageClick(index: number) {
+    this.setState({
+      selectedIndex: index,
+    });
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.refreshData);
     this.refreshData();
@@ -100,8 +111,19 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
   render() {
     return (
       <div ref={(input: HTMLDivElement) => { this.ref = input; }}>
+        <LightboxComponent
+          currentIndex={this.state.selectedIndex}
+          images={this.state.thumbnails}
+        />
         <GalleryContainer>
-          {this.state.thumbnails.map((img, i) => <ImageComponent key={`img-${i}`} img={img}/>)}
+          {this.state.thumbnails.map((img, i) => {
+            return <ImageComponent
+              key={`img-${i}`}
+              index={i}
+              img={img}
+              onClick={this.handleImageClick}
+            />;
+          })}
         </GalleryContainer>
         {!this.state.allVisible &&
           <LoadMoreButton
