@@ -2,7 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 
 import { enableScrolling, disableScrolling } from '../../../utils/scrollToggler';
-import { breakpoints } from '../../../styles';
+import { breakpoints, colors } from '../../../styles';
 import { IThumbnailPhoto } from './imageUtils';
 
 const Container = glamorous.div({
@@ -18,12 +18,31 @@ const Container = glamorous.div({
   justifyContent: 'center',
 });
 
-const Image = glamorous.img({
-  // width: '70%',
-  border: '0.5rem solid #FFF',
+const CloseButton = glamorous.div({
+  position: 'absolute',
+  top: '-4.5rem',
+  right: '-0.5rem',
+  height: '4rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  color: colors.white,
+  cursor: 'pointer',
+  ':hover': {
+    color: colors.lightGray,
+  },
+  '& i': {
+    marginLeft: '0.5rem',
+  },
 });
 
-interface LightBoxComponentProps {
+const ImageContainer = glamorous.div({
+  border: `0.5rem solid ${colors.white}`,
+  position: 'relative',
+  lineHeight: 0,
+});
+
+interface LightboxComponentProps {
   images: IThumbnailPhoto[];
   currentIndex: number;
   unselectImage: () => void;
@@ -34,7 +53,7 @@ interface LightboxComponentState {
   loading: boolean;
 }
 
-class LightboxComponent extends React.Component<LightBoxComponentProps, LightboxComponentState> {
+class LightboxComponent extends React.Component<LightboxComponentProps, LightboxComponentState> {
   
   state = {
     currentIndex: this.props.currentIndex,
@@ -45,12 +64,10 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
     (this.state.currentIndex >= 0) ? disableScrolling() : enableScrolling();
   }
 
-  componentWillUpdate(nextProps: LightBoxComponentProps, nextState: LightboxComponentState) {
+  componentWillUpdate(nextProps: LightboxComponentProps, nextState: LightboxComponentState) {
     // Don't display lightbox on small screens
     if (window.innerWidth <= breakpoints.mobile && this.state.currentIndex !== -1) {
-      enableScrolling();
-      this.setState({ currentIndex: -1 });
-      this.props.unselectImage();
+      this.closeLightbox();
     } else {
       if (nextProps.currentIndex >= 0 && this.state.currentIndex === -1) {
         disableScrolling();
@@ -60,6 +77,12 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
         this.setState({ currentIndex: this.props.currentIndex, loading: true });
       }
     }
+  }
+
+  closeLightbox() {
+    enableScrolling();
+    this.setState({ currentIndex: -1 });
+    this.props.unselectImage();
   }
 
   handleImageLoaded(e: React.SyntheticEvent<HTMLImageElement>) {
@@ -83,16 +106,24 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
       style = { ...style, display: 'block' };
     }
 
+    let imgStyle: React.CSSProperties = currentImage.originalHeight > currentImage.originalWidth ?
+      { height: '100%' } : { width: '100%' };
+
     return (
       this.state.currentIndex >= 0  && 
       <Container>
         { this.state.loading &&
           <i style={{ color: '#FFF' }} className="fa fa-circle-o-notch fa-spin fa-3x"/> }
-        <Image
-          src={currentImage.largeSrc}
-          style={style}
-          onLoad={ e => this.handleImageLoaded(e) }
-        />
+        <ImageContainer style={style}>
+          <CloseButton onClick={e => this.closeLightbox()}>
+            CLOSE
+            <i className="fa fa-times fa-lg"/>
+          </CloseButton>
+          <img
+            src={currentImage.largeSrc} style={imgStyle}
+            onLoad={ e => this.handleImageLoaded(e) }
+          />
+        </ImageContainer>
       </Container>
     );
   }
