@@ -2,6 +2,7 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 
 import { enableScrolling, disableScrolling } from '../../../utils/scrollToggler';
+import { breakpoints } from '../../../styles';
 import { IThumbnailPhoto } from './imageUtils';
 
 const Container = glamorous.div({
@@ -25,6 +26,7 @@ const Image = glamorous.img({
 interface LightBoxComponentProps {
   images: IThumbnailPhoto[];
   currentIndex: number;
+  unselectImage: () => void;
 }
 
 interface LightboxComponentState {
@@ -44,12 +46,19 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
   }
 
   componentWillUpdate(nextProps: LightBoxComponentProps, nextState: LightboxComponentState) {
-    if (nextProps.currentIndex >= 0 && this.state.currentIndex === -1) {
-      disableScrolling();
-      this.setState({ currentIndex: this.props.currentIndex, loading: true });
-    } else if (nextProps.currentIndex === -1 && this.state.currentIndex >= 0) {
+    // Don't display lightbox on small screens
+    if (window.innerWidth <= breakpoints.mobile && this.state.currentIndex !== -1) {
       enableScrolling();
-      this.setState({ currentIndex: this.props.currentIndex, loading: true });
+      this.setState({ currentIndex: -1 });
+      this.props.unselectImage();
+    } else {
+      if (nextProps.currentIndex >= 0 && this.state.currentIndex === -1) {
+        disableScrolling();
+        this.setState({ currentIndex: this.props.currentIndex, loading: true });
+      } else if (nextProps.currentIndex === -1 && this.state.currentIndex >= 0) {
+        enableScrolling();
+        this.setState({ currentIndex: this.props.currentIndex, loading: true });
+      }
     }
   }
 
@@ -69,13 +78,13 @@ class LightboxComponent extends React.Component<LightBoxComponentProps, Lightbox
       { height: '70%' } : { width: '70%' };
 
     if (this.state.loading) {
-      style = { ...style, display: 'none'};
+      style = { ...style, display: 'none' };
     } else {
-      style = { ...style, display: 'block'};
+      style = { ...style, display: 'block' };
     }
 
     return (
-      this.state.currentIndex >= 0 &&
+      this.state.currentIndex >= 0  && 
       <Container>
         { this.state.loading &&
           <i style={{ color: '#FFF' }} className="fa fa-circle-o-notch fa-spin fa-3x"/> }

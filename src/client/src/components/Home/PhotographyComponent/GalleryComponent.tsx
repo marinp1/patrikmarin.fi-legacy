@@ -62,6 +62,7 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
     };
     this.refreshData = this.refreshData.bind(this);
     this.handleImageClick = this.handleImageClick.bind(this);
+    this.unselectImage = this.unselectImage.bind(this);
   }
 
   loadImageRow() {
@@ -99,6 +100,12 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
     });
   }
 
+  unselectImage() {
+    this.setState({
+      selectedIndex: -1,
+    });
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.refreshData);
     this.refreshData();
@@ -114,6 +121,7 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
         <LightboxComponent
           currentIndex={this.state.selectedIndex}
           images={this.state.thumbnails}
+          unselectImage={this.unselectImage}
         />
         <GalleryContainer>
           {this.state.thumbnails.map((img, i) => {
