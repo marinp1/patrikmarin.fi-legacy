@@ -14,6 +14,7 @@ const LoadMoreButton = glamorous.button({
   color: 'black',
   marginTop: '0.5rem',
   marginLeft: '0.2rem',
+  marginBottom: 0,
   width: 'calc(100% - 0.4rem)',
 });
 
@@ -117,7 +118,8 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
 
   render() {
     return (
-      <div ref={(input: HTMLDivElement) => { this.ref = input; }}>
+      <div ref={(input: HTMLDivElement) => { this.ref = input; }}
+          style={{ marginBottom: '1rem' }}>
         <LightboxComponent
           currentIndex={this.state.selectedIndex}
           images={this.state.thumbnails}
