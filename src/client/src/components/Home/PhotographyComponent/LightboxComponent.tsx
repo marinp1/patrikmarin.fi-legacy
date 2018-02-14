@@ -36,6 +36,51 @@ const CloseButton = glamorous.div({
   },
 });
 
+const PreviousButton = glamorous.div({
+  position: 'absolute',
+  left: '-3rem',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  color: colors.white,
+  cursor: 'pointer',
+  ':hover': {
+    color: colors.lightGray,
+  },
+  '& i': {
+    marginRight: '0.5rem',
+  },
+});
+
+const NextButton = glamorous.div({
+  position: 'absolute',
+  right: '-3rem',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  color: colors.white,
+  cursor: 'pointer',
+  ':hover': {
+    color: colors.lightGray,
+  },
+  '& i': {
+    marginLeft: '0.5rem',
+  },
+});
+
+const DescriptionBox = glamorous.div({
+  position: 'absolute',
+  width: '100%',
+  height: '4rem',
+  bottom: '-4.5rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: colors.white,
+});
+
 const ImageContainer = glamorous.div({
   border: `0.5rem solid ${colors.white}`,
   position: 'relative',
@@ -85,6 +130,13 @@ class LightboxComponent extends React.Component<LightboxComponentProps, Lightbox
     this.props.unselectImage();
   }
 
+  switchImage(hop: number) {
+    this.setState({
+      currentIndex: this.state.currentIndex + hop,
+      loading: true,
+    });
+  }
+
   handleImageLoaded(e: React.SyntheticEvent<HTMLImageElement>) {
     this.setState({
       loading: false,
@@ -98,7 +150,7 @@ class LightboxComponent extends React.Component<LightboxComponentProps, Lightbox
     if (!currentImage) return null;
 
     let style: React.CSSProperties = currentImage.originalHeight > currentImage.originalWidth ?
-      { height: '70%' } : { width: '70%' };
+      { height: '70%' } : { width: '70%', maxWidth: `${breakpoints.tablet}px` };
 
     if (this.state.loading) {
       style = { ...style, display: 'none' };
@@ -106,7 +158,7 @@ class LightboxComponent extends React.Component<LightboxComponentProps, Lightbox
       style = { ...style, display: 'block' };
     }
 
-    let imgStyle: React.CSSProperties = currentImage.originalHeight > currentImage.originalWidth ?
+    const imgStyle: React.CSSProperties = currentImage.originalHeight > currentImage.originalWidth ?
       { height: '100%' } : { width: '100%' };
 
     return (
@@ -119,10 +171,25 @@ class LightboxComponent extends React.Component<LightboxComponentProps, Lightbox
             CLOSE
             <i className="fa fa-times fa-lg"/>
           </CloseButton>
+          { this.state.currentIndex !== this.props.images.length &&
+            <NextButton onClick={e => this.switchImage(1)}>
+              <i className="fa fa-caret-right fa-2x"/>
+            </NextButton>
+           }
+          { this.state.currentIndex !== 0 &&
+            <PreviousButton onClick={e => this.switchImage(-1)}>
+              <i className="fa fa-caret-left fa-2x"/>
+            </PreviousButton>
+          }
           <img
             src={currentImage.largeSrc} style={imgStyle}
             onLoad={ e => this.handleImageLoaded(e) }
           />
+          <DescriptionBox>
+            <span>
+              <b>{currentImage.title}</b> ({this.state.currentIndex + 1}/{this.props.images.length})
+            </span>
+          </DescriptionBox>
         </ImageContainer>
       </Container>
     );

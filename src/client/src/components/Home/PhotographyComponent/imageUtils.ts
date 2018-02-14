@@ -2,6 +2,7 @@ import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
 
 export interface IThumbnailPhoto {
   src: string;
+  title: string;
   largeSrc: string;
   originalWidth: number;
   originalHeight: number;
@@ -24,6 +25,7 @@ function convertToThumbnails(flickerPhotos: IFlickrPhoto[]): IThumbnailPhoto[] {
   return flickerPhotos.map((_) => {
     return {
       src: _.url_z,
+      title: _.title,
       largeSrc: _.url_h,
       originalWidth: Number(_.width_h),
       originalHeight: Number(_.height_h),
