@@ -10,7 +10,7 @@ const DurationContainer = glamorous.div({
   borderRight: `0.1rem solid ${colors.gray}`,
 
   '& p': {
-    fontSize: '90%',
+    fontSize: '85%',
     textAlign: 'right',
     margin: 0,
   },
