@@ -171,7 +171,7 @@ class LightboxComponent extends React.Component<LightboxComponentProps, Lightbox
             CLOSE
             <i className="fa fa-times fa-lg"/>
           </CloseButton>
-          { this.state.currentIndex !== this.props.images.length &&
+          { this.state.currentIndex !== this.props.images.length - 1 &&
             <NextButton onClick={e => this.switchImage(1)}>
               <i className="fa fa-caret-right fa-2x"/>
             </NextButton>
