@@ -45,6 +45,12 @@ class PhotographyComponent
   }
 
   handleCategorySelection(albumName: string) {
+
+    const anchor = document.getElementById('photography');
+    if (!!anchor) {
+      anchor.scrollIntoView();
+    }
+
     const wasSelected = this.state.selectedAlbums.indexOf(albumName.toLowerCase()) !== -1;
     if (wasSelected) {
       const filteredAlbums = this.state.selectedAlbums.filter((skill) => {
@@ -59,7 +65,7 @@ class PhotographyComponent
 
   render() {
     return (
-      <Container id="projects">
+      <Container id="photography">
         <div className="container">
           <div className="row">
             <Title>
