@@ -26,9 +26,9 @@ function convertToThumbnails(flickerPhotos: IFlickrPhoto[]): IThumbnailPhoto[] {
     return {
       src: _.url_z,
       title: _.title,
-      largeSrc: _.url_h,
-      originalWidth: Number(_.width_h),
-      originalHeight: Number(_.height_h),
+      largeSrc: _.url_l,
+      originalWidth: Number(_.width_l),
+      originalHeight: Number(_.height_l),
     };
   });
 }

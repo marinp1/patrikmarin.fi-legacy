@@ -14,9 +14,9 @@ export interface IFlickrPhoto {
     url_z: string;
     height_z: string;
     width_z: string;
-    url_h: string;
-    height_h: any;
-    width_h: any;
+    url_l: string;
+    height_l: any;
+    width_l: any;
 }
 
 export interface IFlickrPhotos {

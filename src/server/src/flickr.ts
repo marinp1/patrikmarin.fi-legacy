@@ -10,7 +10,7 @@ const METHOD = '?method=flickr.people.getPublicPhotos';
 // TODO: Parse through all photos if there are more than 500
 const PER_PAGE = '&per_page=500';
 const FORMAT = '&format=json&nojsoncallback=1';
-const EXTRAS = '&extras=date_taken,url_z,url_h';
+const EXTRAS = '&extras=date_taken,url_z,url_l';
 
 export function getFlickrURL(): string | undefined {
   if (!process.env.FLICKR_API_KEY || !process.env.FLICKR_USER_ID) {
