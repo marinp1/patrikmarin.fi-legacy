@@ -68,7 +68,7 @@ export const TagSelectors: React.SFC<{
         const selected = props.selectedTags.indexOf(tag.toLowerCase()) !== -1;
         return (
           <SelectorComponent
-            key={i}
+            key={`tagSelector-${i}`}
             tag={tag}
             selected={selected}
             handleClick={props.handleClick}

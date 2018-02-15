@@ -30,6 +30,7 @@ const GalleryContainer = glamorous.div({
 
 interface IGalleryProps {
   photos: IFlickrPhoto[];
+  selectedAlbums: string[];
 }
 
 interface IGalleryState {
@@ -76,7 +77,16 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
     if ((nextProps.photos.length !== this.props.photos.length) || 
         (nextState.rowsDisplayed !== this.state.rowsDisplayed))  {
       this.refreshData();
+    } else if (nextProps.selectedAlbums !== this.props.selectedAlbums) {
+      this.resetRowsDisplayed();
+      this.refreshData();
     }
+  }
+
+  resetRowsDisplayed() {
+    this.setState({
+      rowsDisplayed: 1,
+    });
   }
 
   refreshData() {
@@ -85,9 +95,16 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
       const itemsPerRow = getGalleryWidth(width);
       const imagesToBeDisplayed = this.state.rowsDisplayed * DEFAULT_ROW_CHUNK * itemsPerRow;
 
-      const images = this.props.photos.slice(0, imagesToBeDisplayed);
-      const allVisible = images.length >= this.props.photos.length;
+      const filteredPhotos = this.props.selectedAlbums.length === 0 ?
+        this.props.photos :
+        this.props.photos.filter((_) => {
+          return this.props.selectedAlbums.indexOf(_.albumName.toLowerCase()) !== -1;
+        });
+
+      const images = filteredPhotos.slice(0, imagesToBeDisplayed);
+      const allVisible = images.length >= filteredPhotos.length;
       const thumbnails = getThumbnailsWithSizes(images, itemsPerRow, width);
+
       this.setState({
         thumbnails,
         allVisible,
