@@ -1,10 +1,10 @@
 export interface IFlickrPhoto {
     id: string;
-    owner: string;
     secret: string;
     server: string;
     farm: number;
     title: string;
+    isprimary: string;
     ispublic: number;
     isfriend: number;
     isfamily: number;
@@ -15,19 +15,25 @@ export interface IFlickrPhoto {
     height_z: string;
     width_z: string;
     url_l: string;
-    height_l: any;
-    width_l: any;
+    height_l: string;
+    width_l: string;
 }
 
-export interface IFlickrPhotos {
-    page: number;
-    pages: number;
-    perpage: number;
-    total: string;
+interface IFlickrPhotoset {
+    id: string;
+    primary: string;
+    owner: string;
+    ownername: string;
     photo: IFlickrPhoto[];
+    page: number;
+    per_page: number;
+    perpage: number;
+    pages: number;
+    title: string;
+    total: number;
 }
 
-export interface IFlickrResponse {
-    photos: IFlickrPhotos;
+export interface IFlickrPhotosResponse {
+    photoset: IFlickrPhotoset;
     stat: string;
 }

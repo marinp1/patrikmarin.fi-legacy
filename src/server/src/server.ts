@@ -51,10 +51,11 @@ export default class Server {
 
     this.app.get(
       '/api/photos',
-      this.cache.route(),
+      // this.cache.route(),
       (req, res) => {
         if (!!this.flickrURL) {
           getFlickrImages(this.flickrURL).then((images) => {
+            console.log(images);
             // Return images, newest ones first
             res.send(images.sort((a, b) => {
               const dateA = moment(a.datetaken).unix();
