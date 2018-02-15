@@ -2,6 +2,7 @@ require('dotenv').config();
 
 import * as express from 'express';
 import * as path from 'path';
+import * as moment from 'moment';
 
 import { getContentfulClient, getProjects } from './contentful';
 import { getFlickrURL, getFlickrImages } from './flickr';
@@ -54,7 +55,12 @@ export default class Server {
       (req, res) => {
         if (!!this.flickrURL) {
           getFlickrImages(this.flickrURL).then((images) => {
-            res.send(images);
+            // Return images, newest ones first
+            res.send(images.sort((a, b) => {
+              const dateA = moment(a.datetaken).unix();
+              const dateB = moment(b.datetaken).unix();
+              return dateB - dateA;
+            }));
           });
         } else {
           res.send([]);
