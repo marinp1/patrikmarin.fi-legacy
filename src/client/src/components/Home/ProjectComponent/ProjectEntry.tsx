@@ -100,8 +100,12 @@ class LinkComponent extends React.Component<{project: IProjectFields}, ILinkStat
   }
 
   render() {
+
+    // Get smaller images in thumbnails to reduce load times
+    const imageUrl = `${this.props.project.thumbnail.fields.image.fields.file.url}?w=600`;
+
     const style = {
-      backgroundImage: `url(${this.props.project.thumbnail.fields.image.fields.file.url})`,
+      backgroundImage: `url(${imageUrl})`,
       backgroundColor: this.props.project.thumbnail.fields.backgroundColor,
       backgroundPosition:this.props.project.thumbnail.fields.backgroundPosition,
     };

@@ -111,7 +111,7 @@ function getImageClasses(classNames: string[]): React.CSSProperties {
   classNames.forEach((name: ImageClassEnum) => {
     switch (name) {
       case ImageClassEnum.PORTRAIT:
-        style.maxHeight = '800px';
+        style.maxHeight = '600px';
         style.maxWidth = '90%';
         break;
       case ImageClassEnum.NO_BG:
@@ -131,11 +131,13 @@ const DataSegment: React.SFC<{
     <SegmentText>{text}</SegmentText>
     {images && images.map((image: IEntryImage, i: number) => {
       const imgClasses = !! image.fields.classes ? image.fields.classes : [];
+      // Get smaller images to reduce load time
+      const imgUrl = `${image.fields.image.fields.file.url}?fm=jpg&q=80&w=1600`;
       return (
         <SegmentImageContainer key={i} style={getContainerClasses(imgClasses)}>
           <img
             style={getImageClasses(imgClasses)}
-            src={image.fields.image.fields.file.url}
+            src={imgUrl}
           />
           <SegmentImageDescription>
             {image.fields.altText}
