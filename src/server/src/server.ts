@@ -2,7 +2,6 @@ require('dotenv').config();
 
 import * as express from 'express';
 import * as path from 'path';
-import * as moment from 'moment';
 
 import { getContentfulClient, getProjects } from './contentful';
 import { getFlickrURL, getFlickrImages } from './flickr';
@@ -71,7 +70,7 @@ export default class Server {
         `${challengeRoute}/${config.name}`,
         (req, res) => {
           res.send(config.value);
-        }
+        },
       );
     }
 

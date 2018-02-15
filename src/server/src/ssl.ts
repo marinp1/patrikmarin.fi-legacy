@@ -9,7 +9,7 @@ export function getACMEChallenge() {
     return {
       name,
       value,
-    }
+    };
   }
 
   return undefined;
@@ -19,7 +19,7 @@ export function getACMEChallenge() {
 // https://stackoverflow.com/a/23894573
 export function forceSSL(req: Request, res: Response, next: NextFunction) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
   }
   return next();
-};
+}

@@ -1,6 +1,6 @@
 import * as fetch from 'isomorphic-fetch';
 import { IFlickrPhoto, IFlickrPhotosResponse, IFlickrContentResult } from './interfaces/IFlickr';
-import { IFlickrPhotosetResponse, IFlickrPhotoset } from './interfaces/IFlickrPhotoset';
+import { IFlickrPhotosetResponse } from './interfaces/IFlickrPhotoset';
 
 const ENDPOINT = 'https://api.flickr.com/services/rest/';
 // Get only public photos from user
@@ -59,9 +59,9 @@ export async function getFlickrImages(url: string): Promise<IFlickrContentResult
   // https://stackoverflow.com/a/42497383
   const getPhotos = async () => {
     const promises = photosets.map(async (photoset) => {
-        const setPhotos = await getPhotosetPhotos(photoset.id);
-        setPhotos.forEach(_ => _.albumName = photoset.title._content);
-        return setPhotos;
+      const setPhotos = await getPhotosetPhotos(photoset.id);
+      setPhotos.forEach(_ => _.albumName = photoset.title._content);
+      return setPhotos;
     });
     return Promise.all(promises);
   };
@@ -70,10 +70,10 @@ export async function getFlickrImages(url: string): Promise<IFlickrContentResult
   const flattenedPhotos: IFlickrPhoto[] = [].concat.apply([], photos);
 
   const albumNames = Array.from(new Set(photosets.map(_ => _.title._content)));
-
+  
   return {
     albumNames,
     images: flattenedPhotos,
-  }
+  };
 
 }
