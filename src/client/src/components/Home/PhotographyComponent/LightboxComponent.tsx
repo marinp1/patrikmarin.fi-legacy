@@ -38,11 +38,12 @@ const CloseButton = glamorous.div({
 
 const PreviousButton = glamorous.div({
   position: 'absolute',
-  left: '-3rem',
+  left: '-4.5rem',
   height: '100%',
+  width: '4rem',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-start',
+  justifyContent: 'center',
   color: colors.white,
   cursor: 'pointer',
   ':hover': {
@@ -55,11 +56,12 @@ const PreviousButton = glamorous.div({
 
 const NextButton = glamorous.div({
   position: 'absolute',
-  right: '-3rem',
+  right: '-4.5rem',
   height: '100%',
+  width: '4rem',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   color: colors.white,
   cursor: 'pointer',
   ':hover': {
@@ -163,7 +165,7 @@ class LightboxComponent extends React.Component<LightboxComponentProps, Lightbox
 
     return (
       this.state.currentIndex >= 0  && 
-      <Container>
+      <Container onClick={e => this.closeLightbox()}>
         { this.state.loading &&
           <i style={{ color: '#FFF' }} className="fa fa-circle-o-notch fa-spin fa-3x"/> }
         <ImageContainer style={style}>
@@ -172,12 +174,12 @@ class LightboxComponent extends React.Component<LightboxComponentProps, Lightbox
             <i className="fa fa-times fa-lg"/>
           </CloseButton>
           { this.state.currentIndex !== this.props.images.length - 1 &&
-            <NextButton onClick={e => this.switchImage(1)}>
+            <NextButton onClick={(e) => { e.stopPropagation(); this.switchImage(1); }}>
               <i className="fa fa-caret-right fa-2x"/>
             </NextButton>
            }
           { this.state.currentIndex !== 0 &&
-            <PreviousButton onClick={e => this.switchImage(-1)}>
+            <PreviousButton onClick={(e) => { e.stopPropagation(); this.switchImage(-1); }}>
               <i className="fa fa-caret-left fa-2x"/>
             </PreviousButton>
           }
