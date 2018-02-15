@@ -6,6 +6,7 @@ import * as path from 'path';
 import { getContentfulClient, getProjects } from './contentful';
 import { getFlickrURL, getFlickrImages } from './flickr';
 import { getRedisClient } from './redis';
+import { getACMEChallenge } from './ssl';
 
 export default class Server {
   private app = express();
@@ -15,6 +16,8 @@ export default class Server {
   private isProduction: boolean = process.env.NODE_ENV === 'production';
   private REDIS_URL = this.isProduction ? process.env.REDIS_URL as string : 'http://localhost:6379';
   private cache = getRedisClient(this.REDIS_URL);
+
+  private sslConfiguration = getACMEChallenge();
 
   constructor() {
     this.init();
@@ -53,6 +56,18 @@ export default class Server {
         }
       },
     );
+
+    // SSL certificate for custom domain
+    if (!!this.sslConfiguration) {
+      const config = this.sslConfiguration;
+      const challengeRoute = '/.well-known/acme-challenge';
+      this.app.get(
+        `${challengeRoute}/${config.name}`,
+        (req, res) => {
+          res.send(config.value);
+        }
+      );
+    }
 
     // The "catchall" handler: for any request that doesn't
     // match one above, send back React's index.html file.
