@@ -9,6 +9,8 @@ import ImageComponent from './ImageComponent';
 import { WorkExperience, Education, Competitions } from './EntryComponents/TimelineComponents';
 import { Languages, Skills } from './EntryComponents/TagComponents';
 
+import MenuComponent from '../MenuComponent';
+
 const image = require('../images/cv_round_small_zoom.png');
 
 const Container = glamorous.section({
@@ -39,6 +41,7 @@ const CurriculumComponent: React.SFC<CurriculumComponentProps> = (props) => {
         <div className="row">
           <ImageComponent image={image} altText={props.name}/>
         </div>
+        <MenuComponent/>
         <div className="row">
           <AboutComponent title="About" summary={props.summary}/>
         </div>
