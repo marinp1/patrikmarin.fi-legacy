@@ -25,6 +25,13 @@ export default class Server {
 
   init() {
 
+    // Force SSL in production
+    /*
+    if (this.isProduction) {
+      this.app.use(this.forceSSL);
+    }
+    */
+
     // Serve static files from the React app
     this.app.use(express.static(path.join(__dirname, '../../client/build')));
 
