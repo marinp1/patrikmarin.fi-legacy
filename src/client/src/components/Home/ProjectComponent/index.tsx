@@ -5,7 +5,7 @@ import { mediaQueries, colors } from '../../../styles';
 import { IProjectFields } from 'shared/interfaces/IProject';
 
 import ProjectEntry from './ProjectEntry';
-import TechnologySelectors from './TechnologySelectors';
+import { ClearSelectionButton, TagSelectors } from '../../Misc/TagSelectors';
 
 const Container = glamorous.section({
   borderTop: `1px solid ${colors.lightGray}`,
@@ -60,20 +60,6 @@ const ProjectContainer = glamorous.div({
     opacity: 0.8,
   },
 });
-
-const ButtonContainer = glamorous.button({
-  background: colors.lightGray,
-  color: 'black',
-  margin: 0,
-});
-
-const ClearSelectionButton: React.SFC<{
-  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
-}> = ({ handleClick }) => (
-  <ButtonContainer onClick={e => handleClick(e)}>
-    Clear selection
-  </ButtonContainer>
-);
 
 const SelectionInfo = glamorous.p({
   margin: 0,
@@ -148,9 +134,9 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
             </Title>
           </div>
           <div className="row" style={{ marginBottom: '2rem' }}>
-            <TechnologySelectors
-              technologies={tags}
-              selectedTechnologies={this.state.selectedTechnologies}
+            <TagSelectors
+              tags={tags}
+              selectedTags={this.state.selectedTechnologies}
               handleClick={this.handleTechnologySelection}/>
               <SelectionInfo>
                 {message}

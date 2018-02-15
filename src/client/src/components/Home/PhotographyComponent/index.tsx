@@ -21,7 +21,12 @@ const Title = glamorous.h6({
   fontWeight: 'bold',
 });
 
-class PhotographyComponent extends React.Component<{ photos: IFlickrPhoto[] }, {}> {
+interface PhotographyComponentProps {
+  albumNames: string[];
+  photos: IFlickrPhoto[];
+}
+
+class PhotographyComponent extends React.Component<PhotographyComponentProps, {}> {
   render() {
     return (
       <Container id="projects">
@@ -31,6 +36,11 @@ class PhotographyComponent extends React.Component<{ photos: IFlickrPhoto[] }, {
               <i className="fa fa-camera" style={{ marginRight: '1rem' }}/>
               Photography
             </Title>
+            <div>
+              {this.props.albumNames.map((name, i) => {
+                return <p key={`albumTag-${i}`}>{name}</p>;
+              })}
+            </div>
             <GalleryComponent photos={this.props.photos}/>
           </div>
         </div>

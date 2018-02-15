@@ -1,8 +1,22 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
-import { colors } from '../../../styles';
+import { colors } from '../../styles';
 
-const TechnologySelector = glamorous.div({
+const ButtonContainer = glamorous.button({
+  background: colors.lightGray,
+  color: 'black',
+  margin: 0,
+});
+
+export const ClearSelectionButton: React.SFC<{
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
+}> = ({ handleClick }) => (
+  <ButtonContainer onClick={e => handleClick(e)}>
+    Clear selection
+  </ButtonContainer>
+);
+
+const TagSelector = glamorous.div({
   cursor: 'pointer',
   ':hover': {
     opacity: 0.8,
@@ -27,35 +41,35 @@ const SelectorContainer = glamorous.div({
 
 
 interface ISelectorComponentProps {
-  technology: string;
+  tag: string;
   selected: boolean;
   handleClick: (skill: string) => void;
 }
 
 const SelectorComponent: React.SFC<ISelectorComponentProps> = (props) => {
 
-  const activeStyle = props.selected ? { fontWeight: 'bold' } : {};
+  const activeStyle: React.CSSProperties = props.selected ? { fontWeight: 'bold' } : {};
 
   return (
-    <TechnologySelector onClick={e => props.handleClick(props.technology)}>
-      <p style={activeStyle}>{props.technology}</p>
-    </TechnologySelector>
+    <TagSelector onClick={e => props.handleClick(props.tag)}>
+      <p style={activeStyle}>{props.tag}</p>
+    </TagSelector>
   );
 };
 
-const TechnologySelectors: React.SFC<{
-  technologies: string[],
-  selectedTechnologies: string[],
+export const TagSelectors: React.SFC<{
+  tags: string[],
+  selectedTags: string[],
   handleClick: (skill: string) => void;
 }> = (props) => {
   return (
     <SelectorContainer>
-      {props.technologies.map((technology: string, i: number) => {
-        const selected = props.selectedTechnologies.indexOf(technology.toLowerCase()) !== -1;
+      {props.tags.map((tag: string, i: number) => {
+        const selected = props.selectedTags.indexOf(tag.toLowerCase()) !== -1;
         return (
           <SelectorComponent
             key={i}
-            technology={technology}
+            tag={tag}
             selected={selected}
             handleClick={props.handleClick}
           />
@@ -64,5 +78,3 @@ const TechnologySelectors: React.SFC<{
     </SelectorContainer>
   );
 };
-
-export default TechnologySelectors;

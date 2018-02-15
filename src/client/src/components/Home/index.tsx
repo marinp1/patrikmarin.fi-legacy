@@ -140,6 +140,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
             projects={this.state.projects}
           />
           <PhotographyComponent
+            albumNames={this.state.flickr.albumNames}
             photos={this.state.flickr.images}
           />
           <FooterComponent/>
