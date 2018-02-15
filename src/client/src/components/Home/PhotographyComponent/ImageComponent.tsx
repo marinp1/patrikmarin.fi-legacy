@@ -57,6 +57,14 @@ class ImageComponent extends React.Component<ImageComponentProps, ImageComponent
     });
   }
 
+  componentWillUpdate(nextProps: ImageComponentProps, nextState: ImageComponentState) {
+    if (nextProps.img.src !== this.props.img.src) {
+      this.setState({
+        loading: true,
+      });
+    }
+  }
+
   render() {
     if (!this.props.img.width || !this.props.img.height) return null;
 

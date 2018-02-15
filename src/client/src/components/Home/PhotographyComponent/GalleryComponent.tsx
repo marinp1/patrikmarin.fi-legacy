@@ -8,6 +8,11 @@ import { IThumbnailPhoto, getThumbnailsWithSizes } from './imageUtils';
 import LightboxComponent from './LightboxComponent';
 import ImageComponent from './ImageComponent';
 
+const DescriptionText = glamorous.p({
+  marginTop: '-2rem',
+  marginBottom: '1rem',
+});
+
 // Same width as a row of gallery images
 const LoadMoreButton = glamorous.button({
   background: colors.lightGray,
@@ -35,7 +40,7 @@ interface IGalleryProps {
 
 interface IGalleryState {
   rowsDisplayed: number;
-  allVisible: boolean;
+  totalLength: number;
   thumbnails: IThumbnailPhoto[];
   selectedIndex: number;
 }
@@ -58,7 +63,7 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
     super(props);
     this.state = {
       rowsDisplayed: 1,
-      allVisible: false,
+      totalLength: 0,
       thumbnails: [],
       selectedIndex: -1,
     };
@@ -102,12 +107,11 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
         });
 
       const images = filteredPhotos.slice(0, imagesToBeDisplayed);
-      const allVisible = images.length >= filteredPhotos.length;
       const thumbnails = getThumbnailsWithSizes(images, itemsPerRow, width);
 
       this.setState({
         thumbnails,
-        allVisible,
+        totalLength: filteredPhotos.length,
       });
     }
   }
@@ -142,6 +146,9 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
           images={this.state.thumbnails}
           unselectImage={this.unselectImage}
         />
+        <DescriptionText>
+          Displaying {this.state.thumbnails.length}/{this.state.totalLength} photographs
+        </DescriptionText>
         <GalleryContainer>
           {this.state.thumbnails.map((img, i) => {
             return <ImageComponent
@@ -152,7 +159,7 @@ class GalleryComponent extends React.Component<IGalleryProps, IGalleryState> {
             />;
           })}
         </GalleryContainer>
-        {!this.state.allVisible &&
+        {this.state.totalLength !== this.state.thumbnails.length &&
           <LoadMoreButton
             onClick={ e => this.loadImageRow() }
           >
