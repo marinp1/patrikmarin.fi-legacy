@@ -12,8 +12,12 @@ import ProjectComponent from './ProjectComponent';
 import PhotographyComponent from './PhotographyComponent';
 import FooterComponent from './FooterComponent';
 
+import ImageComponent from './ImageComponent';
+import MenuComponent from './MenuComponent';
+
 import { colors, mediaQueries } from '../../styles';
 
+const image = require('./images/cv_round_small_zoom.png');
 const resume: IResume.IResume = require('./resume.json');
 
 const Container = glamorous.div({
@@ -127,6 +131,8 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
             profiles={this.state.resume.basics.profiles}
             email={this.state.resume.basics.email}
           />
+          <ImageComponent image={image} altText={this.state.resume.basics.name}/>
+          <MenuComponent/>
           <CurriculumComponent
             name={this.state.resume.basics.name}
             summary={this.state.resume.basics.summary}

@@ -1,7 +1,20 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 
-import { colors, mediaQueries } from '../../../styles';
+import { colors, mediaQueries } from '../../styles';
+
+const Container = glamorous.section({
+  borderTop: `0.1rem solid ${colors.lightGray}`,
+  background: colors.background,
+  paddingTop: '2rem',
+  paddingBottom: '0.5rem',
+  '& p': {
+    color: colors.gray,
+  },
+  [mediaQueries.tablet]: {
+    borderRadius: '0.4rem 0.4rem 0 0',
+  },
+});
 
 const ImageContainer = glamorous.div({
   [mediaQueries.tablet]: {
@@ -15,7 +28,7 @@ const ImageHolder = glamorous.div({
   height: '10rem',
   padding: '1rem',
   margin: 'auto',
-  marginTop: '-7rem',
+  marginTop: '-8rem',
   background: colors.background,
   borderRadius: '50%',
   '& img': {
@@ -28,11 +41,17 @@ const ImageHolder = glamorous.div({
 
 
 const ImageComponent: React.SFC<{image: any, altText: string}> = ({ image, altText }) => (
-  <ImageContainer>
-    <ImageHolder>
-      <img src={image} alt={altText}/>
-    </ImageHolder>
-  </ImageContainer>
+  <Container>
+    <div className="container">
+      <div className="row">
+        <ImageContainer>
+          <ImageHolder>
+            <img src={image} alt={altText}/>
+          </ImageHolder>
+        </ImageContainer>
+      </div>
+    </div>
+  </Container>
 );
 
 export default ImageComponent;
