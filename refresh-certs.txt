@@ -1,4 +1,0 @@
-1. certbot renew
-2. update values to heroku
-3. heroku certs:update etc/letsencrypt/live/www.patrikmarin.fi/fullchain.pem /etc/letsencrypt/live/www.patrikmarin.fi/privkey.pem
-4. restart dynos
