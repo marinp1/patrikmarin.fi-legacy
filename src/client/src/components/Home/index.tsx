@@ -1,10 +1,11 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
+import * as moment from 'moment';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 //
 import * as IResume from 'shared/interfaces/IResume';
 import { IProjectFields } from 'shared/interfaces/IProject';
-import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
+import { IFlickrContentResult } from 'shared/interfaces/IFlickr';
 import LandingComponent from './LandingComponent';
 import CurriculumComponent from './CurriculumComponent';
 import ProjectComponent from './ProjectComponent';
@@ -50,7 +51,7 @@ const Background = glamorous.div({
 interface IMainPageState {
   resume: IResume.IResume;
   projects: IProjectFields[];
-  photos: IFlickrPhoto[];
+  flickr: IFlickrContentResult;
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -60,7 +61,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     this.state = {
       resume,
       projects: [],
-      photos: [],
+      flickr: { albumNames: [], images: [] },
     };
 
     this.getProjects = this.getProjects.bind(this);
@@ -82,8 +83,22 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
   getPhotos(): void {
     fetch('/api/photos')
       .then(res => res.json())
-      .then((photos: IFlickrPhoto[]) => {
-        this.setState({ photos });
+      .then((content: IFlickrContentResult) => {
+
+        // Sort images by timestamp
+        const sortedImages = content.images.sort((a, b) => {
+          const dateA = moment(a.datetaken).unix();
+          const dateB = moment(b.datetaken).unix();
+          return dateB - dateA;
+        });
+
+        this.setState({ 
+          flickr: {
+            albumNames: content.albumNames.sort(),
+            images: sortedImages,
+          },
+        });
+
       })
       .catch((err) => {
        // Handle error
@@ -125,7 +140,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
             projects={this.state.projects}
           />
           <PhotographyComponent
-            photos={this.state.photos}
+            photos={this.state.flickr.images}
           />
           <FooterComponent/>
         </Container>

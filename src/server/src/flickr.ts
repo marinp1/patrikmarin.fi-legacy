@@ -1,5 +1,5 @@
 import * as fetch from 'isomorphic-fetch';
-import { IFlickrPhoto, IFlickrPhotosResponse } from './interfaces/IFlickr';
+import { IFlickrPhoto, IFlickrPhotosResponse, IFlickrContentResult } from './interfaces/IFlickr';
 import { IFlickrPhotosetResponse, IFlickrPhotoset } from './interfaces/IFlickrPhotoset';
 
 const ENDPOINT = 'https://api.flickr.com/services/rest/';
@@ -28,12 +28,15 @@ export function getFlickrURL(): string | undefined {
   return GET_LISTS_URL;
 }
 
-export async function getFlickrImages(url: string): Promise<IFlickrPhoto[]> {
+export async function getFlickrImages(url: string): Promise<IFlickrContentResult> {
   const API_KEY = `&api_key=${process.env.FLICKR_API_KEY}`;
   const USER_ID = `&user_id=${process.env.FLICKR_USER_ID}`;
 
   const response = await fetch(url);
-  if (response.status !== 200) return [];
+  if (response.status !== 200) return {
+    albumNames: [],
+    images: [],
+  };
   
   const res: IFlickrPhotosetResponse = await response.json();
 
@@ -56,12 +59,21 @@ export async function getFlickrImages(url: string): Promise<IFlickrPhoto[]> {
   // https://stackoverflow.com/a/42497383
   const getPhotos = async () => {
     const promises = photosets.map(async (photoset) => {
-        return await getPhotosetPhotos(photoset.id);
+        const setPhotos = await getPhotosetPhotos(photoset.id);
+        setPhotos.forEach(_ => _.albumName = photoset.title._content);
+        return setPhotos;
     });
     return Promise.all(promises);
   };
 
-  const photos = await getPhotos();;
+  const photos = await getPhotos();
+  const flattenedPhotos: IFlickrPhoto[] = [].concat.apply([], photos);
 
-  return [].concat.apply([], photos);
+  const albumNames = Array.from(new Set(photosets.map(_ => _.title._content)));
+
+  return {
+    albumNames,
+    images: flattenedPhotos,
+  }
+
 }

@@ -17,6 +17,7 @@ export interface IFlickrPhoto {
     url_l: string;
     height_l: string;
     width_l: string;
+    albumName: string; // NOTE: CUSTOM FIELD
 }
 
 interface IFlickrPhotoset {
@@ -36,4 +37,9 @@ interface IFlickrPhotoset {
 export interface IFlickrPhotosResponse {
     photoset: IFlickrPhotoset;
     stat: string;
+}
+
+export interface IFlickrContentResult {
+    albumNames: string[],
+    images: IFlickrPhoto[],
 }
