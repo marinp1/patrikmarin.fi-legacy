@@ -246,6 +246,25 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         color: colors.white,
       }
     }
+    if (!this.state.menuOpen) {
+      narrowSectionStyle = {
+        ...narrowSectionStyle,
+        height: 0,
+        transition: 'all 0.5s ease',
+      }
+    } else if (!!this.state.currentSection) {
+      narrowSectionStyle = {
+        ...narrowSectionStyle,
+        height: `${ELEMENT_HEIGHT * (menuContent.length - 1)}rem`,
+        transition: 'all 0.5s ease',
+      }
+    } else {
+      narrowSectionStyle = {
+        ...narrowSectionStyle,
+        height: `${ELEMENT_HEIGHT * menuContent.length}rem`,
+        transition: 'all 0.5s ease',
+      }
+    }
 
     return (
       <section
@@ -299,7 +318,6 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
               }
             </Navbar>
             {
-              this.state.menuOpen &&
               <NarrowScreenContainer
                 style={narrowSectionStyle}>
                 {
