@@ -8,20 +8,43 @@ const Navbar = glamorous.nav({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  // margin: 0,
+  margin: 'auto',
+  '& h6': {
+    marginRight: 'auto',
+  },
+});
+
+const CurrentText = glamorous.h6({
+  color: '#FFF',
+  textTransform: 'uppercase',
   margin: 0,
-  color: '#000',
+  fontWeight: 'bold',
+  letterSpacing: '0.2rem',
+  float: 'left',
 });
 
 const NavItem = glamorous.ul({
   display: 'inline-block',
   margin: '0 1rem',
   cursor: 'pointer',
+  textTransform: 'uppercase',
+  letterSpacing: '0.2rem',
+  ':last-child': {
+    marginRight: 0,
+  }
 });
 
 interface MenuComponentState {
-  initialOffsetTop: number;
-  selectedMode: string;
+  selectedText: string;
+  isGlued: boolean,
 }
+
+const demoContent = [
+  'Resume',
+  'Projects',
+  'Photography',
+]
 
 class MenuComponent extends React.Component<{}, MenuComponentState> {
 
@@ -31,34 +54,52 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     super(props);
 
     this.state = {
-      initialOffsetTop: -1,
-      selectedMode: 'default',
+      selectedText: 'default',
+      isGlued: false,
     };
 
     this.handleScroll = this.handleScroll.bind(this);
 
   }
 
+  convertRemToPixels(rem: number) {
+    const comp = getComputedStyle(document.documentElement).fontSize;
+    return !!comp ? rem * parseFloat(comp) : 0;
+  }
+
   handleScroll() {
     if (!!this.ref) {
-      if (this.state.initialOffsetTop === -1) {
-        this.setState({ initialOffsetTop: this.ref.offsetTop });
-      } else {
-        if (this.ref.offsetTop > this.state.initialOffsetTop) {
-          this.setState({
-            selectedMode: 'dark',
-          });
+
+      const isGlued = this.ref.getBoundingClientRect().top === 0;
+
+      //const resumeAnchor = document.getElementById('description');
+      const projectsAnchor = document.getElementById('projects');
+      const photographyAnchor = document.getElementById('photography');
+      
+      if (!!projectsAnchor && !!photographyAnchor) {
+
+        //const pastResume =
+        //  resumeAnchor.getBoundingClientRect().top - this.convertRemToPixels(2) <= 0;
+        const pastProjects =
+          projectsAnchor.getBoundingClientRect().top + this.convertRemToPixels(2) <= 0;
+        const pastPhotography =
+          photographyAnchor.getBoundingClientRect().top + this.convertRemToPixels(2) <= 0;
+        if (pastPhotography) {
+          this.setState({ isGlued, selectedText: 'Photography' });
+        } else if (pastProjects) {
+          this.setState({ isGlued, selectedText: 'Projects' });
+        } else if (isGlued) {
+          this.setState({ isGlued, selectedText: 'Resume' });
         } else {
-          this.setState({
-            selectedMode: 'default',
-          });
+          this.setState({ isGlued, selectedText: '' });
         }
+
       }
     }
   }
 
   componentWillUpdate(nextProps: {}, nextState: MenuComponentState) {
-    if (nextState.selectedMode !== this.state.selectedMode) {
+    if (nextState.selectedText !== this.state.selectedText) {
       return true;
     }
     return false;
@@ -73,18 +114,32 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  getStyle(mode: string): React.CSSProperties {
-    if (mode === 'default') {
-      return {
-        background: colors.background,
-      }
+  getIcon(selectedText: string) {
+    switch (selectedText) {
+      case 'Resume':
+        return 'fa-user-circle';
+      case 'Projects':
+        return 'fa-desktop';
+      case 'Photography':
+        return 'fa-camera';
+      default:
+        return 'fa-desktop';
     }
-    return {
-      background: '#000',
-    }
+    
   }
 
   render() {
+
+    const extraStyle: React.CSSProperties = this.state.isGlued ?
+      {
+        background: colors.black,
+        color: colors.white,
+      } :
+      {
+        background: colors.background,
+        color: colors.black,
+      };
+
     return (
       <section
         ref={(input: HTMLDivElement) => { this.ref = input; }}
@@ -97,11 +152,18 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         }}
       >
         <div>
-          <div className="row">
-            <Navbar style={this.getStyle(this.state.selectedMode)}>
-                <NavItem>Resume</NavItem>
-                <NavItem>Projects</NavItem>
-                <NavItem>Photographs</NavItem>
+          <div className="row" style={extraStyle}>
+            <Navbar className="container">
+              {demoContent.indexOf(this.state.selectedText) !== -1 &&
+                <CurrentText>
+                  <i className={`fa ${this.getIcon(this.state.selectedText)}`} style={{ marginRight: '1rem' }}/>
+                  { this.state.selectedText }
+                </CurrentText>
+              }
+               {demoContent.map((_, i) => {
+                 return _ !== this.state.selectedText && 
+                   <NavItem key={i}>{_}</NavItem>
+               })}
             </Navbar>
           </div>
         </div>
