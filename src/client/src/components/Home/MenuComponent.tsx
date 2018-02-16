@@ -77,18 +77,15 @@ const WidescreenNavItem = glamorous.div({
   display: 'none',
   [mediaQueries.mobile]: {
     display: 'inline-block',
-    margin: '0 1rem',
-    cursor: 'pointer',
+    margin: '0 1.5rem',
     height: `${ELEMENT_HEIGHT}rem`,
     lineHeight: `${ELEMENT_HEIGHT}rem`,
     '& a': {
+      cursor: 'pointer',
       color: 'inherit',
       textDecoration: 'none',
       textTransform: 'uppercase',
       letterSpacing: '0.2rem',
-      ':last-child': {
-        marginRight: 0,
-      },
       ':hover': {
         color: 'inherit',
         textDecoration: 'none',
@@ -114,12 +111,12 @@ const NarrowScreenContainer = glamorous.div({
 
 const NarrowScreenNavItem = glamorous.div({
   display: 'block',
-  cursor: 'pointer',
   height: `5rem`,
   lineHeight: `5rem`,
   margin: 0,
   borderTop: '0.1rem solid #fff',
   '& a': {
+    cursor: 'pointer',
     color: 'inherit',
     textDecoration: 'none',
     textTransform: 'uppercase',
@@ -265,6 +262,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
   }
 
   render() {
+
     const sectionStyle: React.CSSProperties = !!this.state.currentSection ?
     {
       background: this.state.currentSection.backgroundColor,
@@ -300,10 +298,17 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
       };
     }
 
+    const NAV_WIDTH =  Math.floor(100 / menuContent.length);
+
+    const widescreenNavExtraStyles: React.CSSProperties = !this.state.currentSection ?
+    {
+      width: `${NAV_WIDTH}%`,
+      textAlign: 'center',
+      fontSize: '120%',
+    } : { };
+
     return (
-      <Section
-        className="force-sticky"
-      >
+      <Section className="force-sticky">
         <div ref={(input: HTMLDivElement) => { this.ref = input; }}>
           <NavbarContainer className="row" style={sectionStyle}>
             <Navbar className="container">
@@ -339,12 +344,21 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                             _.title !== this.state.currentSection.title;
                   })
                   .map((_, i) => {
-                    return <WidescreenNavItem key={i}>
-                      <a onClick={this.navigate}
-                        href={'#' + _.elementId}>
-                        {_.title}
-                      </a>
-                    </WidescreenNavItem>;
+                    const isLastChild = menuContent.length - 2 === i;
+                    const styling = isLastChild && !!this.state.currentSection ? 
+                      { ...widescreenNavExtraStyles, marginRight: 0 } :
+                      { ...widescreenNavExtraStyles };
+                    return (
+                      <WidescreenNavItem
+                        key={i}
+                        style={styling}
+                      >
+                        <a onClick={this.navigate}
+                          href={'#' + _.elementId}>
+                          {_.title}
+                        </a>
+                      </WidescreenNavItem>
+                    );
                   })
               }
             </Navbar>
@@ -358,12 +372,14 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                               _.title !== this.state.currentSection.title;
                     })
                     .map((_, i) => {
-                      return <NarrowScreenNavItem key={i}>
-                        <a onClick={this.navigate}
-                          href={'#' + _.elementId}>
-                          {_.title}
-                        </a>
-                      </NarrowScreenNavItem>;
+                      return (
+                        <NarrowScreenNavItem key={i}>
+                          <a onClick={this.navigate}
+                            href={'#' + _.elementId}>
+                            {_.title}
+                          </a>
+                        </NarrowScreenNavItem>
+                      );
                     })
                 }
               </NarrowScreenContainer>
