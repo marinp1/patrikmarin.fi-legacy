@@ -9,3 +9,11 @@ h1, h2, h3, h4, h5, h6 {
 a, p, span, body, div {
   font-family: "Lato", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.force-sticky {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+  position: sticky;
+}

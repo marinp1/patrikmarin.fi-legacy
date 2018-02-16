@@ -186,8 +186,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
   handleScroll() {
     if (!!this.ref) {
-
-      const isGlued = this.ref.getBoundingClientRect().top === 0;
+      const isGlued = this.ref.getBoundingClientRect().top <= 0;
 
       const projectsAnchor = document.getElementById('projects');
       const photographyAnchor = document.getElementById('photography');
@@ -233,7 +232,6 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
   }
 
   render() {
-
     const sectionStyle: React.CSSProperties = !!this.state.currentSection ?
     {
       background: this.state.currentSection.backgroundColor,
@@ -268,10 +266,11 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         transition: 'all 0.5s ease',
       };
     }
-    
+
     return (
       <section
         ref={(input: HTMLDivElement) => { this.ref = input; }}
+        className="force-sticky"
         style={{
           width: '100%',
           position: 'sticky',
