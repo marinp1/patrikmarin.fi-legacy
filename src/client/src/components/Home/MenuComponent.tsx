@@ -28,7 +28,7 @@ const CurrentText = glamorous.h6({
 
 const DefaultText = glamorous.h6({
   display:'inline-block',
-  color: '#000',
+  color: '#FFF',
   textTransform: 'uppercase',
   margin: 0,
   fontWeight: 'bold',
@@ -41,7 +41,7 @@ const DefaultText = glamorous.h6({
   },
 });
 
-const NavItem = glamorous.ul({
+const WidescreenNavItem = glamorous.ul({
   display: 'none',
   [mediaQueries.mobile]: {
     display: 'inline-block',
@@ -62,6 +62,40 @@ const NavItem = glamorous.ul({
         textDecoration: 'none',
         fontWeight: 'bold',
       },
+    },
+  },
+});
+
+const NarrowScreenContainer = glamorous.div({
+  position: 'absolute',
+  top: `${ELEMENT_HEIGHT}rem`,
+  zIndex: 999999999,
+  textAlign: 'center',
+  width: '100%',
+  [mediaQueries.mobile]: {
+    display: 'none',
+  },
+});
+
+const NarrowScreenNavItem = glamorous.ul({
+  display: 'block',
+  cursor: 'pointer',
+  height: `5rem`,
+  lineHeight: `5rem`,
+  margin: 0,
+  borderTop: '0.1rem solid #fff',
+  '& a': {
+    color: 'inherit',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    letterSpacing: '0.2rem',
+    ':last-child': {
+      marginRight: 0,
+    },
+    ':hover': {
+      color: 'inherit',
+      textDecoration: 'none',
+      fontWeight: 'bold',
     },
   },
 });
@@ -185,10 +219,8 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
       transition: 'background 0.5s ease',
     } :
     {
-      background: colors.background,
-      color: colors.black,
-      // borderTop: '0.1rem solid #bbb',
-      // borderBottom: '0.1rem solid #bbb',
+      background: colors.black,
+      color: colors.white,
     };
 
     return (
@@ -215,7 +247,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
               }
               {
                 !this.state.currentSection &&
-                <DefaultText style={{ color: colors.black }}>
+                <DefaultText>
                   Menu
                 </DefaultText>
               }
@@ -229,12 +261,30 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                             _.title !== this.state.currentSection.title;
                   })
                   .map((_, i) => {
-                    return <NavItem key={i}>
+                    return <WidescreenNavItem key={i}>
                       <a href={'#' + _.elementId}>{_.title}</a>
-                    </NavItem>;
+                    </WidescreenNavItem>;
                   })
               }
             </Navbar>
+            {
+              this.state.menuOpen &&
+              <NarrowScreenContainer
+                style={sectionStyle}>
+                {
+                  menuContent
+                    .filter((_) => {
+                      return  !this.state.currentSection ||
+                              _.title !== this.state.currentSection.title;
+                    })
+                    .map((_, i) => {
+                      return <NarrowScreenNavItem key={i}>
+                        <a href={'#' + _.elementId}>{_.title}</a>
+                      </NarrowScreenNavItem>;
+                    })
+                }
+              </NarrowScreenContainer>
+            }
           </div>
         </div>
       </section>
