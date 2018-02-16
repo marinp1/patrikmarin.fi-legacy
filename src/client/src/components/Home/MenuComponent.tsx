@@ -5,6 +5,15 @@ import { mediaQueries, colors } from '../../styles';
 
 const ELEMENT_HEIGHT = 5;
 
+const NavbarContainer = glamorous.div({
+  background: colors.black,
+  color: colors.white,
+  [mediaQueries.mobile]: {
+    background: colors.background,
+    color: colors.black,
+  }
+});
+
 const Navbar = glamorous.nav({
   display: 'flex',
   alignItems: 'center',
@@ -192,6 +201,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
   componentWillUpdate(nextProps: {}, nextState: MenuComponentState) {
     if (nextState.currentSection !== this.state.currentSection) {
+      this.toggleMenu(false);
       return true;
     }
     return false;
@@ -217,11 +227,16 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
       background: this.state.currentSection.backgroundColor,
       color: colors.white,
       transition: 'background 0.5s ease',
-    } :
-    {
-      background: colors.black,
-      color: colors.white,
-    };
+    } : { };
+
+    let narrowSectionStyle = { ...sectionStyle };
+    if (!this.state.currentSection) {
+      narrowSectionStyle = {
+        ...sectionStyle,
+        background: colors.black,
+        color: colors.white,
+      }
+    }
 
     return (
       <section
@@ -235,7 +250,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         }}
       >
         <div>
-          <div className="row" style={sectionStyle}>
+          <NavbarContainer className="row" style={sectionStyle}>
             <Navbar className="container">
               {
                 !!this.state.currentSection &&
@@ -270,7 +285,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
             {
               this.state.menuOpen &&
               <NarrowScreenContainer
-                style={sectionStyle}>
+                style={narrowSectionStyle}>
                 {
                   menuContent
                     .filter((_) => {
@@ -285,7 +300,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                 }
               </NarrowScreenContainer>
             }
-          </div>
+          </NavbarContainer>
         </div>
       </section>
     );
