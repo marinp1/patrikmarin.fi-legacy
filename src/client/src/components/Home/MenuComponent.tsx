@@ -35,6 +35,9 @@ const Navbar = glamorous.nav({
   '& h6': {
     marginRight: 'auto',
   },
+  '& div:first-child': {
+    marginRight: 'auto',
+  },
 });
 
 const CurrentText = glamorous.h6({
@@ -62,15 +65,12 @@ const DefaultText = glamorous.h6({
   display:'inline-block',
   color: '#FFF',
   textTransform: 'uppercase',
-  margin: 0,
+  margin: '0 0 0 2rem',
   fontWeight: 'bold',
   letterSpacing: '0.2rem',
   float: 'left',
   height: `${ELEMENT_HEIGHT}rem`,
   lineHeight: `${ELEMENT_HEIGHT}rem`,
-  [mediaQueries.tablet]: {
-    display: 'none',
-  },
 });
 
 const WidescreenNavItem = glamorous.div({
@@ -155,23 +155,80 @@ interface MenuLink {
 const menuContent: MenuLink[] = [
   {
     title: 'Resume',
-    backgroundColor: '#b73ca2',
+    backgroundColor: '#B73CA2',
     elementId: 'description',
     icon: 'fa-file-text',
   },
   {
     title: 'Projects',
-    backgroundColor: '#3644ab',
+    backgroundColor: '#2892D7',
     elementId: 'projects',
     icon: 'fa-desktop',
   },
   {
     title: 'Photography',
-    backgroundColor: '#8eab36',
+    backgroundColor: '#00BFB2',
     elementId: 'photography',
     icon: 'fa-camera',
   },
 ];
+
+function convertRemToPixels(rem: number) {
+  const comp = getComputedStyle(document.documentElement).fontSize;
+  return !!comp ? rem * parseFloat(comp) : 0;
+}
+
+interface ScrollableAnchorProps {
+  id: string;
+  callback: () => void;
+}
+
+class ScrollableAnchor extends React.Component<ScrollableAnchorProps, {}>  {
+  constructor(props: ScrollableAnchorProps) {
+    super(props);
+    this.navigate = this.navigate.bind(this);
+  }
+
+  navigate(e: React.MouseEvent<HTMLAnchorElement>) {
+    const elem = document.querySelector('#' + this.props.id);
+    if (!!elem) {
+      e.preventDefault();
+      animateToElement(elem);
+      this.props.callback();
+    }
+  }
+
+  render() {
+    return (
+      <a onClick={this.navigate}
+        href={'#' + this.props.id}>
+        { this.props.children }
+      </a>
+    );
+  }
+}
+
+const logo = require('./images/logo_0.5x.png');
+
+const LogoContainer = glamorous.div({
+  height: `${ELEMENT_HEIGHT}rem`,
+  width: 'auto',
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  [mediaQueries.tablet]: {
+    display: 'none',
+  },
+});
+
+const LogoComponent: React.SFC<{ title: string }> = ({ title }) => (
+  <LogoContainer>
+    <img height="60%" src={logo}/>
+    <DefaultText>
+      {title}
+    </DefaultText>
+  </LogoContainer>
+);
 
 class MenuComponent extends React.Component<{}, MenuComponentState> {
 
@@ -187,13 +244,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
     this.handleScroll = this.handleScroll.bind(this);
     this.toggleMenu = this.toggleMenu.bind(this);
-    this.navigate = this.navigate.bind(this);
 
-  }
-
-  convertRemToPixels(rem: number) {
-    const comp = getComputedStyle(document.documentElement).fontSize;
-    return !!comp ? rem * parseFloat(comp) : 0;
   }
 
   handleScroll() {
@@ -208,11 +259,12 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
       if (!!projectsAnchor && !!photographyAnchor && !!descriptionAnchor) {
 
         const pastDescription =
-          descriptionAnchor.getBoundingClientRect().top - this.convertRemToPixels(6) <= 0;
+          descriptionAnchor.getBoundingClientRect().top - convertRemToPixels(6) <= 0;
         const pastProjects =
-          projectsAnchor.getBoundingClientRect().top - this.convertRemToPixels(8) <= 0;
+          projectsAnchor.getBoundingClientRect().top - convertRemToPixels(8) <= 0;
         const pastPhotography =
-          photographyAnchor.getBoundingClientRect().top - this.convertRemToPixels(8) <= 0;
+          photographyAnchor.getBoundingClientRect().top - convertRemToPixels(8) <= 0;
+
         if (pastPhotography) {
           if (this.state.currentSection !== menuContent[2]) {
             this.setState({ currentSection: menuContent[2] });
@@ -248,66 +300,51 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     this.setState({ menuOpen: newValue });
   }
 
-  navigate(e: React.MouseEvent<HTMLAnchorElement>) {
-    
-    const target = e.target as HTMLAnchorElement;
-    const id = target.href.split('#')[1];
-    const elem = document.querySelector('#' + id);
-
-    if (!!elem) {
-      e.preventDefault();
-      animateToElement(elem);
-      this.toggleMenu(false);
-    }
-
-  }
-
-  render() {
-
-    const sectionStyle: React.CSSProperties = !!this.state.currentSection ?
-    {
+  getSectionStyle(): React.CSSProperties {
+    return !!this.state.currentSection ? {
       background: this.state.currentSection.backgroundColor,
       color: colors.white,
       transition: 'background 0.5s ease',
     } : { };
+  }
 
-    let narrowSectionStyle = { ...sectionStyle };
-    if (!this.state.currentSection) {
-      narrowSectionStyle = {
-        ...sectionStyle,
-        background: colors.black,
-        color: colors.white,
-      };
-    }
-    if (!this.state.menuOpen) {
-      narrowSectionStyle = {
-        ...narrowSectionStyle,
-        transform: 'scaleY(0)',
-        transition: 'all 0.5s ease',
-      };
-    } else if (!!this.state.currentSection) {
-      narrowSectionStyle = {
-        ...narrowSectionStyle,
-        transform: 'scaleY(1)',
-        transition: 'all 0.5s ease',
-      };
-    } else {
-      narrowSectionStyle = {
-        ...narrowSectionStyle,
-        transform: 'scaleY(1)',
-        transition: 'all 0.5s ease',
-      };
-    }
+  getNarrowSectionStyle(sectionStyle: React.CSSProperties): React.CSSProperties {
+    const menuOpen = Number(this.state.menuOpen);
+    const translationStyle = {
+      transform: `scaleY(${menuOpen})`,
+      transition: 'all 0.5s ease',
+    };
+    return !this.state.currentSection ? {
+      ...sectionStyle,
+      ...translationStyle,
+      background: colors.black,
+      color: colors.white,
+    } : {
+      ...sectionStyle,
+      ...translationStyle,
+    };
+  }
 
+  getWidescreenNavStyle(): React.CSSProperties {
     const NAV_WIDTH =  Math.floor(100 / menuContent.length);
-
-    const widescreenNavExtraStyles: React.CSSProperties = !this.state.currentSection ?
-    {
+    return !this.state.currentSection ? {
       width: `${NAV_WIDTH}%`,
       textAlign: 'center',
       fontSize: '105%',
       margin: 0,
     } : { };
+  }
+
+  render() {
+
+    const sectionStyle = this.getSectionStyle();
+    const narrowSectionStyle = this.getNarrowSectionStyle(sectionStyle);
+    const widescreenNavExtraStyles = this.getWidescreenNavStyle();
+
+    // Get all elements which are not selected
+    const inActiveElements = menuContent.filter((_) => {
+      return _ !== this.state.currentSection;
+    });
 
     return (
       <Section className="force-sticky">
@@ -319,18 +356,15 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                 <CurrentText>
                   <i className={`fa ${this.state.currentSection.icon}`}
                     style={{ marginRight: '1rem' }}/>
-                  <a href={'#' + this.state.currentSection.elementId}
-                    onClick={this.navigate}
+                  <ScrollableAnchor id={this.state.currentSection.elementId}
+                    callback={() => this.toggleMenu(false)}
                   >
                     { this.state.currentSection.title }
-                  </a>
+                  </ScrollableAnchor>
                 </CurrentText>
               }
               {
-                !this.state.currentSection &&
-                <DefaultText>
-                  Menu
-                </DefaultText>
+                !this.state.currentSection && <LogoComponent title="Patrik Marin"/>
               }
               <MenuButton onClick={e => this.toggleMenu()}>
                 {
@@ -340,11 +374,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                 }
               </MenuButton>
               {
-                menuContent
-                  .filter((_) => {
-                    return  !this.state.currentSection ||
-                            _.title !== this.state.currentSection.title;
-                  })
+                inActiveElements
                   .map((_, i) => {
                     const isLastChild = menuContent.length - 2 === i;
                     const styling = isLastChild && !!this.state.currentSection ? 
@@ -355,37 +385,33 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                         key={i}
                         style={styling}
                       >
-                        <a onClick={this.navigate}
-                          href={'#' + _.elementId}>
+                        <ScrollableAnchor id={_.elementId}
+                          callback={() => this.toggleMenu(false)}
+                        >
                           {_.title}
-                        </a>
+                        </ScrollableAnchor>
                       </WidescreenNavItem>
                     );
                   })
               }
             </Navbar>
-            {
-              <NarrowScreenContainer
-                style={narrowSectionStyle}>
-                {
-                  menuContent
-                    .filter((_) => {
-                      return  !this.state.currentSection ||
-                              _.title !== this.state.currentSection.title;
-                    })
-                    .map((_, i) => {
-                      return (
-                        <NarrowScreenNavItem key={i}>
-                          <a onClick={this.navigate}
-                            href={'#' + _.elementId}>
-                            {_.title}
-                          </a>
-                        </NarrowScreenNavItem>
-                      );
-                    })
-                }
-              </NarrowScreenContainer>
-            }
+            <NarrowScreenContainer
+              style={narrowSectionStyle}>
+              {
+                inActiveElements
+                  .map((_, i) => {
+                    return (
+                      <NarrowScreenNavItem key={i}>
+                        <ScrollableAnchor id={_.elementId}
+                          callback={() => this.toggleMenu(false)}
+                        >
+                          {_.title}
+                        </ScrollableAnchor>
+                      </NarrowScreenNavItem>
+                    );
+                  })
+              }
+            </NarrowScreenContainer>
           </NavbarContainer>
         </div>
       </Section>
