@@ -214,24 +214,25 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         const pastPhotography =
           photographyAnchor.getBoundingClientRect().top - this.convertRemToPixels(8) <= 0;
         if (pastPhotography) {
-          this.setState({ currentSection: menuContent[2] });
+          if (this.state.currentSection !== menuContent[2]) {
+            this.setState({ currentSection: menuContent[2] });
+          }
         } else if (pastProjects) {
-          this.setState({ currentSection: menuContent[1] });
+          if (this.state.currentSection !== menuContent[1]) {
+            this.setState({ currentSection: menuContent[1] });
+          }
         } else if (pastDescription && isGlued) {
-          this.setState({ currentSection: menuContent[0] });
+          if (this.state.currentSection !== menuContent[0]) {
+            this.setState({ currentSection: menuContent[0] });
+          }
         } else {
-          this.setState({ currentSection: undefined });
+          if (!!this.state.currentSection) {
+            this.setState({ currentSection: undefined });
+          }
         }
 
       }
     }
-  }
-
-  componentWillUpdate(nextProps: {}, nextState: MenuComponentState) {
-    if (nextState.currentSection !== this.state.currentSection) {
-      return true;
-    }
-    return false;
   }
 
   componentDidMount() {
