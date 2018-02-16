@@ -37,6 +37,7 @@ const NavItem = glamorous.ul({
 
 interface MenuComponentState {
   selectedText: string;
+  rowBackground: string;
   isGlued: boolean,
 }
 
@@ -55,6 +56,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
     this.state = {
       selectedText: 'default',
+      rowBackground: colors.background,
       isGlued: false,
     };
 
@@ -85,13 +87,13 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         const pastPhotography =
           photographyAnchor.getBoundingClientRect().top + this.convertRemToPixels(2) <= 0;
         if (pastPhotography) {
-          this.setState({ isGlued, selectedText: 'Photography' });
+          this.setState({ isGlued, selectedText: 'Photography', rowBackground: '#8eab36' });
         } else if (pastProjects) {
-          this.setState({ isGlued, selectedText: 'Projects' });
+          this.setState({ isGlued, selectedText: 'Projects', rowBackground: '#3644ab' });
         } else if (isGlued) {
-          this.setState({ isGlued, selectedText: 'Resume' });
+          this.setState({ isGlued, selectedText: 'Resume', rowBackground: '#b73ca2' });
         } else {
-          this.setState({ isGlued, selectedText: '' });
+          this.setState({ isGlued, selectedText: '', rowBackground: colors.background });
         }
 
       }
@@ -132,8 +134,9 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
     const extraStyle: React.CSSProperties = this.state.isGlued ?
       {
-        background: colors.black,
+        background: this.state.rowBackground,
         color: colors.white,
+        transition: 'background 0.5s ease',
       } :
       {
         background: colors.background,
