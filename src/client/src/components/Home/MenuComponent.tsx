@@ -12,7 +12,7 @@ const Section = glamorous.section({
   position: 'fixed',
   background: colors.white,
   top: 0,
-  zIndex: 999999999, // Just be on top
+  zIndex: 998, // Just under lightbox component
   [mediaQueries.mobile]: {
     position: 'sticky',
   },
