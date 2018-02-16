@@ -26,13 +26,23 @@ const Navbar = glamorous.nav({
 
 const CurrentText = glamorous.h6({
   color: '#FFF',
-  textTransform: 'uppercase',
   margin: 0,
-  fontWeight: 'bold',
-  letterSpacing: '0.2rem',
   float: 'left',
   height: `${ELEMENT_HEIGHT}rem`,
   lineHeight: `${ELEMENT_HEIGHT}rem`,
+
+  '& a': {
+    color: 'inherit',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    letterSpacing: '0.2rem',
+    ':hover': {
+      color: 'inherit',
+      textDecoration: 'none',
+    },
+  },
+
 });
 
 const DefaultText = glamorous.h6({
@@ -201,7 +211,6 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
   componentWillUpdate(nextProps: {}, nextState: MenuComponentState) {
     if (nextState.currentSection !== this.state.currentSection) {
-      this.toggleMenu(false);
       return true;
     }
     return false;
@@ -257,7 +266,11 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                 <CurrentText>
                   <i className={`fa ${this.state.currentSection.icon}`}
                     style={{ marginRight: '1rem' }}/>
-                  { this.state.currentSection.title }
+                  <a href={'#' + this.state.currentSection.elementId}
+                    onClick={e => this.toggleMenu(false)}
+                  >
+                    { this.state.currentSection.title }
+                  </a>
                 </CurrentText>
               }
               {
@@ -277,7 +290,10 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                   })
                   .map((_, i) => {
                     return <WidescreenNavItem key={i}>
-                      <a href={'#' + _.elementId}>{_.title}</a>
+                      <a onClick={e => this.toggleMenu(false)}
+                        href={'#' + _.elementId}>
+                        {_.title}
+                      </a>
                     </WidescreenNavItem>;
                   })
               }
@@ -294,7 +310,10 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                     })
                     .map((_, i) => {
                       return <NarrowScreenNavItem key={i}>
-                        <a href={'#' + _.elementId}>{_.title}</a>
+                        <a onClick={e => this.toggleMenu(false)}
+                          href={'#' + _.elementId}>
+                          {_.title}
+                        </a>
                       </NarrowScreenNavItem>;
                     })
                 }
