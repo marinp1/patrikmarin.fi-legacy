@@ -7,6 +7,17 @@ import { animateToElement } from '../../utils/smoothScroller';
 
 const ELEMENT_HEIGHT = 5;
 
+const Section = glamorous.section({
+  width: '100%',
+  position: 'fixed',
+  background: colors.white,
+  top: 0,
+  zIndex: 999999999, // Just be on top
+  [mediaQueries.mobile]: {
+    position: 'sticky',
+  },
+});
+
 const NavbarContainer = glamorous.div({
   background: colors.black,
   color: colors.white,
@@ -149,7 +160,7 @@ const menuContent: MenuLink[] = [
     title: 'Resume',
     backgroundColor: '#b73ca2',
     elementId: 'description',
-    icon: 'fa-user-circle',
+    icon: 'fa-file-text',
   },
   {
     title: 'Projects',
@@ -178,6 +189,8 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     };
 
     this.handleScroll = this.handleScroll.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.navigate = this.navigate.bind(this);
 
   }
 
@@ -188,13 +201,17 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
   handleScroll() {
     if (!!this.ref) {
+
       const isGlued = this.ref.getBoundingClientRect().top <= 0;
 
+      const descriptionAnchor = document.getElementById('description');
       const projectsAnchor = document.getElementById('projects');
       const photographyAnchor = document.getElementById('photography');
       
-      if (!!projectsAnchor && !!photographyAnchor) {
+      if (!!projectsAnchor && !!photographyAnchor && !!descriptionAnchor) {
 
+        const pastDescription =
+          descriptionAnchor.getBoundingClientRect().top - this.convertRemToPixels(6) <= 0;
         const pastProjects =
           projectsAnchor.getBoundingClientRect().top - this.convertRemToPixels(8) <= 0;
         const pastPhotography =
@@ -203,7 +220,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
           this.setState({ currentSection: menuContent[2] });
         } else if (pastProjects) {
           this.setState({ currentSection: menuContent[1] });
-        } else if (isGlued) {
+        } else if (pastDescription && isGlued) {
           this.setState({ currentSection: menuContent[0] });
         } else {
           this.setState({ currentSection: undefined });
@@ -242,6 +259,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     if (!!elem) {
       e.preventDefault();
       animateToElement(elem);
+      this.toggleMenu(false);
     }
 
   }
@@ -283,18 +301,10 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     }
 
     return (
-      <section
-        ref={(input: HTMLDivElement) => { this.ref = input; }}
+      <Section
         className="force-sticky"
-        style={{
-          width: '100%',
-          position: 'sticky',
-          background: colors.white,
-          top: 0,
-          zIndex: 999999999, // Just be on top
-        }}
       >
-        <div>
+        <div ref={(input: HTMLDivElement) => { this.ref = input; }}>
           <NavbarContainer className="row" style={sectionStyle}>
             <Navbar className="container">
               {
@@ -356,7 +366,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
             }
           </NavbarContainer>
         </div>
-      </section>
+      </Section>
     );
   }
 }
