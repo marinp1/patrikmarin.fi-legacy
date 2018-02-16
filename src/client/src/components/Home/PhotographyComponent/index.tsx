@@ -20,6 +20,8 @@ const Container = glamorous.section({
 const Title = glamorous.h6({
   textTransform: 'uppercase',
   fontWeight: 'bold',
+  paddingTop: '2rem',
+  marginTop: '-2rem',
 });
 
 interface PhotographyComponentProps {
@@ -65,10 +67,10 @@ class PhotographyComponent
 
   render() {
     return (
-      <Container id="photography">
+      <Container>
         <div className="container">
           <div className="row">
-            <Title>
+            <Title id="photography">
               <i className="fa fa-camera" style={{ marginRight: '1rem' }}/>
               Photography
             </Title>

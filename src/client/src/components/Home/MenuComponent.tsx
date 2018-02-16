@@ -8,7 +8,6 @@ const Navbar = glamorous.nav({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  // margin: 0,
   margin: 'auto',
   '& h6': {
     marginRight: 'auto',
@@ -28,24 +27,53 @@ const NavItem = glamorous.ul({
   display: 'inline-block',
   margin: '0 1rem',
   cursor: 'pointer',
-  textTransform: 'uppercase',
-  letterSpacing: '0.2rem',
-  ':last-child': {
-    marginRight: 0,
-  }
+  '& a': {
+    color: 'inherit',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    letterSpacing: '0.2rem',
+    ':last-child': {
+      marginRight: 0,
+    },
+    ':hover': {
+      color: 'inherit',
+      textDecoration: 'none',
+      fontWeight: 'bold',
+    },
+  },
 });
 
 interface MenuComponentState {
-  selectedText: string;
-  rowBackground: string;
-  isGlued: boolean,
+  currentSection?: MenuLink;
 }
 
-const demoContent = [
-  'Resume',
-  'Projects',
-  'Photography',
-]
+interface MenuLink {
+  title: string;
+  elementId: string;
+  backgroundColor: string;
+  icon: string;
+}
+
+const menuContent: MenuLink[] = [
+  {
+    title: 'Resume',
+    backgroundColor: '#b73ca2',
+    elementId: 'description',
+    icon: 'fa-user-circle',
+  },
+  {
+    title: 'Projects',
+    backgroundColor: '#3644ab',
+    elementId: 'projects',
+    icon: 'fa-desktop',
+  },
+  {
+    title: 'Photography',
+    backgroundColor: '#8eab36',
+    elementId: 'photography',
+    icon: 'fa-camera',
+  },
+];
 
 class MenuComponent extends React.Component<{}, MenuComponentState> {
 
@@ -55,9 +83,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     super(props);
 
     this.state = {
-      selectedText: 'default',
-      rowBackground: colors.background,
-      isGlued: false,
+      currentSection: undefined, 
     };
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -74,26 +100,23 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
 
       const isGlued = this.ref.getBoundingClientRect().top === 0;
 
-      //const resumeAnchor = document.getElementById('description');
       const projectsAnchor = document.getElementById('projects');
       const photographyAnchor = document.getElementById('photography');
       
       if (!!projectsAnchor && !!photographyAnchor) {
 
-        //const pastResume =
-        //  resumeAnchor.getBoundingClientRect().top - this.convertRemToPixels(2) <= 0;
         const pastProjects =
-          projectsAnchor.getBoundingClientRect().top + this.convertRemToPixels(2) <= 0;
+          projectsAnchor.getBoundingClientRect().top - this.convertRemToPixels(2) <= 0;
         const pastPhotography =
-          photographyAnchor.getBoundingClientRect().top + this.convertRemToPixels(2) <= 0;
+          photographyAnchor.getBoundingClientRect().top - this.convertRemToPixels(2) <= 0;
         if (pastPhotography) {
-          this.setState({ isGlued, selectedText: 'Photography', rowBackground: '#8eab36' });
+          this.setState({ currentSection: menuContent[2] });
         } else if (pastProjects) {
-          this.setState({ isGlued, selectedText: 'Projects', rowBackground: '#3644ab' });
+          this.setState({ currentSection: menuContent[1] });
         } else if (isGlued) {
-          this.setState({ isGlued, selectedText: 'Resume', rowBackground: '#b73ca2' });
+          this.setState({ currentSection: menuContent[0] });
         } else {
-          this.setState({ isGlued, selectedText: '', rowBackground: colors.background });
+          this.setState({ currentSection: undefined });
         }
 
       }
@@ -101,7 +124,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
   }
 
   componentWillUpdate(nextProps: {}, nextState: MenuComponentState) {
-    if (nextState.selectedText !== this.state.selectedText) {
+    if (nextState.currentSection !== this.state.currentSection) {
       return true;
     }
     return false;
@@ -116,32 +139,18 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  getIcon(selectedText: string) {
-    switch (selectedText) {
-      case 'Resume':
-        return 'fa-user-circle';
-      case 'Projects':
-        return 'fa-desktop';
-      case 'Photography':
-        return 'fa-camera';
-      default:
-        return 'fa-desktop';
-    }
-    
-  }
-
   render() {
 
-    const extraStyle: React.CSSProperties = this.state.isGlued ?
-      {
-        background: this.state.rowBackground,
-        color: colors.white,
-        transition: 'background 0.5s ease',
-      } :
-      {
-        background: colors.background,
-        color: colors.black,
-      };
+    const extraStyle: React.CSSProperties = !!this.state.currentSection ?
+    {
+      background: this.state.currentSection.backgroundColor,
+      color: colors.white,
+      transition: 'background 0.5s ease',
+    } :
+    {
+      background: colors.background,
+      color: colors.black,
+    };
 
     return (
       <section
@@ -157,16 +166,23 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         <div>
           <div className="row" style={extraStyle}>
             <Navbar className="container">
-              {demoContent.indexOf(this.state.selectedText) !== -1 &&
+              {!!this.state.currentSection &&
                 <CurrentText>
-                  <i className={`fa ${this.getIcon(this.state.selectedText)}`} style={{ marginRight: '1rem' }}/>
-                  { this.state.selectedText }
+                  <i className={`fa ${this.state.currentSection.icon}`}
+                    style={{ marginRight: '1rem' }}/>
+                  { this.state.currentSection.title }
                 </CurrentText>
               }
-               {demoContent.map((_, i) => {
-                 return _ !== this.state.selectedText && 
-                   <NavItem key={i}>{_}</NavItem>
-               })}
+              {menuContent
+                .filter((_) => {
+                  return !this.state.currentSection || _.title !== this.state.currentSection.title;
+                })
+                .map((_, i) => {
+                  return <NavItem key={i}>
+                    <a href={'#' + _.elementId}>{_.title}</a>
+                  </NavItem>;
+                })
+              }
             </Navbar>
           </div>
         </div>

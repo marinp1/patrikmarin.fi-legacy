@@ -20,6 +20,8 @@ const Container = glamorous.section({
 const Title = glamorous.h6({
   textTransform: 'uppercase',
   fontWeight: 'bold',
+  paddingTop: '2rem',
+  marginTop: '-2rem',
 });
 
 const ProjectContainer = glamorous.div({
@@ -125,10 +127,10 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
                     ' / ' + this.props.projects.length + ' projects';
 
     return (
-      <Container id="projects">
+      <Container>
         <div className="container">
           <div className="row">
-            <Title>
+            <Title id="projects">
               <i className="fa fa-desktop" style={{ marginRight: '1rem' }}/>
               Projects
             </Title>
