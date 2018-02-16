@@ -3,6 +3,8 @@ import glamorous from 'glamorous';
 
 import { mediaQueries, colors } from '../../styles';
 
+import { animateToElement } from '../../utils/smoothScroller';
+
 const ELEMENT_HEIGHT = 5;
 
 const NavbarContainer = glamorous.div({
@@ -231,6 +233,19 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     this.setState({ menuOpen: newValue });
   }
 
+  navigate(e: React.MouseEvent<HTMLAnchorElement>) {
+    
+    const target = e.target as HTMLAnchorElement;
+    const id = target.href.split('#')[1];
+    const elem = document.querySelector('#' + id);
+
+    if (!!elem) {
+      e.preventDefault();
+      animateToElement(elem);
+    }
+
+  }
+
   render() {
     const sectionStyle: React.CSSProperties = !!this.state.currentSection ?
     {
@@ -288,7 +303,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                   <i className={`fa ${this.state.currentSection.icon}`}
                     style={{ marginRight: '1rem' }}/>
                   <a href={'#' + this.state.currentSection.elementId}
-                    onClick={e => this.toggleMenu(false)}
+                    onClick={this.navigate}
                   >
                     { this.state.currentSection.title }
                   </a>
@@ -311,7 +326,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                   })
                   .map((_, i) => {
                     return <WidescreenNavItem key={i}>
-                      <a onClick={e => this.toggleMenu(false)}
+                      <a onClick={this.navigate}
                         href={'#' + _.elementId}>
                         {_.title}
                       </a>
@@ -330,7 +345,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                     })
                     .map((_, i) => {
                       return <NarrowScreenNavItem key={i}>
-                        <a onClick={e => this.toggleMenu(false)}
+                        <a onClick={this.navigate}
                           href={'#' + _.elementId}>
                           {_.title}
                         </a>

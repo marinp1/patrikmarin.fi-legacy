@@ -4,6 +4,8 @@ import glamorous from 'glamorous';
 import { colors } from '../../styles';
 import { IProfile } from 'shared/interfaces/IResume';
 
+import { animateToElement } from '../../utils/smoothScroller';
+
 const Container = glamorous.div({
   height: 'inherit',
   width: '100%',
@@ -102,6 +104,17 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
 
   profileSeparator = ' • ';
 
+  navigate(e: React.MouseEvent<HTMLAnchorElement>) {
+    const target = e.target as HTMLAnchorElement;
+    const id = target.href.split('#')[1];
+    const elem = document.querySelector('#' + id);
+
+    if (!!elem) {
+      e.preventDefault();
+      animateToElement(elem);
+    }
+  }
+
   render() {
     return (
       <div style={{ height: 'calc(100vh - 7rem)' }}>
@@ -111,7 +124,13 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
             <Title>I'm {this.props.name}</Title>
             <InfoLabel>{this.props.infoLabel}</InfoLabel>
             <ButtonContainer>
-              <Button className="button" href="#description">READ MORE</Button>
+              <Button
+                className="button"
+                href="#description"
+                onClick={this.navigate}
+              >
+                READ MORE
+              </Button>
               <Button className="button" href={require('./resources/cv_patrik-marin_en_web.pdf')}
                 >DOWNLOAD CV
               </Button>
