@@ -1,10 +1,11 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 
-import { colors } from '../../styles';
+import { mediaQueries, colors } from '../../styles';
+
+const ELEMENT_HEIGHT = 5;
 
 const Navbar = glamorous.nav({
-  height: '5rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -21,30 +22,61 @@ const CurrentText = glamorous.h6({
   fontWeight: 'bold',
   letterSpacing: '0.2rem',
   float: 'left',
+  height: `${ELEMENT_HEIGHT}rem`,
+  lineHeight: `${ELEMENT_HEIGHT}rem`,
+});
+
+const DefaultText = glamorous.h6({
+  display:'inline-block',
+  color: '#000',
+  textTransform: 'uppercase',
+  margin: 0,
+  fontWeight: 'bold',
+  letterSpacing: '0.2rem',
+  float: 'left',
+  height: `${ELEMENT_HEIGHT}rem`,
+  lineHeight: `${ELEMENT_HEIGHT}rem`,
+  [mediaQueries.mobile]: {
+    display: 'none',
+  },
 });
 
 const NavItem = glamorous.ul({
-  display: 'inline-block',
-  margin: '0 1rem',
-  cursor: 'pointer',
-  '& a': {
-    color: 'inherit',
-    textDecoration: 'none',
-    textTransform: 'uppercase',
-    letterSpacing: '0.2rem',
-    ':last-child': {
-      marginRight: 0,
-    },
-    ':hover': {
+  display: 'none',
+  [mediaQueries.mobile]: {
+    display: 'inline-block',
+    margin: '0 1rem',
+    cursor: 'pointer',
+    height: `${ELEMENT_HEIGHT}rem`,
+    lineHeight: `${ELEMENT_HEIGHT}rem`,
+    '& a': {
       color: 'inherit',
       textDecoration: 'none',
-      fontWeight: 'bold',
+      textTransform: 'uppercase',
+      letterSpacing: '0.2rem',
+      ':last-child': {
+        marginRight: 0,
+      },
+      ':hover': {
+        color: 'inherit',
+        textDecoration: 'none',
+        fontWeight: 'bold',
+      },
     },
+  },
+});
+
+const MenuButton = glamorous.div({
+  display: 'inline-block',
+  cursor: 'pointer',
+  [mediaQueries.mobile]: {
+    display: 'none',
   },
 });
 
 interface MenuComponentState {
   currentSection?: MenuLink;
+  menuOpen: boolean;
 }
 
 interface MenuLink {
@@ -83,7 +115,8 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     super(props);
 
     this.state = {
-      currentSection: undefined, 
+      currentSection: undefined,
+      menuOpen: false,
     };
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -139,9 +172,13 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
+  toggleMenu(newValue: boolean = !this.state.menuOpen) {
+    this.setState({ menuOpen: newValue });
+  }
+
   render() {
 
-    const extraStyle: React.CSSProperties = !!this.state.currentSection ?
+    const sectionStyle: React.CSSProperties = !!this.state.currentSection ?
     {
       background: this.state.currentSection.backgroundColor,
       color: colors.white,
@@ -150,6 +187,8 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     {
       background: colors.background,
       color: colors.black,
+      // borderTop: '0.1rem solid #bbb',
+      // borderBottom: '0.1rem solid #bbb',
     };
 
     return (
@@ -164,24 +203,36 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         }}
       >
         <div>
-          <div className="row" style={extraStyle}>
+          <div className="row" style={sectionStyle}>
             <Navbar className="container">
-              {!!this.state.currentSection &&
+              {
+                !!this.state.currentSection &&
                 <CurrentText>
                   <i className={`fa ${this.state.currentSection.icon}`}
                     style={{ marginRight: '1rem' }}/>
                   { this.state.currentSection.title }
                 </CurrentText>
               }
-              {menuContent
-                .filter((_) => {
-                  return !this.state.currentSection || _.title !== this.state.currentSection.title;
-                })
-                .map((_, i) => {
-                  return <NavItem key={i}>
-                    <a href={'#' + _.elementId}>{_.title}</a>
-                  </NavItem>;
-                })
+              {
+                !this.state.currentSection &&
+                <DefaultText style={{ color: colors.black }}>
+                  Menu
+                </DefaultText>
+              }
+              <MenuButton onClick={e => this.toggleMenu()}>
+                <i className="fa fa-bars fa-lg"/>
+              </MenuButton>
+              {
+                menuContent
+                  .filter((_) => {
+                    return  !this.state.currentSection ||
+                            _.title !== this.state.currentSection.title;
+                  })
+                  .map((_, i) => {
+                    return <NavItem key={i}>
+                      <a href={'#' + _.elementId}>{_.title}</a>
+                    </NavItem>;
+                  })
               }
             </Navbar>
           </div>
