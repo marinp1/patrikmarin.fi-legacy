@@ -192,9 +192,9 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
       if (!!projectsAnchor && !!photographyAnchor) {
 
         const pastProjects =
-          projectsAnchor.getBoundingClientRect().top - this.convertRemToPixels(2) <= 0;
+          projectsAnchor.getBoundingClientRect().top - this.convertRemToPixels(8) <= 0;
         const pastPhotography =
-          photographyAnchor.getBoundingClientRect().top - this.convertRemToPixels(2) <= 0;
+          photographyAnchor.getBoundingClientRect().top - this.convertRemToPixels(8) <= 0;
         if (pastPhotography) {
           this.setState({ currentSection: menuContent[2] });
         } else if (pastProjects) {
