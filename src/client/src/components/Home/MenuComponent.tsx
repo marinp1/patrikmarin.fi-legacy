@@ -13,7 +13,7 @@ const Section = glamorous.section({
   background: colors.white,
   top: 0,
   zIndex: 998, // Just under lightbox component
-  [mediaQueries.mobile]: {
+  [mediaQueries.tablet]: {
     position: 'sticky',
   },
 });
@@ -21,7 +21,7 @@ const Section = glamorous.section({
 const NavbarContainer = glamorous.div({
   background: colors.black,
   color: colors.white,
-  [mediaQueries.mobile]: {
+  [mediaQueries.tablet]: {
     background: colors.background,
     color: colors.black,
   },
@@ -68,14 +68,14 @@ const DefaultText = glamorous.h6({
   float: 'left',
   height: `${ELEMENT_HEIGHT}rem`,
   lineHeight: `${ELEMENT_HEIGHT}rem`,
-  [mediaQueries.mobile]: {
+  [mediaQueries.tablet]: {
     display: 'none',
   },
 });
 
 const WidescreenNavItem = glamorous.div({
   display: 'none',
-  [mediaQueries.mobile]: {
+  [mediaQueries.tablet]: {
     display: 'inline-block',
     margin: '0 1.5rem',
     height: `${ELEMENT_HEIGHT}rem`,
@@ -104,7 +104,7 @@ const NarrowScreenContainer = glamorous.div({
   width: '100%',
   overflowY: 'hidden',
   transformOrigin: '0% 0%',
-  [mediaQueries.mobile]: {
+  [mediaQueries.tablet]: {
     display: 'none',
   },
 });
@@ -135,7 +135,7 @@ const NarrowScreenNavItem = glamorous.div({
 const MenuButton = glamorous.div({
   display: 'inline-block',
   cursor: 'pointer',
-  [mediaQueries.mobile]: {
+  [mediaQueries.tablet]: {
     display: 'none',
   },
 });
@@ -304,7 +304,8 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     {
       width: `${NAV_WIDTH}%`,
       textAlign: 'center',
-      fontSize: '120%',
+      fontSize: '105%',
+      margin: 0,
     } : { };
 
     return (

@@ -12,7 +12,7 @@ a, p, span, body, div {
   font-family: "Lato", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 780px) {
   .force-sticky {
     position: -webkit-sticky;
     position: -moz-sticky;
