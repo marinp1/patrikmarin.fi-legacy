@@ -4,8 +4,7 @@ import { colors } from '../../../styles';
 
 const AboutContainer = glamorous.div({
   textAlign: 'justify',
-  paddingTop: '6rem',
-  marginTop: '-4rem',
+  paddingTop: '2rem',
   '& p': {
     marginBottom: '3rem !important',
   },

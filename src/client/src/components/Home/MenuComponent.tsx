@@ -11,7 +11,7 @@ const NavbarContainer = glamorous.div({
   [mediaQueries.mobile]: {
     background: colors.background,
     color: colors.black,
-  }
+  },
 });
 
 const Navbar = glamorous.nav({
@@ -60,7 +60,7 @@ const DefaultText = glamorous.h6({
   },
 });
 
-const WidescreenNavItem = glamorous.ul({
+const WidescreenNavItem = glamorous.div({
   display: 'none',
   [mediaQueries.mobile]: {
     display: 'inline-block',
@@ -89,14 +89,17 @@ const NarrowScreenContainer = glamorous.div({
   position: 'absolute',
   top: `${ELEMENT_HEIGHT}rem`,
   zIndex: 999999999,
+  marginBottom: 0,
   textAlign: 'center',
   width: '100%',
+  overflowY: 'hidden',
+  transformOrigin: '0% 0%',
   [mediaQueries.mobile]: {
     display: 'none',
   },
 });
 
-const NarrowScreenNavItem = glamorous.ul({
+const NarrowScreenNavItem = glamorous.div({
   display: 'block',
   cursor: 'pointer',
   height: `5rem`,
@@ -244,28 +247,28 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
         ...sectionStyle,
         background: colors.black,
         color: colors.white,
-      }
+      };
     }
     if (!this.state.menuOpen) {
       narrowSectionStyle = {
         ...narrowSectionStyle,
-        height: 0,
+        transform: 'scaleY(0)',
         transition: 'all 0.5s ease',
-      }
+      };
     } else if (!!this.state.currentSection) {
       narrowSectionStyle = {
         ...narrowSectionStyle,
-        height: `${ELEMENT_HEIGHT * (menuContent.length - 1)}rem`,
+        transform: 'scaleY(1)',
         transition: 'all 0.5s ease',
-      }
+      };
     } else {
       narrowSectionStyle = {
         ...narrowSectionStyle,
-        height: `${ELEMENT_HEIGHT * menuContent.length}rem`,
+        transform: 'scaleY(1)',
         transition: 'all 0.5s ease',
-      }
+      };
     }
-
+    
     return (
       <section
         ref={(input: HTMLDivElement) => { this.ref = input; }}

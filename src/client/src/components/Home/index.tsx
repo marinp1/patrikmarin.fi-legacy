@@ -38,6 +38,7 @@ const Container = glamorous.div({
   },
 });
 
+/*
 const Background = glamorous.div({
   position: 'fixed',
   top: 0,
@@ -51,6 +52,7 @@ const Background = glamorous.div({
   backgroundPosition: 'center center',
   backgroundSize: 'cover',
 });
+*/
 
 interface IMainPageState {
   resume: IResume.IResume;
@@ -121,9 +123,16 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
 
     document.body.style.backgroundColor = colors.black;
 
+    document.body.style.height = '100vh';	
+    document.body.style.width = '100vw';	
+    document.body.style.backgroundImage = `url(${require('./images/bg.jpg')})`;	
+    document.body.style.backgroundRepeat = 'no-repeat';	
+    document.body.style.backgroundPosition = 'center center';	
+    document.body.style.backgroundAttachment = 'fixed';	
+    document.body.style.backgroundSize = 'cover';
+
     return (
       <div>
-        <Background/>
         <Container>
           <LandingComponent
             name={this.state.resume.basics.name}
