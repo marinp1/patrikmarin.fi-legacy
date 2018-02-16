@@ -326,7 +326,11 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
                 </DefaultText>
               }
               <MenuButton onClick={e => this.toggleMenu()}>
-                <i className="fa fa-bars fa-lg"/>
+                {
+                  this.state.menuOpen ? 
+                    <i className="fa fa-times fa-lg"/> :
+                    <i className="fa fa-bars fa-lg"/>
+                }
               </MenuButton>
               {
                 menuContent
