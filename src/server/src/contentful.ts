@@ -2,16 +2,38 @@ import * as contentful from 'contentful';
 
 import { IProjectList, IProjectFields } from './interfaces/IProject';
 
-export function getContentfulClient(): contentful.ContentfulClientApi | undefined {
+export function getContentfulClient(isProduction: boolean):
+  contentful.ContentfulClientApi | undefined {
 
-  if (!process.env.CONTENTFUL_SPACE_ID || !process.env.CONTENTFUL_DELIVERY_API_TOKEN) {
-    console.log('Required environment variables are missing!');
+  const space = process.env.CONTENTFUL_SPACE_ID;
+  const deliveryToken = process.env.CONTENTFUL_DELIVERY_API_TOKEN;
+  const previewToken = process.env.CONTENTFUL_PREVIEW_API_TOKEN;
+
+  if (!space) {
+    console.log('Contentful space is missing!');
     return undefined;
   }
-  return contentful.createClient({
-    space: process.env.CONTENTFUL_SPACE_ID as string,
-    accessToken: process.env.CONTENTFUL_DELIVERY_API_TOKEN as string,
-  });
+
+  // Return preview token in dev
+  if (!isProduction && !!previewToken) {
+    return contentful.createClient({
+      space,
+      accessToken: previewToken,
+      host: 'preview.contentful.com',
+    });
+  }
+
+  // Fallback to delivery token
+  if (!!deliveryToken) {
+    return contentful.createClient({
+      space,
+      accessToken: deliveryToken,
+    });
+  }
+
+  console.log('Contentful access token missing!');
+  return undefined;
+
 }
 
 export function getProjects(client: contentful.ContentfulClientApi): Promise<IProjectFields[]> {

@@ -11,9 +11,11 @@ import { getACMEChallenge, forceSSL } from './ssl';
 export default class Server {
   private app = express();
 
-  private contentfulClient = getContentfulClient();
-  private flickrURL = getFlickrURL();
   private isProduction: boolean = process.env.NODE_ENV === 'production';
+
+  private contentfulClient = getContentfulClient(this.isProduction);
+  private flickrURL = getFlickrURL();
+  
   private REDIS_URL = this.isProduction ? process.env.REDIS_URL as string : 'http://localhost:6379';
   private cache = getRedisClient(this.REDIS_URL);
 

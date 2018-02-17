@@ -179,6 +179,7 @@ function externalLinkMapper(linkString: string): IExternalLink | undefined {
   let text = (linktext !== null) ? linktext : '';
   let icon = '';
 
+  // TODO: Resolve subdomain handling
   switch (host) {
     case 'github.com':
       if (text === '') text = 'Code on GitHub!';
