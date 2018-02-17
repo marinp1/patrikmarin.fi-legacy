@@ -1,13 +1,21 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
 
-import { colors } from '../../styles';
+import { colors, mediaQueries } from '../../styles';
 import { IProfile } from 'shared/interfaces/IResume';
 
 import { animateToElement } from '../../utils/smoothScroller';
 
+const LandingContainer = glamorous.div({
+  minHeight: 'calc(100vh - 7rem)',
+  marginTop: '8rem',
+  [mediaQueries.tablet]: {
+    marginTop: 0,
+  },
+});
+
 const Container = glamorous.div({
-  height: 'inherit',
+  minHeight: 'inherit',
   width: '100%',
   display: 'flex',
   flexDirection: 'row',
@@ -71,6 +79,8 @@ const Button = glamorous.a({
 
 const LinkContainer = glamorous.div({
   marginTop: '4rem',
+  marginBottom: '10rem',
+
   color: colors.landingPage.foreground,
   textAlign: 'center',
 
@@ -86,6 +96,10 @@ const LinkContainer = glamorous.div({
   '& a:hover': {
     color: colors.landingPage.infolabel,
     textDecoration: 'none',
+  },
+
+  [mediaQueries.tablet]: {
+    marginBottom: '6rem',
   },
 });
 
@@ -117,7 +131,7 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
 
   render() {
     return (
-      <div style={{ height: 'calc(100vh - 7rem)' }}>
+      <LandingContainer>
         <Container>
           <div className="container">
             <WelcomeText>HELLO AND WELCOME.</WelcomeText>
@@ -148,7 +162,7 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
             </LinkContainer>
           </div>
         </Container>
-      </div>
+      </LandingContainer>
     );
   }
 }

@@ -10,7 +10,6 @@ const ELEMENT_HEIGHT = 5;
 const Section = glamorous.section({
   width: '100%',
   position: 'fixed',
-  background: colors.white,
   top: 0,
   zIndex: 998, // Just under lightbox component
   [mediaQueries.tablet]: {
@@ -19,7 +18,7 @@ const Section = glamorous.section({
 });
 
 const NavbarContainer = glamorous.div({
-  background: colors.black,
+  background: 'rgba(0,0,0,0.35)',
   color: colors.white,
   [mediaQueries.tablet]: {
     background: colors.background,
