@@ -32,7 +32,6 @@
     "react-router-dom": "^4.2.2",
     "react-toastify": "^3.2.1",
     "source-map-loader": "^0.2.1",
-    "spotify-web-api-js": "^0.23.0",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "ts-jest": "^20.0.7",
