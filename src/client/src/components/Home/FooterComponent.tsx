@@ -3,6 +3,8 @@ import glamorous from 'glamorous';
 import ContentfulAttribution from '../Misc/ContentfulAttribution';
 import { colors, mediaQueries } from '../../styles';
 
+import { animateToElement } from '../../utils/smoothScroller';
+
 const Container = glamorous.section({
   borderTop: `0.1rem solid ${colors.lightGray}`,
   background: colors.white,
@@ -38,6 +40,19 @@ const PageSourceLink = glamorous.div({
   },
 });
 
+const LogoContainer = glamorous.div({
+  height: '3rem',
+  cursor: 'pointer',
+});
+
+const logoImg = require('./images/logo_black.png');
+
+const Logo = () => (
+  <LogoContainer onClick={e => animateToElement(0)}>
+    <img height="100%" src={logoImg}/>
+  </LogoContainer>
+);
+
 class FooterComponent extends React.Component<{}, {}> {
   render() {
     return (
@@ -49,6 +64,7 @@ class FooterComponent extends React.Component<{}, {}> {
                 <i className="fa fa-github fa-lg"/>
                 <a href="https://github.com/marinp1/patrikmarin.fi" target="_blank">Source</a>
               </PageSourceLink>
+              <Logo/>
               <ContentfulAttribution/>
             </FooterContainer>
           </div>
