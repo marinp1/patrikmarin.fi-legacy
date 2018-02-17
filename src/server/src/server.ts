@@ -26,7 +26,7 @@ export default class Server {
   init() {
 
     // Force SSL in production
-    if (this.isProduction) {
+    if (this.isProduction && !!this.sslConfiguration) {
       this.app.use(forceSSL);
     }
 
