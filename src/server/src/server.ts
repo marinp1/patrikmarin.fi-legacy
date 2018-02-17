@@ -16,7 +16,8 @@ export default class Server {
   private contentfulClient = getContentfulClient(this.isProduction);
   private flickrURL = getFlickrURL();
   
-  private REDIS_URL = this.isProduction ? process.env.REDIS_URL as string : 'http://localhost:6379';
+  private REDIS_URL = !!process.env.REDIS_URL ?
+    process.env.REDIS_URL as string : 'http://localhost:6379';
   private cache = getRedisClient(this.REDIS_URL);
 
   private sslConfiguration = getACMEChallenge();
