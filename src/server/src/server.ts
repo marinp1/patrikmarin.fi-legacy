@@ -67,14 +67,16 @@ export default class Server {
 
     // SSL certificate for custom domain
     if (!!this.sslConfiguration) {
-      const config = this.sslConfiguration;
+      const configs = this.sslConfiguration;
       const challengeRoute = '/.well-known/acme-challenge';
-      this.app.get(
-        `${challengeRoute}/${config.name}`,
-        (req, res) => {
-          res.send(config.value);
-        },
-      );
+      for (const config of configs) {
+        this.app.get(
+          `${challengeRoute}/${config.name}`,
+          (req, res) => {
+            res.send(config.value);
+          },
+        );
+      }
     }
 
     // The "catchall" handler: for any request that doesn't

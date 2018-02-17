@@ -1,18 +1,21 @@
 import { Request, Response, NextFunction } from 'express';
 
-export function getACMEChallenge() {
-  
-  const name = process.env.SSL_FILE_NAME;
-  const value = process.env.SSL_FILE_CONTENT;
+interface IChallenge {
+  name: string;
+  value: string;
+}
 
-  if (!!name && !!value) {
-    return {
-      name,
-      value,
-    };
+export function getACMEChallenge(): IChallenge[] | undefined {
+  
+  const configurations = process.env.SSL_CONFIGURATIONS;
+
+  console.log(configurations);
+
+  if (!configurations) {
+    return undefined;
   }
 
-  return undefined;
+  return JSON.parse(configurations);
 
 }
 
