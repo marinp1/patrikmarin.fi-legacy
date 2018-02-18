@@ -6,7 +6,7 @@ import * as path from 'path';
 import { getContentfulClient, getProjects } from './contentful';
 import { getFlickrURL, getFlickrImages } from './flickr';
 import { getRedisClient } from './redis';
-import { getACMEChallenge } from './ssl';
+import { getACMEChallenge, forceSSL } from './ssl';
 
 export default class Server {
   private app = express();
@@ -29,11 +29,9 @@ export default class Server {
   init() {
 
     // Force SSL in production
-    /*
     if (this.isProduction && !!this.sslConfiguration) {
       this.app.use(forceSSL);
     }
-    */
 
     // Serve static files from the React app
     this.app.use(express.static(path.join(__dirname, '../../client/build')));
