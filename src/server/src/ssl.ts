@@ -9,8 +9,6 @@ export function getACMEChallenge(): IChallenge[] | undefined {
   
   const configurations = process.env.SSL_CONFIGURATIONS;
 
-  console.log(configurations);
-
   if (!configurations) {
     return undefined;
   }
