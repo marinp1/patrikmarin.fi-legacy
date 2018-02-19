@@ -268,8 +268,8 @@ class ProjectComponent extends React.Component<RouteComponentProps<any>, IProjec
                 <h1 style={{ fontWeight: 'bold' }}>{project.fields.title}</h1>
                 <h5>{project.fields.subtitle}</h5>
                 <ExternalLinkContainer>
-                  {project.fields.previewAvailable &&
-                    <NavigationLink href={`/apps/${this.props.match.params.id}`}>
+                  {!!project.fields.previewLink &&
+                    <NavigationLink href={`/app/${this.props.match.params.id}`}>
                       <i className="fa fa-caret-right fa-lg"></i>
                       Try it out!
                     </NavigationLink>}
