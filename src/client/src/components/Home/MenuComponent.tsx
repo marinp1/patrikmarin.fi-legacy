@@ -7,6 +7,8 @@ import { animateToElement } from '../../utils/smoothScroller';
 
 const ELEMENT_HEIGHT = 5;
 
+const MOBILE_NAVBAR_DEFAULT_BG = 'rgba(0,0,0,0.35)';
+
 const Section = glamorous.section({
   width: '100%',
   position: 'fixed',
@@ -18,7 +20,7 @@ const Section = glamorous.section({
 });
 
 const NavbarContainer = glamorous.div({
-  background: 'rgba(0,0,0,0.35)',
+  background: MOBILE_NAVBAR_DEFAULT_BG,
   color: colors.white,
   [mediaQueries.tablet]: {
     background: colors.background,
@@ -316,7 +318,7 @@ class MenuComponent extends React.Component<{}, MenuComponentState> {
     return !this.state.currentSection ? {
       ...sectionStyle,
       ...translationStyle,
-      background: colors.black,
+      background: MOBILE_NAVBAR_DEFAULT_BG,
       color: colors.white,
     } : {
       ...sectionStyle,
