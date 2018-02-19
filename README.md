@@ -30,6 +30,6 @@ Photographs are fetched from [Flickr](https://www.flickr.com/) and the data is a
 Currently CI runs only linter as no tests are defined. Tests could probably be added for testing redis cache and API calls.
 
 ## Deployment
-Application is hosted on [Heroku](https://www.heroku.com/), update to master branch will automatically trigger a new deployment.
+Application is hosted on [Heroku](https://www.heroku.com/), update to master branch will automatically trigger a new deployment. Beta version of the site is available at [www.beta.patrikmarin.fi](http://www.beta.patrikmarin.fi) which is based on the dev-branch. Beta site has no SSL configured as it's a different Heroku application.
 
 Simply creating a dyno with attached [Heroku Redis](https://elements.heroku.com/addons/heroku-redis) add-on and pushing to heroku will work fine.
