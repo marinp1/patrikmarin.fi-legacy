@@ -1,6 +1,7 @@
 import * as contentful from 'contentful';
 
 import { IProjectList, IProjectFields } from './interfaces/IProject';
+import { IRedirectResponse, IEntry } from './interfaces/IEntry';
 
 export function getContentfulClient(isProduction: boolean):
   contentful.ContentfulClientApi | undefined {
@@ -51,4 +52,18 @@ export function getProjects(client: contentful.ContentfulClientApi): Promise<IPr
     console.log(error);
     return [];
   });
+}
+
+export async function getRedirectProjects(
+  client: contentful.ContentfulClientApi): Promise<IRedirectResponse[]> {
+  
+  const projects = await getProjects(client);
+
+  return projects.filter(_ => !!_.entry).map((project) => {
+    const previewLink = (project.entry as IEntry).fields.previewLink;
+    return {
+      id: project.id,
+      url: !!previewLink ? encodeURIComponent(previewLink) : '',
+    };
+  }).filter(_ => !!_.url);
 }

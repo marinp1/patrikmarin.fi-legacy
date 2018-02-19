@@ -3,7 +3,7 @@ require('dotenv').config();
 import * as express from 'express';
 import * as path from 'path';
 
-import { getContentfulClient, getProjects } from './contentful';
+import { getContentfulClient, getProjects, getRedirectProjects } from './contentful';
 import { getFlickrURL, getFlickrImages } from './flickr';
 import { getRedisClient } from './redis';
 import { getACMEChallenge, forceSSL } from './ssl';
@@ -44,6 +44,20 @@ export default class Server {
         if (this.contentfulClient !== undefined) {
           getProjects(this.contentfulClient).then((projects) => {
             res.send(projects);
+          });
+        } else {
+          res.send([]);
+        }
+      },
+    );
+
+    this.app.get(
+      '/api/redirects',
+      this.cache.route(),
+      (req, res) => {
+        if (!!this.contentfulClient) {
+          getRedirectProjects(this.contentfulClient).then((redirects) => {
+            res.send(redirects);
           });
         } else {
           res.send([]);

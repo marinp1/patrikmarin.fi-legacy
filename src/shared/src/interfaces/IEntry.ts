@@ -12,7 +12,7 @@ export interface IEntryFields {
   whyText: string;
   currentStatusText: string;
   links?: string[];
-  previewAvailable: boolean;
+  previewLink?: string;
   whatImages?: IEntryImage[];
   whyImages?: IEntryImage[];
   currentStatusImages?: IEntryImage[];
@@ -27,4 +27,9 @@ export interface IEntryImageFields {
   image: IContentfulImage;
   altText: string;
   classes: string[];
+}
+
+export interface IRedirectResponse {
+  id: string;
+  url: string;
 }
