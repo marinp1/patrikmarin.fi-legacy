@@ -6,7 +6,7 @@
     "email": "hello@patrikmarin.fi",
     "phone": "",
     "website": "",
-    "summary": "As you might have guessed, I'm Patrik Marin, 22-year-old student from Espoo, Finland studying Information Networks. On this site I've highlighted some of the projects I've created during the past few years and also some of the photographs I've taken. In addition to photography, I'm also interested in information visualization and networks.",
+    "summary": "Hello there! I'm Patrik Marin, ${age}-year-old student from Espoo, Finland studying Information Networks and interested in information visualization, information security and networks. On this site I've highlighted some of the projects I've created during the past few years and also some of the photographs I've taken.",
     "location": {
       "address": "",
       "postalCode": "",
