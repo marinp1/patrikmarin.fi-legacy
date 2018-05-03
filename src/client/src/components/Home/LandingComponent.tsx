@@ -172,7 +172,7 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
               <a href={`mailto:${this.props.email}`}>{this.props.email}</a>
               <PGPLink>
                 <i className="fa fa-lock"/>
-                <a href="./pgp.txt">1B2D D0FC 4E42 41A5 20D4</a>
+                <a href={require('./resources/pgp.txt')}>1B2D D0FC 4E42 41A5 20D4</a>
               </PGPLink>
             </LinkContainer>
           </div>
