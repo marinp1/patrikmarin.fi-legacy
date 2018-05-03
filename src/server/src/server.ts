@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import * as path from 'path';
 
 import { getContentfulClient, getProjects, getRedirectProjects } from './contentful';
@@ -32,6 +33,9 @@ export default class Server {
     if (this.isProduction && !!this.sslConfiguration) {
       this.app.use(forceSSL);
     }
+
+    // Doesn't work for some reason :( //FIXME
+    this.app.use(bodyParser.text({ type: 'application/pgp-signature' }));
 
     // Serve static files from the React app
     this.app.use(express.static(path.join(__dirname, '../../client/build')));

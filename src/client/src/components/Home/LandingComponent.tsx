@@ -103,6 +103,17 @@ const LinkContainer = glamorous.div({
   },
 });
 
+const PGPLink = glamorous.div({
+  '& i': {
+    color: '#00D050',
+    marginRight: '0.5rem',
+  },
+  '& a:hover': {
+    color: '#00D050',
+    textDecoration: 'none',
+  },
+});
+
 interface LandingComponentProps {
   name: string;
   infoLabel: string;
@@ -159,6 +170,10 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
               })}
               <br/>
               <a href={`mailto:${this.props.email}`}>{this.props.email}</a>
+              <PGPLink>
+                <i className="fa fa-lock"/>
+                <a href="./pgp.txt">1B2D D0FC 4E42 41A5 20D4</a>
+              </PGPLink>
             </LinkContainer>
           </div>
         </Container>
