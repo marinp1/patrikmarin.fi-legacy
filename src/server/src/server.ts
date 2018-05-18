@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 
 import { getContentfulClient, getProjects, getRedirectProjects } from './contentful';
-import { getFlickrURL, getFlickrImages } from './flickr';
+import { getFlickrURL, getFlickrImages, getFlickrPhotosetIds } from './flickr';
 import { getRedisClient } from './redis';
 import { getACMEChallenge, forceSSL } from './ssl';
 
@@ -70,11 +70,26 @@ export default class Server {
     );
 
     this.app.get(
-      '/api/photos',
+      '/api/photosets',
       this.cache.route(),
       (req, res) => {
         if (!!this.flickrURL) {
-          getFlickrImages(this.flickrURL).then((flickrResult) => {
+          getFlickrPhotosetIds(this.flickrURL).then((flickrResult) => {
+            res.send(flickrResult);
+          });
+        } else {
+          res.send([]);
+        }
+      },
+    );
+
+    this.app.get(
+      '/api/photoset/:id',
+      this.cache.route(),
+      (req, res) => {
+        const photosetId = req.params.id;
+        if (!!this.flickrURL && !!photosetId) {
+          getFlickrImages(this.flickrURL, photosetId).then((flickrResult) => {
             res.send(flickrResult);
           });
         } else {

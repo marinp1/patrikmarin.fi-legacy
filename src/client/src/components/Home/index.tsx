@@ -2,10 +2,10 @@ import * as React from 'react';
 import glamorous from 'glamorous';
 import * as moment from 'moment';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-//
 import * as IResume from 'shared/interfaces/IResume';
 import { IProjectFields } from 'shared/interfaces/IProject';
-import { IFlickrContentResult } from 'shared/interfaces/IFlickr';
+import { IFlickrPhotosetsResponse,
+  IFlickrPhoto, IFlickrContentResult } from 'shared/interfaces/IFlickr';
 import LandingComponent from './LandingComponent';
 import CurriculumComponent from './CurriculumComponent';
 import ProjectComponent from './ProjectComponent';
@@ -84,30 +84,47 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       });
   }
 
-  getPhotos(): void {
-    fetch('/api/photos')
+  async getPhotos(): Promise<void> {
+
+    // Make multiple api calls here instead of packing all to one
+    // in order to avoid timeouts
+    const photosets: IFlickrPhotosetsResponse | undefined = await fetch('/api/photosets')
       .then(res => res.json())
-      .then((content: IFlickrContentResult) => {
-
-        // Sort images by timestamp
-        const sortedImages = content.images.sort((a, b) => {
-          const dateA = moment(a.datetaken).unix();
-          const dateB = moment(b.datetaken).unix();
-          return dateB - dateA;
-        });
-
-        this.setState({ 
-          flickr: {
-            albumNames: content.albumNames.sort(),
-            images: sortedImages,
-          },
-        });
-
-      })
       .catch((err) => {
-       // Handle error
-        console.log('Couldn\'t fetch photos from Flickr!');
+        console.log(`Couldn't fetch photosets from Flickr!`);
+        return undefined;
       });
+
+    // Abort if fetch failed
+    if (!photosets) {
+      return;
+    }
+
+    let photos: IFlickrPhoto[] = [];
+
+    // Get all photos from photosets
+    for (const photosetId of photosets.photosetIds) {
+      const photosetPhotos: IFlickrPhoto[] = await fetch(`/api/photoset/${photosetId}`)
+        .then(res => res.json())
+        .catch((err) => {
+          console.log(`Couldn't fetch photos from Flickr!`);
+          return [];
+        });
+      photos = photos.concat(photosetPhotos);
+    }
+
+    photos.sort((a, b) => {
+      const dateA = moment(a.datetaken).unix();
+      const dateB = moment(b.datetaken).unix();
+      return dateB - dateA;
+    });
+
+    this.setState({
+      flickr: {
+        albumNames: photosets.albumNames.sort(),
+        images: photos,
+      },
+    });
   }
 
   componentDidMount() {

@@ -1,5 +1,6 @@
 import * as fetch from 'isomorphic-fetch';
-import { IFlickrPhoto, IFlickrPhotosResponse, IFlickrContentResult } from './interfaces/IFlickr';
+import { IFlickrPhoto, IFlickrPhotosResponse,
+  IFlickrPhotosetsResponse } from './interfaces/IFlickr';
 import { IFlickrPhotosetResponse } from './interfaces/IFlickrPhotoset';
 
 const ENDPOINT = 'https://api.flickr.com/services/rest/';
@@ -28,22 +29,30 @@ export function getFlickrURL(): string | undefined {
   return GET_LISTS_URL;
 }
 
-export async function getFlickrImages(url: string): Promise<IFlickrContentResult> {
+export async function getFlickrPhotosetIds(url: string): Promise<IFlickrPhotosetsResponse> {
+  const response = await fetch(url);
+
+  if (response.status !== 200) return {
+    albumNames: [],
+    photosetIds: [],
+  };
+
+  const res: IFlickrPhotosetResponse = await response.json();
+
+  const albumNames = Array.from(new Set(res.photosets.photoset.map(_ => _.title._content)));
+  const photosetIds = res.photosets.photoset.map(_ => _.id);
+  
+  return {
+    albumNames,
+    photosetIds,
+  };
+}
+
+export async function getFlickrImages(url: string, psId: string): Promise<IFlickrPhoto[]> {
   const API_KEY = `&api_key=${process.env.FLICKR_API_KEY}`;
   const USER_ID = `&user_id=${process.env.FLICKR_USER_ID}`;
 
-  const response = await fetch(url);
-  if (response.status !== 200) return {
-    albumNames: [],
-    images: [],
-  };
-  
-  const res: IFlickrPhotosetResponse = await response.json();
-
-  const photosets = res.photosets.photoset;
-
   async function getPhotosetPhotos(id: string): Promise<IFlickrPhoto[]> {
-
     const GET_PHOTOS_URL = ENDPOINT + GET_PHOTOSET_PHOTOS + API_KEY + USER_ID + 
       `&photoset_id=${id}` + PER_PAGE + EXTRAS + FORMAT;
     
@@ -51,29 +60,11 @@ export async function getFlickrImages(url: string): Promise<IFlickrContentResult
     if (photosResponse.status !== 200) return [];
 
     const photosResult: IFlickrPhotosResponse = await photosResponse.json();
-    return photosResult.photoset.photo;
+    photosResult.photoset.photo.forEach(_ => _.albumName = photosResult.photoset.title);
 
+    return photosResult.photoset.photo;
   }
 
-  // Get all photos from all albums
-  // https://stackoverflow.com/a/42497383
-  const getPhotos = async () => {
-    const promises = photosets.map(async (photoset) => {
-      const setPhotos = await getPhotosetPhotos(photoset.id);
-      setPhotos.forEach(_ => _.albumName = photoset.title._content);
-      return setPhotos;
-    });
-    return Promise.all(promises);
-  };
-
-  const photos = await getPhotos();
-  const flattenedPhotos: IFlickrPhoto[] = [].concat.apply([], photos);
-
-  const albumNames = Array.from(new Set(photosets.map(_ => _.title._content)));
-  
-  return {
-    albumNames,
-    images: flattenedPhotos,
-  };
+  return getPhotosetPhotos(psId);
 
 }
