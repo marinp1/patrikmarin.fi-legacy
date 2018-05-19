@@ -48,6 +48,8 @@ export default class Server {
         if (this.contentfulClient !== undefined) {
           getProjects(this.contentfulClient).then((projects) => {
             res.send(projects);
+          }).catch((e) => {
+            res.send([]);
           });
         } else {
           res.send([]);
@@ -62,6 +64,8 @@ export default class Server {
         if (!!this.contentfulClient) {
           getRedirectProjects(this.contentfulClient).then((redirects) => {
             res.send(redirects);
+          }).catch((e) => {
+            res.send([]);
           });
         } else {
           res.send([]);
@@ -76,6 +80,8 @@ export default class Server {
         if (!!this.flickrURL) {
           getFlickrPhotosetIds(this.flickrURL).then((flickrResult) => {
             res.send(flickrResult);
+          }).catch((e) => {
+            res.send([]);
           });
         } else {
           res.send([]);
@@ -91,6 +97,8 @@ export default class Server {
         if (!!this.flickrURL && !!photosetId) {
           getFlickrImages(this.flickrURL, photosetId).then((flickrResult) => {
             res.send(flickrResult);
+          }).catch((e) => {
+            res.send([]);
           });
         } else {
           res.send([]);
