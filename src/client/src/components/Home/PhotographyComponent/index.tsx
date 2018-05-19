@@ -3,6 +3,7 @@ import glamorous from 'glamorous';
 
 import { IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import { colors } from '../../../styles';
+import { ComponentState } from '../';
 
 import { TagSelectors } from '../../Misc/TagSelectors';
 import GalleryComponent from './GalleryComponent';
@@ -27,6 +28,7 @@ const Title = glamorous.h6({
 interface PhotographyComponentProps {
   albumNames: string[];
   photos: IFlickrPhoto[];
+  componentState: ComponentState;
 }
 
 interface PhotographyComponentState {
@@ -66,6 +68,26 @@ class PhotographyComponent
   }
 
   render() {
+
+    if (this.props.componentState !== ComponentState.SUCCESS) {
+      return (
+        <Container>
+          <div className="container">
+            <div className="row">
+              <Title id="photography">
+                <i className="fa fa-camera" style={{ marginRight: '1rem' }}/>
+                Projects
+              </Title>
+            </div>
+            <div className="row">
+              {this.props.componentState === ComponentState.LOADING
+                ? 'Loading...' : 'Couldn\'t fetch content :(' }
+            </div>
+          </div>
+        </Container>
+      );
+    }
+
     return (
       <Container>
         <div className="container">

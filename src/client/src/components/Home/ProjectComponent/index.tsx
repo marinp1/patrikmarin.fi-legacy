@@ -3,7 +3,7 @@ import glamorous from 'glamorous';
 
 import { mediaQueries, colors } from '../../../styles';
 import { IProjectFields } from 'shared/interfaces/IProject';
-
+import { ComponentState } from '../';
 import ProjectEntry from './ProjectEntry';
 import { ClearSelectionButton, TagSelectors } from '../../Misc/TagSelectors';
 
@@ -70,6 +70,7 @@ const SelectionInfo = glamorous.p({
 
 interface ProjectComponentProps {
   projects: IProjectFields[];
+  componentState: ComponentState;
 }
 
 interface ProjectComponentState {
@@ -106,6 +107,25 @@ class ProjectComponent extends React.Component<ProjectComponentProps, ProjectCom
   }
 
   render() {
+
+    if (this.props.componentState !== ComponentState.SUCCESS) {
+      return (
+        <Container>
+          <div className="container">
+            <div className="row">
+              <Title id="projects">
+                <i className="fa fa-desktop" style={{ marginRight: '1rem' }}/>
+                Projects
+              </Title>
+            </div>
+            <div className="row">
+              {this.props.componentState === ComponentState.LOADING
+                ? 'Loading...' : 'Couldn\'t fetch content :(' }
+            </div>
+          </div>
+        </Container>
+      );
+    }
 
     // Create list of all unique technology tags
     const tags = Array.from(new Set(this.props.projects.map((project: IProjectFields) => {

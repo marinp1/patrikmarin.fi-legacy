@@ -4,8 +4,7 @@ import * as moment from 'moment';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import * as IResume from 'shared/interfaces/IResume';
 import { IProjectFields } from 'shared/interfaces/IProject';
-import { IFlickrPhotosetsResponse,
-  IFlickrPhoto, IFlickrContentResult } from 'shared/interfaces/IFlickr';
+import { IFlickrPhotosetsResponse, IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import LandingComponent from './LandingComponent';
 import CurriculumComponent from './CurriculumComponent';
 import ProjectComponent from './ProjectComponent';
@@ -52,9 +51,26 @@ const Background = glamorous.div({
   backgroundSize: 'cover',
 });
 
+export enum ComponentState {
+  LOADING,
+  SUCCESS,
+  ERROR,
+}
+
+interface IFlickrContentResult {
+  albumNames: string[];
+  images: IFlickrPhoto[];
+  state: ComponentState;
+}
+
+interface IContentfulResult {
+  content: IProjectFields[];
+  state: ComponentState;
+}
+
 interface IMainPageState {
   resume: IResume.IResume;
-  projects: IProjectFields[];
+  projects: IContentfulResult;
   flickr: IFlickrContentResult;
 }
 
@@ -64,19 +80,24 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     super(props);
     this.state = {
       resume,
-      projects: [],
-      flickr: { albumNames: [], images: [] },
+      projects: { content: [], state: ComponentState.LOADING },
+      flickr: { albumNames: [], images: [], state: ComponentState.LOADING },
     };
 
     this.getProjects = this.getProjects.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
   }
 
-  getProjects(): void {
+  async getProjects(): Promise<void> {
     fetch('/api/projects')
       .then(res => res.json())
       .then((projects: IProjectFields[]) => {
-        this.setState({ projects });
+        this.setState({ 
+          projects: {
+            content: projects,
+            state: ComponentState.SUCCESS,
+          },
+        });
       })
       .catch((err) => {
        // Handle error
@@ -91,7 +112,13 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     const photosets: IFlickrPhotosetsResponse | undefined = await fetch('/api/photosets')
       .then(res => res.json())
       .catch((err) => {
-        console.log(`Couldn't fetch photosets from Flickr!`);
+        this.setState({
+          flickr: {
+            albumNames: this.state.flickr.albumNames,
+            images: this.state.flickr.images,
+            state: ComponentState.ERROR,
+          },
+        });
         return undefined;
       });
 
@@ -107,7 +134,13 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       const photosetPhotos: IFlickrPhoto[] = await fetch(`/api/photoset/${photosetId}`)
         .then(res => res.json())
         .catch((err) => {
-          console.log(`Couldn't fetch photos from Flickr!`);
+          this.setState({
+            flickr: {
+              albumNames: this.state.flickr.albumNames,
+              images: this.state.flickr.images,
+              state: ComponentState.ERROR,
+            },
+          });
           return [];
         });
       photos = photos.concat(photosetPhotos);
@@ -123,13 +156,13 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       flickr: {
         albumNames: photosets.albumNames.sort(),
         images: photos,
+        state: ComponentState.SUCCESS,
       },
     });
   }
 
-  componentDidMount() {
-    this.getProjects();
-    this.getPhotos();
+  async componentDidMount() {
+    Promise.all([this.getProjects(), this.getPhotos()]);
   }
 
   render() {
@@ -160,11 +193,13 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
             skills={this.state.resume.skills}
           />
           <ProjectComponent
-            projects={this.state.projects}
+            componentState={this.state.projects.state}
+            projects={this.state.projects.content}
           />
           <PhotographyComponent
             albumNames={this.state.flickr.albumNames}
             photos={this.state.flickr.images}
+            componentState={this.state.flickr.state}
           />
           <FooterComponent/>
         </Container>

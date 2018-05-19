@@ -40,11 +40,6 @@ export interface IFlickrPhotosResponse {
 }
 
 export interface IFlickrPhotosetsResponse {
-    albumNames: string[],
-    photosetIds: string[],
-}
-
-export interface IFlickrContentResult {
-    albumNames: string[],
-    images: IFlickrPhoto[],
+    albumNames: string[];
+    photosetIds: string[];
 }
