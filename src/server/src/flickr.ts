@@ -65,6 +65,6 @@ export async function getFlickrImages(url: string, psId: string): Promise<IFlick
     return photosResult.photoset.photo;
   }
 
-  return getPhotosetPhotos(psId);
+  return await getPhotosetPhotos(psId);
 
 }
