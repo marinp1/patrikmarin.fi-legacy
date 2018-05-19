@@ -130,35 +130,36 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     let photos: IFlickrPhoto[] = [];
 
     // Get all photos from photosets
-    for (const photosetId of photosets.photosetIds) {
-      const photosetPhotos: IFlickrPhoto[] = await fetch(`/api/photoset/${photosetId}`)
-        .then(res => res.json())
-        .catch((err) => {
-          this.setState({
-            flickr: {
-              albumNames: this.state.flickr.albumNames,
-              images: this.state.flickr.images,
-              state: ComponentState.ERROR,
-            },
+    for (let i = 0; i < photosets.photosetIds.length; i = i + 1) {
+      /* tslint:disable:align */
+      setTimeout(async () => {
+        const photosetId = photosets.photosetIds[i];
+        const photosetPhotos: IFlickrPhoto[] = await fetch(`/api/photoset/${photosetId}`)
+          .then(res => res.json())
+          .catch((err) => {
+            return [];
           });
-          return [];
+  
+        photos = photos.concat(photosetPhotos);
+  
+        photos.sort((a, b) => {
+          const dateA = moment(a.datetaken).unix();
+          const dateB = moment(b.datetaken).unix();
+          return dateB - dateA;
         });
-      photos = photos.concat(photosetPhotos);
+
+        const availableNames = photos.map(_ => _.albumName);
+  
+        this.setState({
+          flickr: {
+            albumNames: photosets.albumNames.filter(_ => availableNames.indexOf(_) !== -1),
+            images: photos,
+            state: ComponentState.SUCCESS,
+          },
+        });
+      }, i * 200);
+      /* tslint:enable:align */
     }
-
-    photos.sort((a, b) => {
-      const dateA = moment(a.datetaken).unix();
-      const dateB = moment(b.datetaken).unix();
-      return dateB - dateA;
-    });
-
-    this.setState({
-      flickr: {
-        albumNames: photosets.albumNames.sort(),
-        images: photos,
-        state: ComponentState.SUCCESS,
-      },
-    });
   }
 
   async componentDidMount() {
