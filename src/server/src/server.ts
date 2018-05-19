@@ -43,16 +43,21 @@ export default class Server {
     // Put all API endpoints under '/api'
     this.app.get(
       '/api/projects',
-      this.cache.route(),
+      this.cache.route({
+        expire: {
+          200: 120,
+          xxx: 1,
+        },
+      }),
       (req, res) => {
         if (this.contentfulClient !== undefined) {
           getProjects(this.contentfulClient).then((projects) => {
-            res.send(projects);
+            res.status(200).send(projects);
           }).catch((e) => {
-            res.send([]);
+            res.status(404).send([]);
           });
         } else {
-          res.send([]);
+          res.status(404).send([]);
         }
       },
     );
@@ -63,45 +68,55 @@ export default class Server {
       (req, res) => {
         if (!!this.contentfulClient) {
           getRedirectProjects(this.contentfulClient).then((redirects) => {
-            res.send(redirects);
+            res.status(200).send(redirects);
           }).catch((e) => {
-            res.send([]);
+            res.status(404).send([]);
           });
         } else {
-          res.send([]);
+          res.status(404).send([]);
         }
       },
     );
 
     this.app.get(
       '/api/photosets',
-      this.cache.route(),
+      this.cache.route({
+        expire: {
+          200: 120,
+          xxx: 1,
+        },
+      }),
       (req, res) => {
         if (!!this.flickrURL) {
           getFlickrPhotosetIds(this.flickrURL).then((flickrResult) => {
-            res.send(flickrResult);
+            res.status(200).send(flickrResult);
           }).catch((e) => {
-            res.send([]);
+            res.status(404).send([]);
           });
         } else {
-          res.send([]);
+          res.status(404).send([]);
         }
       },
     );
 
     this.app.get(
       '/api/photoset/:id',
-      this.cache.route(),
+      this.cache.route({
+        expire: {
+          200: 120,
+          xxx: 1,
+        },
+      }),
       (req, res) => {
         const photosetId = req.params.id;
         if (!!this.flickrURL && !!photosetId) {
           getFlickrImages(this.flickrURL, photosetId).then((flickrResult) => {
-            res.send(flickrResult);
+            res.status(200).send(flickrResult);
           }).catch((e) => {
-            res.send([]);
+            res.status(404).send([]);
           });
         } else {
-          res.send([]);
+          res.status(404).send([]);
         }
       },
     );
