@@ -3,6 +3,7 @@ require('dotenv').config();
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
+import * as basicAuth from 'express-basic-auth';
 
 import { getContentfulClient, getProjects, getRedirectProjects } from './contentful';
 import { getFlickrURL, getFlickrImages, getFlickrPhotosetIds } from './flickr';
@@ -44,28 +45,6 @@ export default class Server {
     this.app.use(express.static(path.join(__dirname, '../../client/build')));
 
     // Put all API endpoints under '/api'
-
-    this.app.post(
-      '/api/location',
-      (req, res) => {
-        const country = req.body.country || null;
-        const city = req.body.city || null;
-        const timestamp = req.body.timestamp || Date.now();
-        // tslint-disable align
-        if (country || city) {
-          this.cache.add('lastLocation', JSON.stringify({
-            city,
-            country,
-            timestamp,
-          }), { expire: 86400*28, type: 'json' }, (error: any) => {
-            if (!!error) return res.sendStatus(500);
-            return res.sendStatus(200);
-          });
-        } else {
-          res.sendStatus(500);
-        }
-      },
-    );
 
     this.app.get(
       '/api/location',
@@ -181,6 +160,41 @@ export default class Server {
     this.app.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, '../../client/build/index.html'));
     });
+
+
+    // Configure authentication
+
+    if (!!process.env.LOCATION_ADMIN_NAME && !!process.env.LOCATION_ADMIN_PASSWORD) {
+      const users = {};
+      users[process.env.LOCATION_ADMIN_NAME] = process.env.LOCATION_ADMIN_PASSWORD;
+      this.app.use(basicAuth({ users }));
+    } else {
+      this.app.use(basicAuth({ users: {} }));
+    }
+
+    // Paths that require authentication
+
+    this.app.post(
+      '/api/location',
+      (req, res) => {
+        const country = req.body.country || null;
+        const city = req.body.city || null;
+        const timestamp = req.body.timestamp || Date.now();
+        // tslint-disable align
+        if (country || city) {
+          this.cache.add('lastLocation', JSON.stringify({
+            city,
+            country,
+            timestamp,
+          }), { expire: 86400*28, type: 'json' }, (error: any) => {
+            if (!!error) return res.sendStatus(500);
+            return res.sendStatus(200);
+          });
+        } else {
+          res.sendStatus(500);
+        }
+      },
+    );
 
     const port = process.env.PORT || 5000;
     this.app.listen(port, () => {

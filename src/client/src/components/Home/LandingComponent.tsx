@@ -149,13 +149,15 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
       const prefix = now - loc.timestamp > 43200000 ?
         'Last seen in' : 'I\'m currently somewhere in';
 
-      if (loc.city && loc.country) return `${prefix} ${loc.city}, ${loc.country}`;
-      if (loc.city) return `${prefix} ${loc.city}`;
-      if (loc.country) return `${prefix} ${loc.country}`;
+      if (loc.city && loc.country &&
+          loc.city !== 'null' && loc.country !== 'null')
+        return `${prefix} ${loc.city}, ${loc.country}`;
+      
+      if (loc.city && loc.city !== 'null') return `${prefix} ${loc.city}`;
+      if (loc.country && loc.country !== 'null') return `${prefix} ${loc.country}`;
+      
       return null;
     };
-
-    console.log(this.props.lastLocation);
 
     return (
       <LandingContainer>
