@@ -29,6 +29,15 @@
   },
   "work": [
     {
+      "company": "QOCO Systems Oy",
+      "position": "Software development trainee",
+      "website": "https://www.qoco.aero",
+      "startDate": "2018-07",
+      "endDate": "Present",
+      "summary": "Currently I'm working as a full-stack web developer and have also done UX/UI design with Adobe XD",
+      "highlights": []
+    },
+    {
       "company": "Futurice Oy",
       "position": "Software development trainee",
       "website": "https://futurice.com",
@@ -82,7 +91,7 @@
       "area": "Business Informatics",
       "studyType": "Exchange student",
       "startDate": "2017",
-      "endDate": "Present",
+      "endDate": "2018",
       "gpa": "",
       "courses": []
     },
