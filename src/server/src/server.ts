@@ -37,10 +37,51 @@ export default class Server {
     // Doesn't work for some reason :( //FIXME
     this.app.use(bodyParser.text({ type: 'application/pgp-signature' }));
 
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(bodyParser.json());
+
     // Serve static files from the React app
     this.app.use(express.static(path.join(__dirname, '../../client/build')));
 
     // Put all API endpoints under '/api'
+
+    this.app.post(
+      '/api/location',
+      (req, res) => {
+        const country = req.body.country || null;
+        const city = req.body.city || null;
+        const timestamp = req.body.timestamp || Date.now();
+        // tslint-disable align
+        if (country || city) {
+          this.cache.add('lastLocation', JSON.stringify({
+            city,
+            country,
+            timestamp,
+          }), { expire: 86400*28, type: 'json' }, (error: any) => {
+            if (!!error) return res.sendStatus(500);
+            return res.sendStatus(200);
+          });
+        } else {
+          res.sendStatus(500);
+        }
+      },
+    );
+
+    this.app.get(
+      '/api/location',
+      (req, res) => {
+        this.cache.get('lastLocation', (error: any, entries: any[]) => {
+          if (!!error) return res.sendStatus(404);
+          try {
+            const jsonResponse = JSON.parse(entries[0].body);
+            return res.status(200).send(jsonResponse);
+          } catch (e) {
+            return res.sendStatus(404);
+          }
+        });
+      }
+    )
+
     this.app.get(
       '/api/projects',
       this.cache.route({

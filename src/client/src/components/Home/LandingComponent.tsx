@@ -3,6 +3,7 @@ import glamorous from 'glamorous';
 
 import { colors, mediaQueries } from '../../styles';
 import { IProfile } from 'shared/interfaces/IResume';
+import { ILocation } from 'shared/interfaces/ILocation';
 
 import { animateToElement } from '../../utils/smoothScroller';
 
@@ -119,6 +120,7 @@ interface LandingComponentProps {
   infoLabel: string;
   profiles: IProfile[];
   email: string;
+  lastLocation?: ILocation;
 }
 
 interface LandingComponentState {
@@ -141,6 +143,20 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
   }
 
   render() {
+
+    const locationString = (loc: ILocation): string | null => {
+      const now = Date.now();
+      const prefix = now - loc.timestamp > 43200000 ?
+        'Last seen in' : 'I\'m currently somewhere in';
+
+      if (loc.city && loc.country) return `${prefix} ${loc.city}, ${loc.country}`;
+      if (loc.city) return `${prefix} ${loc.city}`;
+      if (loc.country) return `${prefix} ${loc.country}`;
+      return null;
+    };
+
+    console.log(this.props.lastLocation);
+
     return (
       <LandingContainer>
         <Container>
@@ -174,6 +190,9 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                 <i className="fa fa-lock"/>
                 <a href={require('./resources/pgp.txt')}>1B2D D0FC 4E42 41A5 20D4</a>
               </PGPLink>
+              {this.props.lastLocation && locationString(this.props.lastLocation) && 
+                <p>{locationString(this.props.lastLocation)}</p>
+              }
             </LinkContainer>
           </div>
         </Container>
