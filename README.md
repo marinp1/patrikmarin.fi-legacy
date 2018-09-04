@@ -13,6 +13,8 @@ Resume data is hosted locally and follows generally [JSON Resume](https://jsonre
 Project data are fetched dynamically from [Contentful](https://www.contentful.com/) and the data is cached for two minutes with [Redis](https://redis.io/).
 ### Photography
 Photographs are fetched from [Flickr](https://www.flickr.com/) and the data is also cached for two minutes.
+### Location
+Location is sent from a [React-native application](https://github.com/marinp1/patrikmarin-hub) that I created to act as a hub. Location is updated approximately every 30 minutes and shows the country and city where my phone is located. Can also be removed from the application.
 
 ## Development
 ### Requirements

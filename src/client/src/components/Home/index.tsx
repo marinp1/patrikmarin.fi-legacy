@@ -3,6 +3,7 @@ import glamorous from 'glamorous';
 import * as moment from 'moment';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import * as IResume from 'shared/interfaces/IResume';
+import { ILocation } from 'shared/interfaces/ILocation';
 import { IProjectFields } from 'shared/interfaces/IProject';
 import { IFlickrPhotosetsResponse, IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import LandingComponent from './LandingComponent';
@@ -72,6 +73,7 @@ interface IMainPageState {
   resume: IResume.IResume;
   projects: IContentfulResult;
   flickr: IFlickrContentResult;
+  lastLocation?: ILocation;
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -82,6 +84,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       resume,
       projects: { content: [], state: ComponentState.LOADING },
       flickr: { albumNames: [], images: [], state: ComponentState.LOADING },
+      lastLocation: undefined,
     };
 
     this.getProjects = this.getProjects.bind(this);
@@ -162,8 +165,21 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
     }
   }
 
+  async getLastLocation() {
+    fetch('/api/location')
+      .then(res => res.json())
+      .then((lastLocation: ILocation) => {
+        this.setState({ 
+          lastLocation,
+        });
+      })
+      .catch((err) => {
+        console.log('Couldn\'t fetch last location!');
+      });
+  }
+
   async componentDidMount() {
-    Promise.all([this.getProjects(), this.getPhotos()]);
+    Promise.all([this.getProjects(), this.getPhotos(), this.getLastLocation()]);
   }
 
   render() {
@@ -181,6 +197,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
             infoLabel={this.state.resume.basics.label}
             profiles={this.state.resume.basics.profiles}
             email={this.state.resume.basics.email}
+            lastLocation={this.state.lastLocation}
           />
           <ImageComponent image={image} altText={this.state.resume.basics.name}/>
           <MenuComponent/>
