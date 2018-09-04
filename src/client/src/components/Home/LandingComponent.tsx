@@ -115,6 +115,17 @@ const PGPLink = glamorous.div({
   },
 });
 
+const LocationText = glamorous.div({
+  '& i': {
+    color: '#d0b41a',
+    marginRight: '0.5rem',
+  },
+  '& p': {
+    display: 'inline-block',
+    color: '#d0b41a',
+  },
+});
+
 interface LandingComponentProps {
   name: string;
   infoLabel: string;
@@ -192,8 +203,11 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                 <i className="fa fa-lock"/>
                 <a href={require('./resources/pgp.txt')}>1B2D D0FC 4E42 41A5 20D4</a>
               </PGPLink>
-              {this.props.lastLocation && locationString(this.props.lastLocation) && 
-                <p>{locationString(this.props.lastLocation)}</p>
+              {this.props.lastLocation && locationString(this.props.lastLocation) &&
+                <LocationText>
+                  <i className="fa fa-location-arrow"/>
+                  <p>{locationString(this.props.lastLocation)}</p>
+                </LocationText>
               }
             </LinkContainer>
           </div>
