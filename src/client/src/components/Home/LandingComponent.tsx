@@ -166,7 +166,7 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
       
       if (loc.city && loc.city !== 'null') return `${prefix} ${loc.city}`;
       if (loc.country && loc.country !== 'null') return `${prefix} ${loc.country}`;
-      
+
       return null;
     };
 

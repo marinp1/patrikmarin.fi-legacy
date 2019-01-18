@@ -35,7 +35,7 @@ const ImageHolder = glamorous.div({
     width: 'inherit',
     height: 'inherit',
     borderRadius: 'inherit',
-    border: `0.1rem solid ${colors.gray}`,
+    boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
   },
 });
 

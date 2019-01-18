@@ -13,10 +13,10 @@ export const mediaQueries = {
 
 export const colors = {
   landingPage: {
-    welcomeText: '#717396',
+    welcomeText: 'rgba(0,0,0,0.35)',
     foreground: '#fff',
     hoverForeground: '#E1E1E1',
-    infolabel: '#e87373',
+    infolabel: '#01e459',
   },
   background: 'whitesmoke',
   gray: '#333',

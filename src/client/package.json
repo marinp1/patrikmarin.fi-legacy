@@ -41,7 +41,7 @@
     "typescript": "~2.5.3",
     "url-loader": "0.5.9",
     "webpack": "3.5.1",
-    "webpack-dev-server": ">=3.1.11",
+    "webpack-dev-server": ">=3.1.11s",
     "webpack-manifest-plugin": "1.2.1",
     "whatwg-fetch": "2.0.3"
   },
