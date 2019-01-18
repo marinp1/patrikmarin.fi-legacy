@@ -51,11 +51,6 @@ export default class Server {
     this.app.get(
       '/api/location',
       (req, res) => {
-        res.status(200).send({
-          city: "Espoo",
-          country: "Finland",
-          timestamp: 1234,
-        })
         this.cache.get('lastLocation', (error: any, entries: any[]) => {
           if (!!error) return res.sendStatus(404);
           try {
@@ -71,35 +66,45 @@ export default class Server {
     this.app.get(
       '/api/sparql',
       async (req, res) => {
+
+        const country = req.query.country;
+        const city = req.query.city;    
+
+        if (!country || !city) {
+          res.sendStatus(404);
+        }
+
         const myFetcher = new SparqlEndpointFetcher();
-        /* tslint:disable:one-variable-per-declaration */
-        const SPARQL_QUERY = 'PREFIX dbo: <http://dbpedia.org/ontology/>' + 
-        '\nPREFIX dbp: <http://dbpedia.org/property/>' + 
-        '\nPREFIX dbp: <http://dbpedia.org/property/>' +
-        '\nSELECT DISTINCT ?comment WHERE {' +
-        ' ?place rdf:type/rdfs:subClassOf* dbo:PopulatedPlace ;' +
-        ' dbp:name "Vantaa"^^rdf:langString ;' +
-        ' rdfs:comment ?comment ;' +
-        ' dbo:abstract ?abstract .' +
-        ' filter contains(?abstract,"Finland") .' +
-        ' filter (lang(?comment) = "en")' +
-        '} LIMIT 1';
-    
-        /*
+
+        const SPARQL_QUERY = `
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX dbo: <http://dbpedia.org/ontology/>
         PREFIX dbp: <http://dbpedia.org/property/>
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         SELECT DISTINCT ?comment WHERE {
-            ?place rdf:type/rdfs:subClassOf* dbo:PopulatedPlace ;
-            dbp:name "Vantaa"^^rdf:langString ;
-            rdfs:comment ?comment ;
-            dbo:abstract ?abstract .
-            filter contains(?abstract,"Finland") .
-            filter (lang(?comment) = 'en')
-        }
-        LIMIT 1
-        */
-  
+          {
+            SELECT DISTINCT ?comment WHERE {
+                ?place rdf:type/rdfs:subClassOf* dbo:PopulatedPlace ;
+                dbp:name "${city}"^^rdf:langString ;
+                rdfs:comment ?comment ;
+                dbo:abstract ?abstract .
+                filter contains(?abstract,"${country}") .
+                filter (lang(?comment) = 'en')
+            }
+          }
+          UNION
+          {
+            SELECT DISTINCT ?comment WHERE {
+              dbr:${city} dbo:wikiPageRedirects ?city .
+              ?city rdfs:comment ?comment ;
+                dbo:abstract ?abstract .
+                filter contains(?abstract,"${country}") .
+                filter (lang(?comment) = 'en')
+            }
+          }
+        } LIMIT 1`
+
         const bindingsStream = await myFetcher
           .fetchBindings('https://dbpedia.org/sparql', SPARQL_QUERY);
         bindingsStream.on('data', bindings => res.status(200).send({

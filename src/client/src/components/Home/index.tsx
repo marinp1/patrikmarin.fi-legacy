@@ -184,18 +184,20 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
         this.setState({ 
           lastLocation,
         });
-        fetch('/api/sparql')
-          .then(res => res.json())
-          .then((json: ISparqlResponse) => {
-            this.setState({
-              locationInformation: json.response.comment.value,
+        if (lastLocation.city && lastLocation.country) {
+          fetch(`/api/sparql?country=${lastLocation.country}&city=${lastLocation.city}`)
+            .then(res => res.json())
+            .then((json: ISparqlResponse) => {
+              this.setState({
+                locationInformation: json.response.comment.value,
+              });
+            })
+            .catch(() => {
+              this.setState({
+                locationInformation: undefined,
+              });
             });
-          })
-          .catch(() => {
-            this.setState({
-              locationInformation: undefined,
-            });
-          });
+        }
       })
       .catch((err) => {
         console.log('Couldn\'t fetch last location!');
@@ -226,6 +228,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
             profiles={this.state.resume.basics.profiles}
             email={this.state.resume.basics.email}
             lastLocation={this.state.lastLocation}
+            locationInformation={this.state.locationInformation}
           />
           <ImageComponent image={image} altText={this.state.resume.basics.name}/>
           <MenuComponent/>

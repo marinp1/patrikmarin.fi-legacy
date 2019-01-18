@@ -132,6 +132,7 @@ interface LandingComponentProps {
   profiles: IProfile[];
   email: string;
   lastLocation?: ILocation;
+  locationInformation?: string;
 }
 
 interface LandingComponentState {
@@ -204,10 +205,17 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                 <a href={require('./resources/pgp.txt')}>1B2D D0FC 4E42 41A5 20D4</a>
               </PGPLink>
               {this.props.lastLocation && locationString(this.props.lastLocation) &&
-                <LocationText>
-                  <i className="fa fa-location-arrow"/>
-                  <p>{locationString(this.props.lastLocation)}</p>
-                </LocationText>
+                <React.Fragment>
+                  <LocationText>
+                    <i className="fa fa-location-arrow"/>
+                    <p>{locationString(this.props.lastLocation)}</p>
+                  </LocationText>
+                  {!!this.props.locationInformation && (
+                    <p>
+                      {this.props.locationInformation}
+                    </p>
+                  )}
+                </React.Fragment>
               }
             </LinkContainer>
           </div>
