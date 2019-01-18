@@ -5,6 +5,8 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as basicAuth from 'express-basic-auth';
 
+import { SparqlEndpointFetcher } from 'fetch-sparql-endpoint';
+
 import { getContentfulClient, getProjects, getRedirectProjects } from './contentful';
 import { getFlickrURL, getFlickrImages, getFlickrPhotosetIds } from './flickr';
 import { getRedisClient } from './redis';
@@ -49,6 +51,11 @@ export default class Server {
     this.app.get(
       '/api/location',
       (req, res) => {
+        res.status(200).send({
+          city: "Espoo",
+          country: "Finland",
+          timestamp: 1234,
+        })
         this.cache.get('lastLocation', (error: any, entries: any[]) => {
           if (!!error) return res.sendStatus(404);
           try {
@@ -58,6 +65,46 @@ export default class Server {
             return res.sendStatus(404);
           }
         });
+      }
+    )
+
+    this.app.get(
+      '/api/sparql',
+      async (req, res) => {
+        const myFetcher = new SparqlEndpointFetcher();
+        /* tslint:disable:one-variable-per-declaration */
+        const SPARQL_QUERY = 'PREFIX dbo: <http://dbpedia.org/ontology/>' + 
+        '\nPREFIX dbp: <http://dbpedia.org/property/>' + 
+        '\nPREFIX dbp: <http://dbpedia.org/property/>' +
+        '\nSELECT DISTINCT ?comment WHERE {' +
+        ' ?place rdf:type/rdfs:subClassOf* dbo:PopulatedPlace ;' +
+        ' dbp:name "Vantaa"^^rdf:langString ;' +
+        ' rdfs:comment ?comment ;' +
+        ' dbo:abstract ?abstract .' +
+        ' filter contains(?abstract,"Finland") .' +
+        ' filter (lang(?comment) = "en")' +
+        '} LIMIT 1';
+    
+        /*
+        PREFIX dbo: <http://dbpedia.org/ontology/>
+        PREFIX dbp: <http://dbpedia.org/property/>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        SELECT DISTINCT ?comment WHERE {
+            ?place rdf:type/rdfs:subClassOf* dbo:PopulatedPlace ;
+            dbp:name "Vantaa"^^rdf:langString ;
+            rdfs:comment ?comment ;
+            dbo:abstract ?abstract .
+            filter contains(?abstract,"Finland") .
+            filter (lang(?comment) = 'en')
+        }
+        LIMIT 1
+        */
+  
+        const bindingsStream = await myFetcher
+          .fetchBindings('https://dbpedia.org/sparql', SPARQL_QUERY);
+        bindingsStream.on('data', bindings => res.status(200).send({
+          response: bindings,
+        })).on('error', () => res.sendStatus(404));
       }
     )
 

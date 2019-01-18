@@ -74,6 +74,17 @@ interface IMainPageState {
   projects: IContentfulResult;
   flickr: IFlickrContentResult;
   lastLocation?: ILocation;
+  locationInformation?: string;
+}
+
+interface ISparqlResponse {
+  response: {
+    comment: {
+      datatype: Object,
+      language: string,
+      value: string,      
+    },
+  };
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -85,6 +96,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       projects: { content: [], state: ComponentState.LOADING },
       flickr: { albumNames: [], images: [], state: ComponentState.LOADING },
       lastLocation: undefined,
+      locationInformation: undefined,
     };
 
     this.getProjects = this.getProjects.bind(this);
@@ -172,6 +184,18 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
         this.setState({ 
           lastLocation,
         });
+        fetch('/api/sparql')
+          .then(res => res.json())
+          .then((json: ISparqlResponse) => {
+            this.setState({
+              locationInformation: json.response.comment.value,
+            });
+          })
+          .catch(() => {
+            this.setState({
+              locationInformation: undefined,
+            });
+          });
       })
       .catch((err) => {
         console.log('Couldn\'t fetch last location!');
@@ -179,7 +203,11 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
   }
 
   async componentDidMount() {
-    Promise.all([this.getProjects(), this.getPhotos(), this.getLastLocation()]);
+    Promise.all([
+      this.getProjects(),
+      this.getPhotos(),
+      this.getLastLocation(),
+    ]);
   }
 
   render() {
