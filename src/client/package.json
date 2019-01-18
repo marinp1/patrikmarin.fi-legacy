@@ -12,7 +12,6 @@
     "disable-scroll": "^0.4.0",
     "dotenv": "4.0.0",
     "extract-text-webpack-plugin": "3.0.0",
-    "fetch-sparql-endpoint": "^1.4.0",
     "file-loader": "0.11.2",
     "fs-extra": "3.0.1",
     "glamor": "^2.20.40",
@@ -32,6 +31,7 @@
     "react-modal": "^3.1.10",
     "react-router-dom": "^4.2.2",
     "react-toastify": "^3.2.1",
+    "react-tooltip": "^3.9.2",
     "source-map-loader": "^0.2.1",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
@@ -61,6 +61,7 @@
     "@types/react-addons-transition-group": "^15.0.1",
     "@types/react-dom": "^16.0.3",
     "@types/react-router-dom": "^4.2.3",
+    "@types/react-tooltip": "^3.9.0",
     "@types/react-transition-group": "^2.0.6",
     "tslint": "^5.8.0",
     "tslint-config-airbnb": "^5.4.2"

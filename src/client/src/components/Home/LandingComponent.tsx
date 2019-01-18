@@ -1,5 +1,6 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
+import * as ReactTooltip from 'react-tooltip';
 
 import { colors, mediaQueries } from '../../styles';
 import { IProfile } from 'shared/interfaces/IResume';
@@ -23,6 +24,10 @@ const Container = glamorous.div({
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
+  '& .info-tooltip': {
+    width: '50%',
+    marginTop: '-1rem',
+  },
 });
 
 const WelcomeText = glamorous.h5({
@@ -206,15 +211,19 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
               </PGPLink>
               {this.props.lastLocation && locationString(this.props.lastLocation) &&
                 <React.Fragment>
-                  <LocationText>
+                  <LocationText data-tip data-for="location-tooltip">
                     <i className="fa fa-location-arrow"/>
                     <p>{locationString(this.props.lastLocation)}</p>
                   </LocationText>
-                  {!!this.props.locationInformation && (
-                    <p>
-                      {this.props.locationInformation}
-                    </p>
-                  )}
+                  <ReactTooltip
+                    className="info-tooltip"
+                    id="location-tooltip"
+                    place="bottom"
+                    type="light"
+                    effect="solid"
+                  >
+                    <span>{this.props.locationInformation}</span>
+                  </ReactTooltip>
                 </React.Fragment>
               }
             </LinkContainer>

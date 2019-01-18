@@ -51,6 +51,12 @@ export default class Server {
     this.app.get(
       '/api/location',
       (req, res) => {
+        return res.status(200).send({
+          city: 'Espoo',
+          country: 'Finland',
+          timestamp: 124,
+        });
+        /*
         this.cache.get('lastLocation', (error: any, entries: any[]) => {
           if (!!error) return res.sendStatus(404);
           try {
@@ -60,6 +66,7 @@ export default class Server {
             return res.sendStatus(404);
           }
         });
+        */
       }
     )
 
