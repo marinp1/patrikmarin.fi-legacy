@@ -161,6 +161,16 @@ const LocationText = glamorous.div({
   },
 });
 
+const AttributionContainer = glamorous.div({
+  display: 'flex',
+  marginTop: '1rem',
+  marginBottom: '1rem',
+  justifyContent: 'center',
+  '& img': {
+    height: '1.5rem',
+  },
+});
+
 interface LandingComponentProps {
   name: string;
   infoLabel: string;
@@ -263,6 +273,9 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                       type="light"
                       effect="solid"
                     >
+                      <AttributionContainer>
+                        <img src={require('./images/wikipedia.svg')} alt="Wikipedia"/>
+                      </AttributionContainer>
                       <span>{this.props.locationInformation.information}</span>
                     </ReactTooltip>
                   }

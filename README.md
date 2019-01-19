@@ -14,7 +14,9 @@ Project data are fetched dynamically from [Contentful](https://www.contentful.co
 ### Photography
 Photographs are fetched from [Flickr](https://www.flickr.com/) and the data is also cached for two minutes.
 ### Location
-Location is sent from a [React-native application](https://github.com/marinp1/patrikmarin-hub) that I created to act as a hub. Location is updated approximately every 30 minutes and shows the country and city where my phone is located. Can also be removed from the application.
+Location is sent from a [React Native application](https://github.com/marinp1/patrikmarin-hub) that I created to act as a hub. Location is updated approximately every 30 minutes and shows the country and city where my phone is located. Location can also be removed from the application.
+
+Small description about the location is fetched from Wikipedia using [DBpedia's](https://wiki.dbpedia.org/) SPARQL endpoint.
 
 ## Development
 ### Requirements
