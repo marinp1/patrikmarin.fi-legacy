@@ -1,9 +1,10 @@
 import * as React from 'react';
 import glamorous from 'glamorous';
+import * as ReactTooltip from 'react-tooltip';
 
 import { colors, mediaQueries } from '../../styles';
 import { IProfile } from 'shared/interfaces/IResume';
-import { ILocation } from 'shared/interfaces/ILocation';
+import { ILocation, ILocationInformation } from 'shared/interfaces/ILocation';
 
 import { animateToElement } from '../../utils/smoothScroller';
 
@@ -23,6 +24,12 @@ const Container = glamorous.div({
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
+  '& .info-tooltip': {
+    maxWidth: '50%',
+    marginTop: '-1rem',
+    background: '#fff',
+    opacity: 1,
+  },
 });
 
 const WelcomeText = glamorous.h5({
@@ -116,6 +123,8 @@ const PGPLink = glamorous.div({
 });
 
 const LocationText = glamorous.div({
+  cursor: 'pointer',
+  position: 'relative',
   '& i': {
     color: '#d0b41a',
     marginRight: '0.5rem',
@@ -123,6 +132,32 @@ const LocationText = glamorous.div({
   '& p': {
     display: 'inline-block',
     color: '#d0b41a',
+  },
+  '& #dbpedia-icon': {
+    '::before': {
+      content: ' ',
+      position: 'absolute',
+      top: '-0.8rem',
+      left: '2rem',
+      margin: 'auto',
+      borderLeft: '1rem solid transparent',
+      borderRight: '1rem solid transparent',
+      borderBottom: '1rem solid white',
+    },
+    backgroundColor: '#fff',
+    padding: '1rem',
+    borderRadius: '50%',
+    height: '4rem',
+    width: '4rem',
+    display: 'flex',
+    position: 'absolute',
+    top: '4rem',
+    margin: 'auto',
+    left: 0,
+    right: 0,
+    '& img': {
+      width: '100%',
+    },
   },
 });
 
@@ -132,6 +167,7 @@ interface LandingComponentProps {
   profiles: IProfile[];
   email: string;
   lastLocation?: ILocation;
+  locationInformation?: ILocationInformation;
 }
 
 interface LandingComponentState {
@@ -166,7 +202,7 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
       
       if (loc.city && loc.city !== 'null') return `${prefix} ${loc.city}`;
       if (loc.country && loc.country !== 'null') return `${prefix} ${loc.country}`;
-      
+
       return null;
     };
 
@@ -204,10 +240,33 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                 <a href={require('./resources/pgp.txt')}>1B2D D0FC 4E42 41A5 20D4</a>
               </PGPLink>
               {this.props.lastLocation && locationString(this.props.lastLocation) &&
-                <LocationText>
-                  <i className="fa fa-location-arrow"/>
-                  <p>{locationString(this.props.lastLocation)}</p>
-                </LocationText>
+                <React.Fragment>
+                  <LocationText data-tip data-for="location-tooltip">
+                    <i className="fa fa-location-arrow"/>
+                    <p>{locationString(this.props.lastLocation)}</p>
+                    {
+                      this.props.locationInformation &&
+                      this.props.locationInformation.city === this.props.lastLocation.city &&
+                      this.props.locationInformation.country === this.props.lastLocation.country &&
+                      <div id="dbpedia-icon">
+                        <img src={require('./images/dbpedia.svg')} alt="DBpedia"/>
+                      </div>
+                    }
+                  </LocationText>
+                  {this.props.locationInformation &&
+                   this.props.locationInformation.city === this.props.lastLocation.city &&
+                   this.props.locationInformation.country === this.props.lastLocation.country &&
+                    <ReactTooltip
+                      className="info-tooltip"
+                      id="location-tooltip"
+                      place="bottom"
+                      type="light"
+                      effect="solid"
+                    >
+                      <span>{this.props.locationInformation.information}</span>
+                    </ReactTooltip>
+                  }
+                </React.Fragment>
               }
             </LinkContainer>
           </div>

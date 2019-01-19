@@ -3,7 +3,7 @@ import glamorous from 'glamorous';
 import * as moment from 'moment';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import * as IResume from 'shared/interfaces/IResume';
-import { ILocation } from 'shared/interfaces/ILocation';
+import { ILocation, ILocationInformation } from 'shared/interfaces/ILocation';
 import { IProjectFields } from 'shared/interfaces/IProject';
 import { IFlickrPhotosetsResponse, IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import LandingComponent from './LandingComponent';
@@ -74,6 +74,7 @@ interface IMainPageState {
   projects: IContentfulResult;
   flickr: IFlickrContentResult;
   lastLocation?: ILocation;
+  locationInformation?: ILocationInformation;
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -85,6 +86,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
       projects: { content: [], state: ComponentState.LOADING },
       flickr: { albumNames: [], images: [], state: ComponentState.LOADING },
       lastLocation: undefined,
+      locationInformation: undefined,
     };
 
     this.getProjects = this.getProjects.bind(this);
@@ -172,6 +174,18 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
         this.setState({ 
           lastLocation,
         });
+        if (lastLocation.city && lastLocation.country) {
+          fetch(`/api/sparql`)
+            .then(res => res.json())
+            .then((locationInformation: ILocationInformation) => {
+              this.setState({
+                locationInformation,
+              });
+            })
+            .catch(() => {
+              console.log('Couldn\'t fetch location information!');
+            });
+        }
       })
       .catch((err) => {
         console.log('Couldn\'t fetch last location!');
@@ -179,7 +193,11 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
   }
 
   async componentDidMount() {
-    Promise.all([this.getProjects(), this.getPhotos(), this.getLastLocation()]);
+    Promise.all([
+      this.getProjects(),
+      this.getPhotos(),
+      this.getLastLocation(),
+    ]);
   }
 
   render() {
@@ -198,6 +216,7 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
             profiles={this.state.resume.basics.profiles}
             email={this.state.resume.basics.email}
             lastLocation={this.state.lastLocation}
+            locationInformation={this.state.locationInformation}
           />
           <ImageComponent image={image} altText={this.state.resume.basics.name}/>
           <MenuComponent/>

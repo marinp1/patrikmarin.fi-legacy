@@ -5,6 +5,8 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as basicAuth from 'express-basic-auth';
 
+import { SparqlEndpointFetcher } from 'fetch-sparql-endpoint';
+
 import { getContentfulClient, getProjects, getRedirectProjects } from './contentful';
 import { getFlickrURL, getFlickrImages, getFlickrPhotosetIds } from './flickr';
 import { getRedisClient } from './redis';
@@ -50,6 +52,21 @@ export default class Server {
       '/api/location',
       (req, res) => {
         this.cache.get('lastLocation', (error: any, entries: any[]) => {
+          if (!!error) return res.sendStatus(404);
+          try {
+            const jsonResponse = JSON.parse(entries[0].body);
+            return res.status(200).send(jsonResponse);
+          } catch (e) {
+            return res.sendStatus(404);
+          }
+        });
+      }
+    )
+
+    this.app.get(
+      '/api/sparql',
+      (req, res) => {
+        this.cache.get('locationInformation', (error: any, entries: any[]) => {
           if (!!error) return res.sendStatus(404);
           try {
             const jsonResponse = JSON.parse(entries[0].body);
@@ -176,11 +193,61 @@ export default class Server {
 
     this.app.post(
       '/api/location',
-      (req, res) => {
+      async (req, res) => {
         const country = req.body.country || null;
         const city = req.body.city || null;
         const timestamp = req.body.timestamp || Date.now();
+
         // tslint-disable align
+
+        if (country && city) {
+           const myFetcher = new SparqlEndpointFetcher();
+
+          const SPARQL_QUERY = `
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          PREFIX dbp: <http://dbpedia.org/property/>
+          PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+          SELECT DISTINCT ?comment WHERE {
+            {
+              SELECT DISTINCT ?comment WHERE {
+                  ?place rdf:type/rdfs:subClassOf* dbo:PopulatedPlace ;
+                  dbp:name "${city}"^^rdf:langString ;
+                  rdfs:comment ?comment ;
+                  dbo:abstract ?abstract .
+                  filter contains(?abstract,"${country}") .
+                  filter (lang(?comment) = 'en')
+              }
+            }
+            UNION
+            {
+              SELECT DISTINCT ?comment WHERE {
+                dbr:${city} dbo:wikiPageRedirects ?city .
+                ?city rdfs:comment ?comment ;
+                  dbo:abstract ?abstract .
+                  filter contains(?abstract,"${country}") .
+                  filter (lang(?comment) = 'en')
+              }
+            }
+          } LIMIT 1`
+
+          const bindingsStream = await myFetcher
+            .fetchBindings('https://dbpedia.org/sparql', SPARQL_QUERY);
+
+          bindingsStream.on('data', bindings => {
+            this.cache.add('locationInformation', JSON.stringify({
+              city,
+              country,
+              information: bindings.comment ? bindings.comment.value : undefined,
+            }), { expire: 86400*28, type: 'json' }, (error: any) => {
+              if (!!error) console.log('Redis cache error');
+            });
+          }).on('error', () => {
+            console.log('Sparql query error');
+          });
+        }
+
         if (country || city) {
           this.cache.add('lastLocation', JSON.stringify({
             city,

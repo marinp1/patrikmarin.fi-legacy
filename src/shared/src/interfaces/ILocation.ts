@@ -3,3 +3,9 @@ export interface ILocation {
   country?: string;
   timestamp: number;
 }
+
+export interface ILocationInformation {
+  city: string;
+  country: string;
+  information?: string;
+}
