@@ -4,7 +4,7 @@ import * as ReactTooltip from 'react-tooltip';
 
 import { colors, mediaQueries } from '../../styles';
 import { IProfile } from 'shared/interfaces/IResume';
-import { ILocation } from 'shared/interfaces/ILocation';
+import { ILocation, ILocationInformation } from 'shared/interfaces/ILocation';
 
 import { animateToElement } from '../../utils/smoothScroller';
 
@@ -151,7 +151,7 @@ interface LandingComponentProps {
   profiles: IProfile[];
   email: string;
   lastLocation?: ILocation;
-  locationInformation?: string;
+  locationInformation?: ILocationInformation;
 }
 
 interface LandingComponentState {
@@ -229,18 +229,22 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                     <i className="fa fa-location-arrow"/>
                     <p>{locationString(this.props.lastLocation)}</p>
                   </LocationText>
-                  <ReactTooltip
-                    className="info-tooltip"
-                    id="location-tooltip"
-                    place="bottom"
-                    type="light"
-                    effect="solid"
-                  >
-                    <AttributionContainer>
-                      <img src={require('./images/dbpedia.svg')} alt="DBpedia"/>
-                    </AttributionContainer>
-                    <span>{this.props.locationInformation}</span>
-                  </ReactTooltip>
+                  {this.props.locationInformation &&
+                   this.props.locationInformation.city === this.props.lastLocation.city &&
+                   this.props.locationInformation.country === this.props.lastLocation.country &&
+                    <ReactTooltip
+                      className="info-tooltip"
+                      id="location-tooltip"
+                      place="bottom"
+                      type="light"
+                      effect="solid"
+                    >
+                      <AttributionContainer>
+                        <img src={require('./images/dbpedia.svg')} alt="DBpedia"/>
+                      </AttributionContainer>
+                      <span>{this.props.locationInformation.information}</span>
+                    </ReactTooltip>
+                  }
                 </React.Fragment>
               }
             </LinkContainer>

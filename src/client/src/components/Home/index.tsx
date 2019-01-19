@@ -3,7 +3,7 @@ import glamorous from 'glamorous';
 import * as moment from 'moment';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import * as IResume from 'shared/interfaces/IResume';
-import { ILocation } from 'shared/interfaces/ILocation';
+import { ILocation, ILocationInformation } from 'shared/interfaces/ILocation';
 import { IProjectFields } from 'shared/interfaces/IProject';
 import { IFlickrPhotosetsResponse, IFlickrPhoto } from 'shared/interfaces/IFlickr';
 import LandingComponent from './LandingComponent';
@@ -74,17 +74,7 @@ interface IMainPageState {
   projects: IContentfulResult;
   flickr: IFlickrContentResult;
   lastLocation?: ILocation;
-  locationInformation?: string;
-}
-
-interface ISparqlResponse {
-  response: {
-    comment: {
-      datatype: Object,
-      language: string,
-      value: string,      
-    },
-  };
+  locationInformation?: ILocationInformation;
 }
 
 class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState> {
@@ -185,17 +175,15 @@ class MainPage extends React.Component<RouteComponentProps<any>, IMainPageState>
           lastLocation,
         });
         if (lastLocation.city && lastLocation.country) {
-          fetch(`/api/sparql?country=${lastLocation.country}&city=${lastLocation.city}`)
+          fetch(`/api/sparql`)
             .then(res => res.json())
-            .then((json: ISparqlResponse) => {
+            .then((locationInformation: ILocationInformation) => {
               this.setState({
-                locationInformation: json.response.comment.value,
+                locationInformation,
               });
             })
             .catch(() => {
-              this.setState({
-                locationInformation: undefined,
-              });
+              console.log('Couldn\'t fetch location information!');
             });
         }
       })
