@@ -121,6 +121,7 @@ const PGPLink = glamorous.div({
 });
 
 const LocationText = glamorous.div({
+  cursor: 'pointer',
   '& i': {
     color: '#d0b41a',
     marginRight: '0.5rem',
@@ -128,6 +129,19 @@ const LocationText = glamorous.div({
   '& p': {
     display: 'inline-block',
     color: '#d0b41a',
+  },
+});
+
+const AttributionContainer = glamorous.div({
+  marginTop: '0.5rem',
+  marginBottom: '0.5rem',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  '& img': {
+    marginLeft: '0.5rem',
+    marginRight: '0.5rem',
+    height: '3rem',
   },
 });
 
@@ -222,6 +236,9 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                     type="light"
                     effect="solid"
                   >
+                    <AttributionContainer>
+                      <img src={require('./images/dbpedia.svg')} alt="DBpedia"/>
+                    </AttributionContainer>
                     <span>{this.props.locationInformation}</span>
                   </ReactTooltip>
                 </React.Fragment>
