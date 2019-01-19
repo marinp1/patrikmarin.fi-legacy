@@ -25,8 +25,10 @@ const Container = glamorous.div({
   justifyContent: 'center',
   position: 'relative',
   '& .info-tooltip': {
-    width: '50%',
+    maxWidth: '50%',
     marginTop: '-1rem',
+    background: '#fff',
+    opacity: 1,
   },
 });
 
@@ -122,6 +124,7 @@ const PGPLink = glamorous.div({
 
 const LocationText = glamorous.div({
   cursor: 'pointer',
+  position: 'relative',
   '& i': {
     color: '#d0b41a',
     marginRight: '0.5rem',
@@ -130,18 +133,31 @@ const LocationText = glamorous.div({
     display: 'inline-block',
     color: '#d0b41a',
   },
-});
-
-const AttributionContainer = glamorous.div({
-  marginTop: '0.5rem',
-  marginBottom: '0.5rem',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  '& img': {
-    marginLeft: '0.5rem',
-    marginRight: '0.5rem',
-    height: '3rem',
+  '& #dbpedia-icon': {
+    '::before': {
+      content: ' ',
+      position: 'absolute',
+      top: '-0.8rem',
+      left: '2rem',
+      margin: 'auto',
+      borderLeft: '1rem solid transparent',
+      borderRight: '1rem solid transparent',
+      borderBottom: '1rem solid white',
+    },
+    backgroundColor: '#fff',
+    padding: '1rem',
+    borderRadius: '50%',
+    height: '4rem',
+    width: '4rem',
+    display: 'flex',
+    position: 'absolute',
+    top: '4rem',
+    margin: 'auto',
+    left: 0,
+    right: 0,
+    '& img': {
+      width: '100%',
+    },
   },
 });
 
@@ -228,6 +244,14 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                   <LocationText data-tip data-for="location-tooltip">
                     <i className="fa fa-location-arrow"/>
                     <p>{locationString(this.props.lastLocation)}</p>
+                    {
+                      this.props.locationInformation &&
+                      this.props.locationInformation.city === this.props.lastLocation.city &&
+                      this.props.locationInformation.country === this.props.lastLocation.country &&
+                      <div id="dbpedia-icon">
+                        <img src={require('./images/dbpedia.svg')} alt="DBpedia"/>
+                      </div>
+                    }
                   </LocationText>
                   {this.props.locationInformation &&
                    this.props.locationInformation.city === this.props.lastLocation.city &&
@@ -239,9 +263,6 @@ class LandingComponent extends React.Component<LandingComponentProps, LandingCom
                       type="light"
                       effect="solid"
                     >
-                      <AttributionContainer>
-                        <img src={require('./images/dbpedia.svg')} alt="DBpedia"/>
-                      </AttributionContainer>
                       <span>{this.props.locationInformation.information}</span>
                     </ReactTooltip>
                   }
