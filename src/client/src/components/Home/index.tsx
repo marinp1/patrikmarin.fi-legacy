@@ -17,7 +17,7 @@ import MenuComponent from './MenuComponent';
 
 import { colors, mediaQueries } from '../../styles';
 
-const image = require('./images/cv_round_small_zoom.png');
+const image = require('./images/cv_round_small_zoom.jpg');
 const resume: IResume.IResume = require('./resume.json');
 
 const Container = glamorous.div({

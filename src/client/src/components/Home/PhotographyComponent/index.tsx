@@ -76,7 +76,7 @@ class PhotographyComponent
             <div className="row">
               <Title id="photography">
                 <i className="fa fa-camera" style={{ marginRight: '1rem' }}/>
-                Projects
+                Photography
               </Title>
             </div>
             <div className="row">

@@ -2,6 +2,7 @@ require('dotenv').config();
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
 import * as path from 'path';
 import * as basicAuth from 'express-basic-auth';
 
@@ -37,6 +38,8 @@ export default class Server {
       this.app.use(forceSSL);
     }
 
+    // this.app.use(compression);
+
     // Doesn't work for some reason :( //FIXME
     this.app.use(bodyParser.text({ type: 'application/pgp-signature' }));
 
@@ -44,6 +47,7 @@ export default class Server {
     this.app.use(bodyParser.json());
 
     // Serve static files from the React app
+    this.app.use(compression({ threshold: 0 }));
     this.app.use(express.static(path.join(__dirname, '../../client/build')));
 
     // Put all API endpoints under '/api'
