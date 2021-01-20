@@ -16,7 +16,7 @@
     "fs-extra": "3.0.1",
     "glamor": "^2.20.40",
     "glamorous": "^4.11.2",
-    "gsap": "^1.20.3",
+    "gsap": "^3.6.0",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "moment": "^2.20.1",
